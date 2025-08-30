@@ -29,9 +29,9 @@ export default function Login() {
                     <LogoUfal width={35} height={76} className="ml-8" />
                     <LogoIc width={80} height={80} className="ml-4" />
                 </div>
-                <Title className='lg:hidden text-3xl mt-8 mb-12' />
+                <Title className='lg:hidden text-3xl mt-4 mb-8' />
             <div className='lg:bg-purple-dark bg-white lg:w-3/6 w-5/6 flex flex-col items-center rounded-2xl shadow-2xl'>
-                <p className='text-2xl lg:text-white text-purple-dark font-semibold m-8 mb-16'>LOGIN</p>
+                <p className='text-2xl lg:text-white text-purple-dark font-semibold m-8 lg:mb-16'>LOGIN</p>
                 <form 
                     className='flex flex-col items-center w-4/6'
                     onSubmit={handleSubmit}
@@ -54,7 +54,7 @@ export default function Login() {
                         className='lg:bg-white bg-purple-dark h-12 pl-4 rounded-2xl text-sm w-full 
                         lg:placeholder:text-purple-dark placeholder:text-white'
                         ></input>
-                    <Link href="" className='lg:text-white text-purple-dark self-start mt-4 mb-12'>Esqueceu a senha?</Link>
+                    <Link href="" className='lg:text-white text-purple-dark self-start mt-4 lg:mb-12 mb-8'>Esqueceu a senha?</Link>
                     <Link href={'/home'}>
                         <Button 
                         value={'ENTRAR'}
