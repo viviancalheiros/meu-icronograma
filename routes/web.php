@@ -22,4 +22,9 @@ Route::get('/teste', function () {
     return Inertia::render('TestComponent');
 });
 
+Route::get('/cadastro', function () {
+    return Inertia::render('Cadastro');
+});
+
+
 require __DIR__.'/auth.php';
