@@ -26,5 +26,9 @@ Route::get('/cadastro', function () {
     return Inertia::render('Cadastro');
 });
 
+Route::get('/test-header', function () {
+    return Inertia::render('Testheader');
+});
+
 
 require __DIR__.'/auth.php';
