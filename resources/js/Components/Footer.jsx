@@ -12,7 +12,7 @@ const Footer = () => {
             topics: ['lmbsc@ic.ufal.br', '/in/leilabiggi'] 
         },
         {   name: 'Vivian Gabriele Calheiros Esmeraldo', 
-            topics: ['vgce@ic.ufal.br', '/in/vivian-calheiros'] 
+            topics: ['vgce@ic.ufal.br', '/in/vívian-calheiros'] 
         },
         {   name: 'Yuck Arthur', 
             topics: ['yafs@ic.ufal.br', '/in/yuck-ferreira-86833837a'] 
