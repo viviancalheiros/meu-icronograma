@@ -6,16 +6,16 @@ const Footer = () => {
             topics: ['jmbls@ic.ufal.br', '/in/jacquebarbosal96'] 
         },
         {   name: 'José Wender Ferreira Duarte', 
-            topics: ['jwfd@ic.ufal.br', '/in/usuario'] 
+            topics: ['jwfd@ic.ufal.br', '/in/josé-wender-ferreira-507903349'] 
         },
         {   name: 'Leila Maria Biggi de Souza Cavalcante', 
             topics: ['lmbsc@ic.ufal.br', '/in/leilabiggi'] 
         },
         {   name: 'Vivian Gabriele Calheiros Esmeraldo', 
-            topics: ['vgce@ic.ufal.br', '/in/usuario'] 
+            topics: ['vgce@ic.ufal.br', '/in/vívian-calheiros'] 
         },
         {   name: 'Yuck Arthur', 
-            topics: ['yafs@ic.ufal.br', '/in/usuario'] 
+            topics: ['yafs@ic.ufal.br', '/in/yuck-ferreira-86833837a'] 
         }
     ];
 
