@@ -1,55 +1,214 @@
-import InputError from '@/Components/InputError';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import GuestLayout from '@/Layouts/GuestLayout';
-import { Head, useForm } from '@inertiajs/react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Head, router } from '@inertiajs/react';
 
-export default function ForgotPassword({ status }) {
-    const { data, setData, post, processing, errors } = useForm({
-        email: '',
-    });
+const OtpInput = ({ length, value, onChange }) => {
+    const inputRefs = useRef([]);
 
-    const submit = (e) => {
-        e.preventDefault();
+    useEffect(() => {
+        inputRefs.current[0]?.focus();
+    }, []);
 
-        post(route('password.email'));
+    const handleChange = (e, index) => {
+        const newValue = e.target.value;
+        if (!/^[0-9]$/.test(newValue) && newValue !== '') return;
+        const newOtp = [...value];
+        newOtp[index] = newValue;
+        onChange(newOtp);
+        if (newValue !== '' && index < length - 1) {
+            inputRefs.current[index + 1]?.focus();
+        }
+    };
+
+    const handleKeyDown = (e, index) => {
+        if (e.key === 'Backspace' && value[index] === '' && index > 0) {
+            inputRefs.current[index - 1]?.focus();
+        }
     };
 
     return (
-        <GuestLayout>
-            <Head title="Forgot Password" />
+        <div className="flex justify-center gap-2 md:gap-4">
+            {Array.from({ length }, (_, index) => (
+                <input
+                    key={index}
+                    ref={(el) => (inputRefs.current[index] = el)}
+                    type="text"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
+                    maxLength="1"
+                    value={value[index]}
+                    onChange={(e) => handleChange(e, index)}
+                    onKeyDown={(e) => handleKeyDown(e, index)}
+                    className="w-12 h-16 md:w-16 md:h-20 bg-purple-dark text-white border-2 border-purple-dark rounded-lg text-3xl text-center focus:outline-none focus:ring-2 focus:ring-purple-500"
+                />
+            ))}
+        </div>
+    );
+};
 
-            <div className="mb-4 text-sm text-gray-600">
-                Forgot your password? No problem. Just let us know your email
-                address and we will email you a password reset link that will
-                allow you to choose a new one.
-            </div>
+const EnterEmailStep = ({ onEmailSubmit, email, setEmail }) => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        onEmailSubmit();
+    };
 
-            {status && (
-                <div className="mb-4 text-sm font-medium text-green-600">
-                    {status}
+    return (
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
+            <p className="text-purple-dark text-2xl mb-12 font-black">
+                Digite seu email no espaço a seguir. Enviaremos um código e as instruções para recuperação de senha.
+            </p>
+            <form onSubmit={handleSubmit} className="max-w-xl mx-auto">
+                <div className="text-left mb-3">
+                    <label htmlFor="email" className="Roboto-bold text-purple-dark text-2xl font-black">
+                        Digite seu email:
+                    </label>
                 </div>
-            )}
-
-            <form onSubmit={submit}>
-                <TextInput
+                <input
                     id="email"
                     type="email"
                     name="email"
-                    value={data.email}
-                    className="mt-1 block w-full"
-                    isFocused={true}
-                    onChange={(e) => setData('email', e.target.value)}
+                    value={email}
+                    placeholder="E-mail"
+                    className="w-full bg-purple-dark text-white placeholder-gray-300 border-none rounded-lg h-16 px-6 text-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75"
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    autoFocus
                 />
-
-                <InputError message={errors.email} className="mt-2" />
-
-                <div className="mt-4 flex items-center justify-end">
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Email Password Reset Link
-                    </PrimaryButton>
+                <div className="flex items-center justify-center mt-10">
+                    <button type="submit" className="w-60 bg-purple-dark text-white Roboto-bold py-4 px-4 rounded-lg uppercase text-lg hover:bg-opacity-90 transition ease-in-out duration-150">
+                        Enviar
+                    </button>
                 </div>
             </form>
-        </GuestLayout>
+        </div>
+    );
+};
+
+const EnterCodeStep = ({ email, onCodeSubmit }) => {
+    const [otp, setOtp] = useState(new Array(6).fill(''));
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const finalCode = otp.join('');
+        if (finalCode.length < 6) {
+            alert('Por favor, insira os 6 dígitos do código.');
+            return;
+        }
+        console.log('Código inserido:', finalCode);
+        onCodeSubmit();
+    };
+
+    return (
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
+            <p className="text-purple-dark text-2xl mb-12 font-black">
+                Insira o código que foi enviado para seu email: <span className="font-normal">{email}</span>
+            </p>
+            <form onSubmit={handleSubmit} className="max-w-xl mx-auto">
+                <OtpInput length={6} value={otp} onChange={setOtp} />
+                <div className="flex items-center justify-center mt-10">
+                    <button type="submit" className="w-60 bg-purple-dark text-white Roboto-bold py-4 px-4 rounded-lg uppercase text-lg hover:bg-opacity-90 transition ease-in-out duration-150">
+                        Entrar
+                    </button>
+                </div>
+            </form>
+        </div>
+    );
+};
+
+const ResetPasswordStep = ({ onPasswordReset }) => {
+    const [passwords, setPasswords] = useState({ password: '', password_confirmation: '' });
+
+    const handleChange = (e) => {
+        setPasswords({ ...passwords, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!passwords.password || !passwords.password_confirmation) {
+            alert('Por favor, preencha os dois campos de senha.');
+            return;
+        }
+        if (passwords.password !== passwords.password_confirmation) {
+            alert('As senhas não coincidem!');
+            return;
+        }
+        console.log('Nova senha definida:', passwords.password);
+        onPasswordReset();
+    };
+
+    return (
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
+            <p className="text-purple-dark text-2xl mb-12 font-black">
+                Digite a nova senha:
+            </p>
+            <form onSubmit={handleSubmit} className="max-w-xl mx-auto space-y-6">
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Nova senha"
+                    value={passwords.password}
+                    onChange={handleChange}
+                    className="w-full bg-purple-dark text-white placeholder-gray-300 border-none rounded-lg h-16 px-6 text-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    required
+                />
+                <input
+                    type="password"
+                    name="password_confirmation"
+                    placeholder="Repetir senha"
+                    value={passwords.password_confirmation}
+                    onChange={handleChange}
+                    className="w-full bg-purple-dark text-white placeholder-gray-300 border-none rounded-lg h-16 px-6 text-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    required
+                />
+                <div className="flex items-center justify-center pt-4">
+                    <button type="submit" className="w-60 bg-purple-dark text-white Roboto-bold py-4 px-4 rounded-lg uppercase text-lg hover:bg-opacity-90 transition ease-in-out duration-150">
+                        Entrar
+                    </button>
+                </div>
+            </form>
+        </div>
+    );
+};
+
+export default function ForgotPassword() {
+    const [step, setStep] = useState('enterEmail');
+    const [email, setEmail] = useState('');
+
+    const handleEmailSubmit = () => {
+        console.log('E-mail enviado:', email);
+        setStep('enterCode');
+    };
+
+    const handleCodeSubmit = () => {
+        setStep('resetPassword');
+    };
+
+    const handlePasswordReset = () => {
+        alert('Senha alterada com sucesso! Você será redirecionado para o login.');
+        router.get(route('login'));
+    };
+
+    return (
+        <div className="min-h-screen bg-white">
+            <Head title="Recuperação de Senha" />
+            <div>
+                <div className="bg-purple-dark p-1 flex flex-col items-center justify-center gap-4">
+                    <div className="flex items-center gap-4">
+                        <img src="/images/logo-ic.png" alt="Logo-ic" className="h-16" />
+                        <img src="/images/logo.png" alt="Logo" className="h-24" />
+                    </div>
+                </div>
+                <div className="text-center">
+                    <h1 className="text-purple-dark text-3xl Roboto-bold uppercase tracking-wider mt-4 font-black">
+                        Recuperação de Senha
+                    </h1>
+                </div>
+                <div className="mt-4">
+                    <div className="w-full border-b border-purple-dark"></div>
+                </div>
+                {step === 'enterEmail' && <EnterEmailStep onEmailSubmit={handleEmailSubmit} email={email} setEmail={setEmail} />}
+                {step === 'enterCode' && <EnterCodeStep email={email} onCodeSubmit={handleCodeSubmit} />}
+                {step === 'resetPassword' && <ResetPasswordStep onPasswordReset={handlePasswordReset} />}
+            </div>
+        </div>
     );
 }

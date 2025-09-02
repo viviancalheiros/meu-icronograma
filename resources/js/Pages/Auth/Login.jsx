@@ -16,7 +16,7 @@ export default function Login() {
                         className='bg-white mb-4 h-12 pl-4 rounded-2xl text-sm w-full placeholder:text-purple-dark'></input>
                     <input type='text' placeholder='Senha' required 
                         className='bg-white h-12 pl-4 rounded-2xl text-sm w-full placeholder:text-purple-dark'></input>
-                    <Link href="" className='text-white self-start mt-4 mb-12'>Esqueceu a senha?</Link>
+                    <Link href={route('password.request')} className='text-white self-start mt-4 mb-12'>Esqueceu a senha?</Link>
                     <Button value={'ENVIAR'} />
                 </form>
                 <Link href="" className='text-white mb-8'>Cadastre-se</Link>
