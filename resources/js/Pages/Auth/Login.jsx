@@ -54,7 +54,7 @@ export default function Login() {
                         className='lg:bg-white bg-purple-dark h-12 pl-4 rounded-2xl text-sm w-full 
                         lg:placeholder:text-purple-dark placeholder:text-white'
                         ></input>
-                    <Link href="" className='lg:text-white text-purple-dark self-start mt-4 lg:mb-12 mb-8'>Esqueceu a senha?</Link>
+                    <Link href={route('password.request')} className='lg:text-white text-purple-dark self-start mt-4 lg:mb-12 mb-8'>Esqueceu a senha?</Link>
                     <Link href={'/home'}>
                         <Button 
                         value={'ENTRAR'}
