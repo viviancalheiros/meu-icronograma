@@ -24,7 +24,9 @@ export default function Header() {
             <div className="container mx-auto flex h-20 items-center justify-between px-4">
                 {/* Logo */}
                 <div className="flex items-center">
-                    <LogoHeader className="h-16 w-auto" />
+                <Link href="/home">
+                    <LogoHeader className="h-16 w-auto cursor-pointer" />
+                </Link>
                 </div>
 
 
@@ -80,7 +82,9 @@ export default function Header() {
                 {/* Menu lateral p telas pequenas */}
                 <div className={`fixed inset-y-0 right-0 w-64 bg-[#373f75] p-6 transform transition-transform duration-300 ease-in-out z-50 ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
                     <div className="flex justify-between items-center mb-6">
-                        <LogoHeader className="h-10 w-auto" />
+                    <Link href="/home" onClick={() => setIsMenuOpen(false)}>
+                        <LogoHeader className="h-10 w-auto cursor-pointer" />
+                    </Link>
                         <button onClick={() => setIsMenuOpen(false)} className="text-white focus:outline-none">
                             <FaTimes size={24} />
                         </button>

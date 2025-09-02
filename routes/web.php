@@ -53,5 +53,9 @@ Route::get('/test-header', function () {
     return Inertia::render('Testheader');
 });
 
+Route::get('/duvidas', function () {
+    return Inertia::render('Duvidas');
+});
+
 
 require __DIR__.'/auth.php';
