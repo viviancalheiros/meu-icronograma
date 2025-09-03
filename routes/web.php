@@ -55,4 +55,9 @@ Route::get('/disciplines', function () {
     return Inertia::render('Disciplines');
 });
 
+Route::get('/enfases', function () {
+    return Inertia::render('Enfases/Index');
+});
+
+
 require __DIR__.'/auth.php';
