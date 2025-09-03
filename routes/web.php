@@ -59,4 +59,13 @@ Route::get('/disciplines', function () {
     return Inertia::render('Disciplines');
 });
 
+Route::get('/eletivas', function () {
+    return Inertia::render('Eletivas');
+});
+
+Route::get('/enfases', function () {
+    return Inertia::render('Enfases/Index');
+});
+
+
 require __DIR__.'/auth.php';
