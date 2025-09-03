@@ -62,7 +62,7 @@ export default function Login() {
                         />
                     </Link> 
                 </form>
-                <Link href="" className='lg:text-white text-purple-dark mb-8'>Cadastre-se</Link>
+                <Link href={"/cadastro"} className='lg:text-white text-purple-dark mb-8'>Cadastre-se</Link>
             </div>
         </div>
        </div>

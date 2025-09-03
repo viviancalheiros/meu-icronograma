@@ -27,12 +27,6 @@ Route::get('/horas-complementares', [ComplementaryActivityController::class, 'in
 Route::post('/horas-complementares', [ComplementaryActivityController::class, 'store'])
     ->name('complementary-hours.store');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
 Route::get('/home', function() {
     return Inertia::render('Home');
 });
@@ -57,5 +51,8 @@ Route::get('/duvidas', function () {
     return Inertia::render('Duvidas');
 });
 
+Route::get('/disciplines', function () {
+    return Inertia::render('Disciplines');
+});
 
 require __DIR__.'/auth.php';
