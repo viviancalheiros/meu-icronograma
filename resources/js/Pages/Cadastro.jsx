@@ -42,10 +42,10 @@ export default function Register() {
                 <Title className='lg:hidden text-2xl mt-6 mb-6' />
                 
                 <div className='lg:bg-purple-dark bg-white lg:w-1/2 w-4/5 flex flex-col items-center rounded-xl shadow-lg border border-purple-light'>
-                    <p className='text-xl lg:text-white text-purple-dark font-semibold mt-6 mb-4'>CADASTRE-SE</p>
+                    <p className='text-2xl lg:text-white text-purple-dark font-semibold m-8'>CADASTRE-SE</p>
                     
                     <form
-                        className='flex flex-col items-center w-4/5'
+                        className='flex flex-col items-center w-4/6'
                         onSubmit={submit}
                     >
                         {/* Nome */}
@@ -56,7 +56,7 @@ export default function Register() {
                                 required
                                 value={data.name}
                                 onChange={e => setData('name', e.target.value)}
-                                className='lg:bg-white bg-purple-dark h-10 pl-3 rounded-xl text-sm w-full
+                                className='lg:bg-white bg-purple-dark h-12 pl-4 mb-1 rounded-2xl text-sm w-full
                                 lg:placeholder:text-purple-dark placeholder:text-white border border-gray-300 focus:border-purple-500 focus:outline-none'
                             />
                             <InputError message={errors.name} className="mt-1 text-red-500 text-xs" />
@@ -70,7 +70,7 @@ export default function Register() {
                                 required
                                 value={data.email}
                                 onChange={e => setData('email', e.target.value)}
-                                className='lg:bg-white bg-purple-dark h-10 pl-3 rounded-xl text-sm w-full
+                                className='lg:bg-white bg-purple-dark h-12 pl-4 mb-1 rounded-2xl text-sm w-full
                                 lg:placeholder:text-purple-dark placeholder:text-white border border-gray-300 focus:border-purple-500 focus:outline-none'
                             />
                             <InputError message={errors.email} className="mt-1 text-red-500 text-xs" />
@@ -84,7 +84,7 @@ export default function Register() {
                                 required
                                 value={data.registration}
                                 onChange={e => setData('registration', e.target.value)}
-                                className='lg:bg-white bg-purple-dark h-10 pl-3 rounded-xl text-sm w-full
+                                className='lg:bg-white bg-purple-dark h-12 pl-4 mb-1 rounded-2xl text-sm w-full
                                 lg:placeholder:text-purple-dark placeholder:text-white border border-gray-300 focus:border-purple-500 focus:outline-none'
                             />
                             <InputError message={errors.registration} className="mt-1 text-red-500 text-xs" />
@@ -98,7 +98,7 @@ export default function Register() {
                                 required
                                 value={data.password}
                                 onChange={e => setData('password', e.target.value)}
-                                className='lg:bg-white bg-purple-dark h-10 pl-3 rounded-xl text-sm w-full
+                                className='lg:bg-white bg-purple-dark h-12 pl-4 mb-1 rounded-2xl text-sm w-full
                                 lg:placeholder:text-purple-dark placeholder:text-white border border-gray-300 focus:border-purple-500 focus:outline-none'
                             />
                             <InputError message={errors.password} className="mt-1 text-red-500 text-xs" />
@@ -112,7 +112,7 @@ export default function Register() {
                                 required
                                 value={data.password_confirmation}
                                 onChange={e => setData('password_confirmation', e.target.value)}
-                                className='lg:bg-white bg-purple-dark h-10 pl-3 rounded-xl text-sm w-full
+                                className='lg:bg-white bg-purple-dark h-12 pl-4 rounded-2xl text-sm w-full
                                 lg:placeholder:text-purple-dark placeholder:text-white border border-gray-300 focus:border-purple-500 focus:outline-none'
                             />
                             <InputError message={errors.password_confirmation} className="mt-1 text-red-500 text-xs" />
@@ -121,14 +121,14 @@ export default function Register() {
                         <Button
                             type="submit"
                             value={'CADASTRAR'}
-                            className='bg-purple-dark text-white lg:text-purple-dark lg:bg-white w-full py-2 rounded-xl font-semibold text-md hover:bg-purple-700 transition-colors mb-4'
+                            className='mt-4 lg:bg-white bg-purple-dark lg:text-purple-dark text-white'
                             disabled={processing}
                         />
                     </form>
                     
                     <Link 
                         href={route('login')} 
-                        className='lg:text-white text-purple-dark mb-6 text-xs hover:underline'
+                        className='lg:text-white text-purple-dark mb-6 text-sm hover:underline'
                     >
                         Já tem uma conta? Faça login
                     </Link>
