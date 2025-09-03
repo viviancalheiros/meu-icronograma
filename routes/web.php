@@ -21,11 +21,15 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 //página horas complementares
-Route::get('/horas-complementares', [ComplementaryActivityController::class, 'index'])
-    ->name('complementary-hours.index');
+// Route::get('/horas-complementares', [ComplementaryActivityController::class, 'index'])
+//     ->name('complementary-hours.index');
 
-Route::post('/horas-complementares', [ComplementaryActivityController::class, 'store'])
-    ->name('complementary-hours.store');
+// Route::post('/horas-complementares', [ComplementaryActivityController::class, 'store'])
+//     ->name('complementary-hours.store');
+
+Route::get('/horas-complementares', function() {
+    return Inertia::render('ComplementaryHours/Index');
+});
 
 Route::get('/home', function() {
     return Inertia::render('Home');
@@ -54,10 +58,5 @@ Route::get('/duvidas', function () {
 Route::get('/disciplines', function () {
     return Inertia::render('Disciplines');
 });
-
-Route::get('/enfases', function () {
-    return Inertia::render('Enfases/Index');
-});
-
 
 require __DIR__.'/auth.php';
