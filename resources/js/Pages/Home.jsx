@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import ProgressBar from "@/Components/ProgressBar";
 import DisciplineBox from "@/Components/DisciplineBox";
-import { usePage } from "@inertiajs/react";
+import Header from "@/Components/Header";
+import { usePage, Link } from "@inertiajs/react";
+import Footer from "@/Components/Footer";
 
 export default function Home () {
     const { total =67, compulsory=50, electives=40, hours=80 } = usePage().props;
@@ -15,6 +17,7 @@ export default function Home () {
 
     return (
         <>
+            <Header />
             <div className="w-full h-screen flex flex-col items-center font-roboto">
                 <div className="w-3/4 flex flex-col items-center">
                     <div className="flex flex-col items-center mb-12 mt-12">
@@ -43,13 +46,16 @@ export default function Home () {
                     <h2 className="text-purple-dark text-2xl font-bold mt-12 mb-8">PROGRESSO DO ALUNO</h2>
                     <div className="w-full flex lg:flex-row flex-col items-center lg:mb-12">
                         <div className="lg:w-1/3 bg-gray-100 w-full h-full border border-purple-dark rounded-2xl flex flex-col items-center justify-center shadow-xl lg:mr-4 mb-8 p-4">
-                            <h2 className="text-purple-dark text-xl font-semibold mb-4">Matérias Obrigatórias</h2>
+                            <Link href={"/disciplines"}>
+                            <h2 className="text-purple-dark text-xl font-semibold mb-4 cursor-pointer">Matérias Obrigatórias</h2>
+                            </Link>
                             <label className="text-purple-dark self-end mr-12">{compulsory}%</label>
                             <ProgressBar progress={compulsory} />
                         </div>
                         <div className="hidden lg:block w-0.5 h-2/3 bg-purple-dark mb-8"></div>
                         <div className="lg:w-1/3 bg-gray-100 w-full h-full border border-purple-dark rounded-2xl flex flex-col items-center justify-center shadow-xl lg:mr-4 lg:ml-4 mb-8 p-4">
                             <h2 className="text-purple-dark text-xl font-semibold mb-4">Matérias eletivas</h2>
+                           
                             <label className="text-purple-dark self-end mr-12">{electives}%</label>
                             <ProgressBar progress={electives} />
                         </div>
@@ -61,8 +67,8 @@ export default function Home () {
                         </div>
                     </div>
                 </div>
+                <Footer />
             </div>
-
         </>
     )
 }
