@@ -10,44 +10,44 @@ const emphasesData = [
         name: 'Computação visual',
         progress: 20,
         disciplines: [
-            { name: 'Cálculo 3', status: 'yes', type: 'disciplina' },
-            { name: 'Aprendizagem de Máquina', status: 'no', type: 'disciplina' },
-            { name: 'Redes neurais e aprendizado profundo', status: 'no', type: 'disciplina' },
-            { name: 'Processamento digital de imagens', status: 'no', type: 'disciplina' },
-            { name: 'Visão computacional', status: 'no', type: 'disciplina' },
+            { name: 'Cálculo 3', status: 'yes', type: 'eletiva', pago: 'yes' },
+            { name: 'Aprendizagem de Máquina', status: 'no', type: 'eletiva' },
+            { name: 'Redes neurais e aprendizado profundo', status: 'no', type: 'eletiva' },
+            { name: 'Processamento digital de imagens', status: 'no', type: 'eletiva' },
+            { name: 'Visão computacional', status: 'no', type: 'eletiva' },
         ]
     },
     {
         name: 'Sistemas inteligentes',
         progress: 80,
         disciplines: [
-            { name: 'Cálculo 3', status: 'yes', type: 'disciplina' },
-            { name: 'Aprendizagem de Máquina', status: 'yes', type: 'disciplina' },
-            { name: 'Redes neurais e aprendizado profundo', status: 'yes', type: 'disciplina' },
-            { name: 'Computação evolucionária', status: 'no', type: 'disciplina' },
-            { name: 'Ciência de dados', status: 'yes', type: 'disciplina' },
+            { name: 'Cálculo 3', status: 'yes', type: 'eletiva', pago: 'yes' },
+            { name: 'Aprendizagem de Máquina', status: 'yes', type: 'eletiva' },
+            { name: 'Redes neurais e aprendizado profundo', status: 'yes', type: 'eletiva' },
+            { name: 'Computação evolucionária', status: 'no', type: 'eletiva' },
+            { name: 'Ciência de dados', status: 'yes', type: 'eletiva' },
         ]
     },
     {
         name: 'Sistemas de computação',
         progress: 20,
         disciplines: [
-            { name: 'Cálculo 3', status: 'yes', type: 'disciplina' },
-            { name: 'Sistemas digitais', status: 'no', type: 'disciplina' },
-            { name: 'FPGA', status: 'no', type: 'disciplina' },
-            { name: 'Sistemas embarcados', status: 'no', type: 'disciplina' },
-            { name: 'Microcontroladores e aplicações', status: 'no', type: 'disciplina' },
+            { name: 'Cálculo 3', status: 'yes', type: 'eletiva',pago: 'yes' },
+            { name: 'Sistemas digitais', status: 'no', type: 'eletiva' },
+            { name: 'FPGA', status: 'no', type: 'eletiva' },
+            { name: 'Sistemas embarcados', status: 'no', type: 'eletiva' },
+            { name: 'Microcontroladores e aplicações', status: 'no', type: 'eletiva' },
         ]
     },
     {
         name: 'Sistemas de informação',
         progress: 0,
         disciplines: [
-            { name: 'Conceitos de linguagem de programação', status: 'no', type: 'disciplina' },
-            { name: 'Sistemas distribuidos', status: 'no', type: 'disciplina' },
-            { name: 'Interação homem-máquina', status: 'no', type: 'disciplina' },
-            { name: 'Gerência de projeto', status: 'no', type: 'disciplina' },
-            { name: 'Segurança de sistemas computacionais', status: 'no', type: 'disciplina' },
+            { name: 'Conceitos de linguagem de programação', status: 'no', type: 'eletiva' },
+            { name: 'Sistemas distribuidos', status: 'no', type: 'eletiva' },
+            { name: 'Interação homem-máquina', status: 'no', type: 'eletiva' },
+            { name: 'Gerência de projeto', status: 'no', type: 'eletiva' },
+            { name: 'Segurança de sistemas computacionais', status: 'no', type: 'eletiva' },
         ]
     }
 ];
@@ -80,6 +80,7 @@ export default function EmphasisPage() {
                                         name={discipline.name}
                                         status={discipline.status}
                                         type={discipline.type}
+                                        pago={discipline.pago}
                                     />
                                 ))}
                             </div>

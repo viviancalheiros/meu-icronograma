@@ -7,7 +7,7 @@ export default function PeriodoSection ({periodo, disciplines}) {
                 {periodo}
                 <span className="lg:hidden">º período</span>
             </h2>
-            <div className="grid lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-4 w-full">
+            <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-4 w-full">
                 {disciplines
                     .filter((discipline) => discipline.periodo === periodo)
                     .map((discipline) => (

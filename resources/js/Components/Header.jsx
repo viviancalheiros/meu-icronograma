@@ -12,7 +12,7 @@ export default function Header() {
 
     const navItems = [
         { name: 'HOME', href: '/home' },
-        { name: 'DISCIPLINAS', href: '/disciplinas' },
+        { name: 'DISCIPLINAS', href: '/disciplines' },
         { name: 'ÊNFASES', href: '/enfases' },
         { name: 'HORAS COMPLEMENTARES', href: '/horas-complementares' },
         { name: 'DÚVIDAS', href: '/duvidas' },

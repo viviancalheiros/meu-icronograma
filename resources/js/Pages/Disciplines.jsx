@@ -9,15 +9,38 @@ export default function Disciplines () {
         { id: 1, name: 'Cálculo Diferencial e Integral', periodo: 1, type: 'disciplina', pago: "yes"},
         { id: 1, name: 'Programação 1', periodo: 1, type: 'disciplina', pago: "yes"},
         { id: 1, name: 'Computação, Sociedade e Ética', periodo: 1, type: 'disciplina', pago: "yes"},
+        { id: 1, name: 'Lógica para Computação', periodo: 1, type: 'disciplina', pago: "yes"},
+        
         { id: 3, name: 'Estrutura de Dados', periodo: 2, type: 'disciplina', pago: 'yes'},
         { id: 3, name: 'Organização e Arquitetura de Computadores', periodo: 2, type: 'disciplina', pago: 'yes'},
-        { id: 5, name: 'Teoria dos Grafos', periodo: 3, type: 'disciplina', pago: 'no'},
-        { id: 5, name: 'Projeto e Análise de Algoritmos', periodo: 4, type: 'disciplina', pago: 'no'},
-        { id: 6, name: 'Probabilidade e Estatística', periodo: 3, type: 'disciplina', pago: "no"},
-        { id: 6, name: 'Compiladores', periodo: 5, type: 'disciplina', pago: "no"},
-        { id: 6, name: 'Projeto e Desenvolvimento de Sistemas', periodo: 6, type: 'disciplina', pago: "no"},
-        { id: 6, name: 'Noções de Direito', periodo: 7, type: 'disciplina', pago: "no"},
-        { id: 6, name: 'Trabalho de Conclusão de Curso', periodo: 8, type: 'disciplina', pago: "no"},
+        { id: 3, name: 'Geometria Analítica', periodo: 2, type: 'disciplina', pago: 'yes'},
+        { id: 3, name: 'Banco de Dados', periodo: 2, type: 'disciplina', pago: 'yes'},
+        
+        { id: 9, name: 'Teoria dos Grafos', periodo: 3, type: 'disciplina', pago: 'no', status: "yes"},
+        { id: 6, name: 'Probabilidade e Estatística', periodo: 3, type: 'disciplina', pago: "no", status: "yes"},
+        { id: 5, name: 'Redes de Computadores', periodo: 3, type: 'disciplina', pago: 'no', status: "yes"},
+        { id: 6, name: 'Álgebra Linear', periodo: 3, type: 'disciplina', pago: "no", status: "yes"},
+        
+        { id: 5, name: 'Projeto e Análise de Algoritmos', periodo: 4, type: 'disciplina', pago: 'no', status: "yes"},
+        { id: 5, name: 'Programação 2', periodo: 4, type: 'disciplina', pago: 'no', status: "maybe"},
+        { id: 6, name: 'Programação 3', periodo: 4, type: 'disciplina', pago: 'no', status: "maybe"},
+        { id: 6, name: 'Teoria da Computação', periodo: 4, type: 'disciplina', pago: 'no', status: "maybe"},
+        { id: 9, name: 'ACE 1', periodo: 4, type: 'disciplina', pago: 'no', status: "yes"},
+        
+        { id: 6, name: 'Compiladores', periodo: 5, type: 'disciplina', pago: "no", status: "maybe"},
+        { id: 6, name: 'Sistemas Operacionais', periodo: 5, type: 'disciplina', pago: "no", status: "no"},
+        { id: 6, name: 'Inteligência Artificial', periodo: 5, type: 'disciplina', pago: "no", status: "no"},
+        { id: 6, name: 'Computação Gráfica', periodo: 5, type: 'disciplina', pago: "no", status: "no"},
+        { id: 6, name: 'ACE 2', periodo: 5, type: 'disciplina', pago: "no", status: "maybe"},
+        
+        { id: 8, name: 'Projeto e Desenvolvimento de Sistemas', periodo: 6, type: 'disciplina', pago: "no", status: "maybe"},
+        { id: 9, name: 'ACE 3', periodo: 6, type: 'disciplina', pago: "no", status: "maybe"},
+        
+        { id: 6, name: 'Noções de Direito', periodo: 7, type: 'disciplina', pago: "no", status: "maybe"},
+        { id: 10, name: 'Metodologia de Pesquisa e Trabalho Individual', periodo: 7, type: 'disciplina', pago: "no", status: "maybe"},
+        { id: 10, name: 'ACE 4', periodo: 7, type: 'disciplina', pago: "no", status: "maybe"},
+        
+        { id: 6, name: 'ACE 5', periodo: 8, type: 'disciplina', pago: "no", status: "maybe"},
     ]
 
     return (

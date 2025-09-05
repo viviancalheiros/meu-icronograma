@@ -34,7 +34,7 @@ const electivesData = [
 
 export default function ElectivesPage() {
     return (
-        <div className="bg-gray-100 min-h-screen flex flex-col">
+        <div className="bg-gray-100 min-h-screen flex flex-col font-roboto">
             <Header />
             <main className="flex-grow p-8">
                 <div className="max-w-6xl mx-auto">

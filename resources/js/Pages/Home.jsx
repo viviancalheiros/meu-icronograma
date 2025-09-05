@@ -54,14 +54,17 @@ export default function Home () {
                         </div>
                         <div className="hidden lg:block w-0.5 h-2/3 bg-purple-dark mb-8"></div>
                         <div className="lg:w-1/3 bg-gray-100 w-full h-full border border-purple-dark rounded-2xl flex flex-col items-center justify-center shadow-xl lg:mr-4 lg:ml-4 mb-8 p-4">
+                            <Link href={"/eletivas"}>
                             <h2 className="text-purple-dark text-xl font-semibold mb-4">Matérias eletivas</h2>
-                           
+                             </Link>
                             <label className="text-purple-dark self-end mr-12">{electives}%</label>
                             <ProgressBar progress={electives} />
                         </div>
                         <div className="hidden lg:block w-0.5 h-2/3 bg-purple-dark mb-8"></div>
                         <div className="lg:w-1/3 bg-gray-100 w-full h-full border border-purple-dark rounded-2xl flex flex-col items-center justify-center shadow-xl lg:ml-4 mb-8 p-4">
+                            <Link href={"/horas-complementares"}>
                             <h2 className="text-purple-dark text-xl font-semibold mb-4">Horas complementares</h2>
+                            </Link>
                             <label className="text-purple-dark self-end mr-12">{hours}%</label>
                             <ProgressBar progress={hours} />
                         </div>
