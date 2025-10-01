@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '@/Components/Header';
 import Footer from '@/Components/Footer';
-import DisciplineBox from '@/Components/DisciplineBox';
+import DisciplineBox from '@/Components/DisciplinaBox';
 import ProgressBar from '@/Components/ProgressBar';
 
 
