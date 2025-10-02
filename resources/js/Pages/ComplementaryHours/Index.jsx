@@ -1,54 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import { Head } from '@inertiajs/react';
-import { PlusIcon, PencilSquareIcon, EnvelopeIcon } from '@heroicons/react/24/solid';
+import { PlusIcon, PencilSquareIcon } from '@heroicons/react/24/solid';
 import AddActivityModal from './Partials/AddActivityModal';
-
-const Footer = () => {
-    const developers = [
-        { name: 'Jacqueline Barbosa', email: 'jbsf@ic.ufal.br', linkedin: 'jacqueline' },
-        { name: 'José Wender Ferreira Duarte', email: 'jwfd@ic.ufal.br', linkedin: 'josewender' },
-        { name: 'Leila Maria Biggi de Souza Cavalcante', email: 'lmbsc@ic.ufal.br', linkedin: 'leilabiggi' },
-        { name: 'Vivian Gabriele Calheiros Esmeraldo', email: 'vgce@ic.ufal.br', linkedin: 'vivian' },
-        { name: 'Yuck Arthur Ferreira Silva', email: 'yafs@ic.ufal.br', linkedin: 'yuck-ferreira-86833837a' },
-    ];
-    
-    return (
-        <footer className="w-full bg-purple-dark text-white p-8 mt-auto">
-            <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8">
-                <div className="md:w-1/4 flex-shrink-0">
-                    <h3 className="text-2xl font-bold mb-2">Meu ICronograma</h3>
-                    <p className="text-sm text-gray-300">
-                        Sistema feito como projeto da disciplina Programação 3
-                        <br />
-                        Professor: Ranilson Paiva
-                    </p>
-                </div>
-                <div className="flex-grow">
-                    <h3 className="text-lg font-bold mb-2">Desenvolvedores:</h3>
-                    <div className="flex flex-col md:flex-row md:flex-wrap justify-start gap-x-8 gap-y-4 text-sm">
-                        {developers.map(dev => (
-                            <div key={dev.name}>
-                                <p className="font-semibold">{dev.name}</p>
-                                <div className="flex items-center space-x-2 text-gray-300">
-                                    <EnvelopeIcon className="h-4 w-4" />
-                                    <a href={`mailto:${dev.email}`} className="hover:underline truncate">{dev.email}</a>
-                                </div>
-                                <div className="flex items-center space-x-2 text-gray-300">
-                                    <img 
-                                        src="/images/linkedin-logo.png" 
-                                        alt="LinkedIn Icon" 
-                                        className="h-4 w-4" 
-                                    />                                 
-                                    <a href={`https://linkedin.com/in/${dev.linkedin}`} target="_blank" rel="noopener noreferrer" className="hover:underline">/in/{dev.linkedin}</a>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-        </footer>
-    );
-};
+import Header from "@/Components/Header";
+import Footer from "@/Components/Footer";
 
 const GOAL_HOURS = 240;
 
@@ -89,7 +44,7 @@ const referenceData = [
 
 const HoursSummaryTable = ({ title, code, items, userHours }) => (
     <div className="bg-white rounded-xl shadow-lg mb-8 border border-purple-dark">
-        <div className="bg-dark-purple px-6 py-3 rounded-t-xl flex justify-between items-center border-b border-purple-dark">
+        <div className="bg-gray-50 px-6 py-3 rounded-t-xl flex justify-between items-center border-b border-purple-dark">
             <h3 className="text-lg font-bold text-purple-dark">{title}</h3>
             <span className="font-semibold text-purple-dark">Código: {code}</span>
         </div>
@@ -148,61 +103,42 @@ export default function Index() {
             setActivities(currentActivities => [{ ...formData, id: Date.now() }, ...currentActivities]);
         }
     };
+
     return (
-        <div className="min-h-screen bg-dark-purple font-sans flex flex-col">
+        <div className="min-h-screen bg-gray-100 font-sans flex flex-col">
             <Head title="Horas Complementares" />
+
             <AddActivityModal
                 show={isModalOpen}
                 onClose={closeModal}
                 onSave={handleSaveActivity}
                 activityToEdit={editingActivity}
-                referenceData={referenceData}/>
-            <header className="bg-purple-dark shadow-md sticky top-0 z-10">
-                <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex items-center justify-between h-16">
-                        <div className="flex items-center">
-                            <div className="flex-shrink-0">
-                                <img className="h-10 w-10" src="/images/logo-ic.png" alt="Logo" />
-                            </div>
-                            <div className="hidden md:block">
-                                <div className="ml-10 flex items-baseline space-x-4">
-                                    <a href="#" className="text-white hover:bg-purple-hover px-3 py-2 rounded-md text-sm font-medium">HOME</a>
-                                    <a href="#" className="text-white hover:bg-purple-hover px-3 py-2 rounded-md text-sm font-medium">DISCIPLINAS</a>
-                                    <a href="#" className="text-white hover:bg-purple-hover px-3 py-2 rounded-md text-sm font-medium">ÊNFASES</a>
+                referenceData={referenceData}
+            />
 
-                                    <div className="flex flex-col">
-                                        <a href="#" className="text-white px-3 py-5 text-sm font-medium">
-                                            HORAS COMPLEMENTARES</a>
-                                        <div className="w-full h-1 bg-blue"></div>
-                                    </div>
-                                    <a href="#" className="text-white hover:bg-purple-hover px-3 py-2 rounded-md text-sm font-medium">DÚVIDAS</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="hidden md:block">
-                            <div className="ml-4 flex items-center md:ml-6 space-x-4">
-                                <button className="p-1 rounded-full text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                                    <span className="sr-only">Configurações</span>
-                                    <img src="/images/icon.png" alt="User Icon" className="h-7 w-7" />
-                                </button>
-                                <button className="p-1 rounded-full text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                                    <span className="sr-only">Sair</span>
-                                    <img src="/images/exit.png" alt="Logout Icon" className="h-7 w-7" />
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
-            </header>
+            <Header />
 
             <main className="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8 w-full flex-grow">
+                
                 <div className='flex justify-between items-center mb-8'>
                     <h2 className='text-2xl font-bold text-purple-dark'>Atividades Complementares</h2>
+                    <div className='w-full max-w-md relative pt-6 pb-5'>
+                        <span className="absolute top-0 right-0 text-sm font-bold text-purple-dark">
+                            {progressPercentage.toFixed(0)}%
+                        </span>
+                        <div className='w-full bg-gray-200 rounded-full h-3 border border-gray-300'>
+                            <div className='bg-purple-dark h-full rounded-full' style={{ width: `${progressPercentage}%` }}></div>
+                        </div>
+                        <span className="absolute bottom-0 right-0 text-xs font-semibold text-gray-500">
+                            ({totalHours}h/{GOAL_HOURS}h)
+                        </span>
+                    </div>
                 </div>
+
                 <div className="max-w-7xl mx-auto">
-                    <div className="bg-white rounded-xl shadow-lg p-5">
-                        <div className="hidden md:grid md:grid-cols-12 md:p-5 md:items-center">
-                            <div className="col-span-1 border-r-2 border-gray-200"></div>
+                    <div className="bg-white rounded-xl shadow-lg">
+                        <div className="grid grid-cols-12 p-5 items-center">
+                             <div className="col-span-1 border-r-2 border-gray-200"></div>
                             <div className="col-span-5 pl-4 text-xl text-purple-dark font-bold uppercase tracking-wider">Atividade</div>
                             <div className="col-span-2 text-center text-xl border-l-2 border-r-2 border-gray-200 text-purple-dark font-bold uppercase tracking-wider">Código</div>
                             <div className="col-span-2 text-center text-xl border-r-2 border-gray-200 text-purple-dark font-bold uppercase tracking-wider">Horas</div>
@@ -214,7 +150,7 @@ export default function Index() {
                                 </button>
                             </div>
                         </div>
-                        <div className="space-y-4">
+                        <div className="px-5 pb-5 space-y-3">
                             {activities.length > 0 ? (
                                 activities.map((activity) => (
                                     <div key={activity.id} className="border-2 border-purple-dark rounded-lg p-3 md:grid md:grid-cols-12 md:gap-4 items-center transition">
@@ -256,20 +192,21 @@ export default function Index() {
                                 <PlusIcon className="h-8 w-8" />
                             </button>
                         </div>
-
                     </div>
                 </div>
+
                 <div className="mt-12">
                     <h2 className="text-2xl font-bold text-purple-dark mb-4">Resumo de Horas por Categoria</h2>
                     {referenceData.map(category => (
                         <HoursSummaryTable
                             key={category.code}
-                            title={category.title}
-                            code={category.code}
-                            items={category.items}
-                            userHours={hoursByCode}/>))}
+                            {...category}
+                            userHours={hoursByCode}
+                        />
+                    ))}
                 </div>
             </main>
+            
             <Footer />
         </div>
     );

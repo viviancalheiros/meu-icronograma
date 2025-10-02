@@ -54,7 +54,10 @@ export default function Login() {
                         className='lg:bg-white bg-purple-dark h-12 pl-4 rounded-2xl text-sm w-full 
                         lg:placeholder:text-purple-dark placeholder:text-white'
                         ></input>
-                    <Link href={route('password.request')} className='lg:text-white text-purple-dark self-start mt-4 lg:mb-12 mb-8'>Esqueceu a senha?</Link>
+                    <Link href={route('password.request')} 
+                        className='lg:text-white text-purple-dark text-sm self-start mt-3 lg:mb-12 mb-8'>
+                        Esqueceu a senha?
+                    </Link>
                     <Link href={'/home'}>
                         <Button 
                         value={'ENTRAR'}
@@ -62,7 +65,8 @@ export default function Login() {
                         />
                     </Link> 
                 </form>
-                <Link href={"/cadastro"} className='lg:text-white text-purple-dark mb-8'>Cadastre-se</Link>
+                <Link href={"/cadastro"} className='lg:text-white text-purple-dark mb-8'>
+                    Cadastre-se</Link>
             </div>
         </div>
        </div>
