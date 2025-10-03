@@ -1,13 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Head, router } from '@inertiajs/react';
+import { Head, router, Link } from '@inertiajs/react';
 
 const OtpInput = ({ length, value, onChange }) => {
     const inputRefs = useRef([]);
-
-    useEffect(() => {
-        inputRefs.current[0]?.focus();
-    }, []);
-
+    useEffect(() => { inputRefs.current[0]?.focus(); }, []);
     const handleChange = (e, index) => {
         const newValue = e.target.value;
         if (!/^[0-9]$/.test(newValue) && newValue !== '') return;
@@ -18,13 +14,11 @@ const OtpInput = ({ length, value, onChange }) => {
             inputRefs.current[index + 1]?.focus();
         }
     };
-
     const handleKeyDown = (e, index) => {
         if (e.key === 'Backspace' && value[index] === '' && index > 0) {
             inputRefs.current[index - 1]?.focus();
         }
     };
-
     return (
         <div className="flex justify-center gap-2 md:gap-4">
             {Array.from({ length }, (_, index) => (
@@ -169,27 +163,36 @@ const ResetPasswordStep = ({ onPasswordReset }) => {
     );
 };
 
+
 export default function ForgotPassword() {
     const [step, setStep] = useState('enterEmail');
     const [email, setEmail] = useState('');
 
     const handleEmailSubmit = () => {
-        console.log('E-mail enviado:', email);
         setStep('enterCode');
     };
 
     const handleCodeSubmit = () => {
         setStep('resetPassword');
     };
-
+    
     const handlePasswordReset = () => {
         alert('Senha alterada com sucesso! Você será redirecionado para o login.');
         router.get(route('login'));
     };
 
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-white relative">
             <Head title="Recuperação de Senha" />
+            <div className="absolute top-4 left-4 z-10">
+                <Link 
+                    href={route('login')}
+                    className="text-sm text-white hover:text-purple-dark hover:underline font-medium flex items-center p-2 rounded-md hover:bg-white transition"
+                >
+                    Voltar para o Login
+                </Link>
+            </div>
+
             <div>
                 <div className="bg-purple-dark p-1 flex flex-col items-center justify-center gap-4">
                     <div className="flex items-center gap-4">
@@ -205,6 +208,7 @@ export default function ForgotPassword() {
                 <div className="mt-4">
                     <div className="w-full border-b border-purple-dark"></div>
                 </div>
+
                 {step === 'enterEmail' && <EnterEmailStep onEmailSubmit={handleEmailSubmit} email={email} setEmail={setEmail} />}
                 {step === 'enterCode' && <EnterCodeStep email={email} onCodeSubmit={handleCodeSubmit} />}
                 {step === 'resetPassword' && <ResetPasswordStep onPasswordReset={handlePasswordReset} />}
