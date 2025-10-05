@@ -19,6 +19,8 @@ export default function DisciplineModal({
   const [notes, setNotes] = useState(defaults.notes ?? '')
   const [status, setStatus] = useState(defaults.status ?? null)
   const [selectedOptionId, setSelectedOptionId] = useState(defaults.selectedOptionId)
+  const [periodoPago, setPeriodoPago] = useState(defaults.periodoPago ?? '')
+  const [equivalenciaAceita, setEquivalenciaAceita] = useState(defaults.equivalenciaAceita ?? false)
 
   useEffect(() => {
     if (!open) return
@@ -29,6 +31,8 @@ export default function DisciplineModal({
     setNotes(defaults.notes ?? '')
     setStatus(defaults.status ?? null)
     setSelectedOptionId(defaults.selectedOptionId)
+    setPeriodoPago(defaults.periodoPago ?? '')
+    setEquivalenciaAceita(defaults.equivalenciaAceita ?? false)
   }, [open])
 
   const title = useMemo(
@@ -49,6 +53,8 @@ export default function DisciplineModal({
       finalGrade,
       notes,
       status,
+      periodoPago,
+      equivalenciaAceita,
       prerequisites,
     })
     onClose()
@@ -95,60 +101,100 @@ export default function DisciplineModal({
           </div>
         )}
 
-        <div className="mb-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-1 sm:gap-y-4">
+        <div className="mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <Field label="Código">
-                <input
+              <input
                 value={code}
                 onChange={(e)=>setCode(e.target.value)}
-                className="w-full max-w-[120px] rounded-lg border border-purple-dark px-3 py-1 outline-none"
-                />
+                className="w-full rounded-lg border border-purple-dark px-3 py-2 outline-none"
+                placeholder="Ex: MAT001"
+              />
             </Field>
 
-            <Field label="Professor" className="sm:col-span-1 lg:col-span-2">
-                <input
+            <Field label="Professor" className="sm:col-span-2 lg:col-span-2">
+              <input
                 value={professor}
                 onChange={(e)=>setProfessor(e.target.value)}
-                className="w-full max-w-[280px] rounded-lg border border-purple-dark px-3 py-1 outline-none"
-                />
+                className="w-full rounded-lg border border-purple-dark px-3 py-2 outline-none"
+                placeholder="Nome do professor"
+              />
             </Field>
 
             <Field label="Bloco/Sala">
-                <input
+              <input
                 value={room}
                 onChange={(e)=>setRoom(e.target.value)}
-                className="w-full max-w-[150px] rounded-lg border border-purple-dark px-3 py-1 outline-none"
-                />
+                className="w-full rounded-lg border border-purple-dark px-3 py-2 outline-none"
+                placeholder="Ex: A-101"
+              />
             </Field>
-
-            <Field label="Média Final">
-                <input
-                value={finalGrade}
-                onChange={(e)=>setFinalGrade(e.target.value)}
-                className="w-full max-w-[100px] rounded-lg border border-purple-dark px-3 py-1 outline-none"
-                />
-            </Field>
+          </div>
         </div>
 
+        <div className="mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+            <Field label="Média Final">
+              <input
+                value={finalGrade}
+                onChange={(e)=>setFinalGrade(e.target.value)}
+                className="w-full rounded-lg border border-purple-dark px-3 py-2 outline-none"
+                placeholder="Ex: 8.5"
+              />
+            </Field>
 
-        <div className="mb-4">
-          <label className="mb-2 block font-semibold text-purple-dark">Anotações</label>
+            <Field label="Período que pagou">
+              <input
+                value={periodoPago}
+                onChange={(e)=>setPeriodoPago(e.target.value)}
+                disabled={status !== 'concluida'}
+                className={`w-full rounded-lg border border-purple-dark px-3 py-2 outline-none ${status !== 'concluida' ? 'bg-gray-100 cursor-not-allowed' : ''}`}
+                placeholder={status !== 'concluida' ? 'Selecione "concluída"' : 'Ex: 2023.1'}
+              />
+            </Field>
+          </div>
+
+          <div className="space-y-3 text-purple-dark">
+            <label className="block font-semibold">Status da disciplina:</label>
+            <div className="space-y-2">
+              <label className="flex items-center gap-3">
+                <input 
+                  type="radio" 
+                  checked={status === 'concluida'} 
+                  onChange={()=>setStatus('concluida')}
+                  className="w-4 h-4 text-purple-dark"
+                />
+                <span>Disciplina concluída</span>
+              </label>
+              <label className="flex items-center gap-3">
+                <input 
+                  type="radio" 
+                  checked={status === 'pagando'} 
+                  onChange={()=>setStatus('pagando')}
+                  className="w-4 h-4 text-purple-dark"
+                />
+                <span>Pagando atualmente</span>
+              </label>
+              <label className="flex items-center gap-3">
+                <input 
+                  type="checkbox" 
+                  checked={equivalenciaAceita} 
+                  onChange={(e)=>setEquivalenciaAceita(e.target.checked)}
+                  className="w-4 h-4 text-purple-dark rounded"
+                />
+                <span>Equivalência aceita</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div className="mb-6">
           <textarea
             value={notes}
             onChange={(e)=>setNotes(e.target.value)}
             className="min-h-[120px] w-full resize-y rounded-lg border border-purple-dark px-3 py-2 outline-none"
+            placeholder="Adicione observações sobre a disciplina..."
           />
-        </div>
-
-        <div className="mb-6 space-y-2 text-purple-dark">
-          <label className="block font-semibold"> </label>
-          <label className="flex items-center gap-2">
-            <input type="radio" checked={status === 'concluida'} onChange={()=>setStatus('concluida')} />
-            <span>Disciplina concluída</span>
-          </label>
-          <label className="flex items-center gap-2">
-            <input type="radio" checked={status === 'pagando'} onChange={()=>setStatus('pagando')} />
-            <span>Pagando atualmente</span>
-          </label>
         </div>
 
         <div className="mb-2 sm:mb-8">
