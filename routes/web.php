@@ -35,8 +35,8 @@ Route::get('/home', function() {
     return Inertia::render('Home');
 });
 
-Route::get('/profile', function () {
-    return Inertia::render('Profile');
+Route::get('/perfil', function () {
+    return Inertia::render('Perfil');
 });
 
 Route::get('/teste', function () {
@@ -55,8 +55,8 @@ Route::get('/duvidas', function () {
     return Inertia::render('Duvidas');
 });
 
-Route::get('/disciplines', function () {
-    return Inertia::render('Disciplines');
+Route::get('/obrigatorias', function () {
+    return Inertia::render('Obrigatorias');
 });
 
 Route::get('/eletivas', function () {

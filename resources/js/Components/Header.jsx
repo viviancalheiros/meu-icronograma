@@ -12,7 +12,7 @@ export default function Header() {
 
     const navItems = [
         { name: 'HOME', href: '/home' },
-        { name: 'DISCIPLINAS', href: '/disciplinas' },
+        { name: 'DISCIPLINAS', href: '/obrigatorias' },
         { name: 'ÊNFASES', href: '/enfases' },
         { name: 'HORAS COMPLEMENTARES', href: '/horas-complementares' },
         { name: 'DÚVIDAS', href: '/duvidas' },
@@ -64,7 +64,7 @@ export default function Header() {
 
                 {/* Ícones do usuário e o botão do menu (responsivo) */}
                 <div className="flex items-center space-x-4">
-                    <Link href="/profile" className="hidden md:block text-gray-300 hover:text-white transition-colors duration-300">
+                    <Link href="/perfil" className="hidden md:block text-gray-300 hover:text-white transition-colors duration-300">
                         <FaUserCircle size={24} />
                     </Link>
                     <Link href="/logout" method="post" as="button" className="hidden md:block text-gray-300 hover:text-white transition-colors duration-300">
@@ -103,7 +103,7 @@ export default function Header() {
                         ))}
                     </ul>
                     <div className="flex justify-center space-x-6 mt-8">
-                        <Link href="/profile" onClick={() => setIsMenuOpen(false)} className="text-gray-300 hover:text-white transition-colors duration-300">
+                        <Link href="/perfil" onClick={() => setIsMenuOpen(false)} className="text-gray-300 hover:text-white transition-colors duration-300">
                             <FaUserCircle size={28} />
                         </Link>
                         <Link href="/logout" method="post" as="button" onClick={() => setIsMenuOpen(false)} className="text-gray-300 hover:text-white transition-colors duration-300">
