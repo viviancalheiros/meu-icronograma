@@ -118,7 +118,7 @@ export default function Index() {
 
             <Header />
 
-            <main className="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8 w-full flex-grow">
+            <main className="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8 w-full flex-grow font-roboto">
                 
                 <div className='flex justify-between items-center mb-8'>
                     <h2 className='text-2xl font-bold text-purple-dark'>Atividades Complementares</h2>

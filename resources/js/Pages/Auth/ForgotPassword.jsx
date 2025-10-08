@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Head, router } from '@inertiajs/react';
+import LogoUfal from '@/Components/LogoUfal';
+import LogoIc from '@/Components/LogoIC';
 
 const OtpInput = ({ length, value, onChange }) => {
     const inputRefs = useRef([]);
@@ -52,13 +54,13 @@ const EnterEmailStep = ({ onEmailSubmit, email, setEmail }) => {
     };
 
     return (
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
-            <p className="text-purple-dark text-2xl mb-12 font-black">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center font-roboto">
+            <p className="text-purple-dark text-2xl mb-12 font-medium">
                 Digite seu email no espaço a seguir. Enviaremos um código e as instruções para recuperação de senha.
             </p>
             <form onSubmit={handleSubmit} className="max-w-xl mx-auto">
                 <div className="text-left mb-3">
-                    <label htmlFor="email" className="Roboto-bold text-purple-dark text-2xl font-black">
+                    <label htmlFor="email" className="text-purple-dark text-2xl font-medium">
                         Digite seu email:
                     </label>
                 </div>
@@ -98,8 +100,8 @@ const EnterCodeStep = ({ email, onCodeSubmit }) => {
     };
 
     return (
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
-            <p className="text-purple-dark text-2xl mb-12 font-black">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center font-roboto">
+            <p className="text-purple-dark text-2xl mb-12 font-medium">
                 Insira o código que foi enviado para seu email: <span className="font-normal">{email}</span>
             </p>
             <form onSubmit={handleSubmit} className="max-w-xl mx-auto">
@@ -136,8 +138,8 @@ const ResetPasswordStep = ({ onPasswordReset }) => {
     };
 
     return (
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
-            <p className="text-purple-dark text-2xl mb-12 font-black">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center font-roboto">
+            <p className="text-purple-dark text-2xl mb-12 font-medium">
                 Digite a nova senha:
             </p>
             <form onSubmit={handleSubmit} className="max-w-xl mx-auto space-y-6">
@@ -147,7 +149,7 @@ const ResetPasswordStep = ({ onPasswordReset }) => {
                     placeholder="Nova senha"
                     value={passwords.password}
                     onChange={handleChange}
-                    className="w-full bg-purple-dark text-white placeholder-gray-300 border-none rounded-lg h-16 px-6 text-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    className="w-full text-sm bg-purple-dark text-white placeholder-gray-300 border-none rounded-lg h-16 px-6 text-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
                     required
                 />
                 <input
@@ -192,9 +194,9 @@ export default function ForgotPassword() {
             <Head title="Recuperação de Senha" />
             <div>
                 <div className="bg-purple-dark p-1 flex flex-col items-center justify-center gap-4">
-                    <div className="flex items-center gap-4">
-                        <img src="/images/logo-ic.png" alt="Logo-ic" className="h-16" />
-                        <img src="/images/logo.png" alt="Logo" className="h-24" />
+                    <div className="flex items-center gap-4 mb-8">
+                        <LogoUfal width={35} height={76} className="ml-8" />
+                        <LogoIc width={80} height={80} className="ml-4" />
                     </div>
                 </div>
                 <div className="text-center">

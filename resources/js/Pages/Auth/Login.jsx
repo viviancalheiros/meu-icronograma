@@ -1,15 +1,21 @@
-import { Link } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 import Title from '@/Components/Title';
 import Button from '@/Components/Button';
 import LogoUfal from '@/Components/LogoUfal';
 import LogoIc from '@/Components/LogoIC';
 import { useState } from 'react';
+import InputError from '@/Components/InputError';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 export default function Login() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const {data, setData, post, processing, errors } = useForm({
+        email: '',
+        password: '',
+    })
 
-    const handleSubmit = () => {
+    const [ showPassword, setShowPassword ] = useState(false);
+
+    const handleSubmit = (e) => {
         e.preventDefault();
     };
 
@@ -37,33 +43,46 @@ export default function Login() {
                     onSubmit={handleSubmit}
                 >
                     <input 
-                        type='text' 
+                        type="text"
                         placeholder='E-mail' 
                         required
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
+                        value={data.email}
+                        onChange={e => setData('email', e.target.value)}
                         className='lg:bg-white bg-purple-dark mb-4 h-12 pl-4 rounded-2xl text-sm w-full 
                         lg:placeholder:text-purple-dark placeholder:text-white'
                     ></input>
-                    <input 
-                        type='text'
-                        placeholder='Senha'
-                        required
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                        className='lg:bg-white bg-purple-dark h-12 pl-4 rounded-2xl text-sm w-full 
-                        lg:placeholder:text-purple-dark placeholder:text-white'
-                        ></input>
+                    <InputError message={errors.email} />
+                    <div className='relative w-full'>
+                        <input 
+                            type={showPassword ? "text" : "password"}
+                            placeholder='Senha'
+                            required
+                            value={data.password}
+                            onChange={e => setData('password', e.target.value)}
+                            className='lg:bg-white bg-purple-dark h-12 pl-4 rounded-2xl text-sm w-full 
+                            lg:placeholder:text-purple-dark placeholder:text-white'
+                            ></input>
+                        <button
+                            type='button'
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-purple-dark"
+                            onClick={() => setShowPassword(!showPassword)}
+                        >
+                            {showPassword ? <FiEye /> : <FiEyeOff />}
+                        </button>
+                    </div>
+                    <InputError message={errors.password} />
                     <Link href={route('password.request')} 
                         className='lg:text-white text-purple-dark text-sm self-start mt-3 lg:mb-12 mb-8'>
                         Esqueceu a senha?
                     </Link>
-                    <Link href={'/home'}>
-                        <Button 
+                    {/* <Link href={'/home'}> */}
+                        <Button
+                        disabled={processing}
+                        type='submit'
                         value={'ENTRAR'}
                         className='bg-purple-dark text-white lg:text-purple-dark lg:bg-white'
                         />
-                    </Link> 
+                    {/* </Link> */}
                 </form>
                 <Link href={"/cadastro"} className='lg:text-white text-purple-dark mb-8'>
                     Cadastre-se</Link>
