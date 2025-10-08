@@ -27,13 +27,13 @@ class EnfasesSeeder extends Seeder
             ]
             ,
             [
-                "nome" => "Sistemas Inteligentes",
+                "nome" => "Sistemas de Computadores",
                 "updated_at" => Carbon::now(),
                 "created_at" => Carbon::now()
             ]
             ,
             [
-                "nome" => "Sistemas Inteligentes",
+                "nome" => "Sistemas de Informação",
                 "updated_at" => Carbon::now(),
                 "created_at" => Carbon::now()
             ]

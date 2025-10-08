@@ -17,5 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(DisciplinaSeeder::class);
         $this->call(EnfasesSeeder::class);
         $this->call(Tipos_horas_complementaresSeeder::class);
+        $this->call(Pre_requisitosSeeder::class);
+        $this->call(Disciplinas_enfasesSeeder::class);
     }
 }
