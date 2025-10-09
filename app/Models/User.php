@@ -20,10 +20,18 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+
+    protected $table = 'usuarios';
+    
+    public function getAuthPassword() {
+        return $this->senha;
+    }
+
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'nome',
+        'e-mail',
+        'matricula',
+        'senha',
     ];
 
     /**
