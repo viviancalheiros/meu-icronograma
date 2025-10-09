@@ -8,7 +8,7 @@ import InputError from '@/Components/InputError';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 export default function Login() {
-    const {data, setData, post, processing, errors } = useForm({
+    const {data, setData, post, processing, errors, reset } = useForm({
         email: '',
         password: '',
     })
@@ -17,6 +17,9 @@ export default function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        post(route('login.store'), {
+            onFinish: () => reset('password')
+        })
     };
 
     return (
@@ -48,10 +51,13 @@ export default function Login() {
                         required
                         value={data.email}
                         onChange={e => setData('email', e.target.value)}
-                        className='lg:bg-white bg-purple-dark mb-4 h-12 pl-4 rounded-2xl text-sm w-full 
+                        className='lg:bg-white text-white lg:text-purple-dark mb-4 bg-purple-dark h-12 pl-4 rounded-2xl text-sm w-full 
                         lg:placeholder:text-purple-dark placeholder:text-white'
                     ></input>
-                    <InputError message={errors.email} />
+                    <InputError 
+                    message={errors.email}
+                    className='-mt-2 mb-2 text-red self-start'
+                    />
                     <div className='relative w-full'>
                         <input 
                             type={showPassword ? "text" : "password"}
@@ -59,7 +65,7 @@ export default function Login() {
                             required
                             value={data.password}
                             onChange={e => setData('password', e.target.value)}
-                            className='lg:bg-white bg-purple-dark h-12 pl-4 rounded-2xl text-sm w-full 
+                            className='lg:bg-white text-white lg:text-purple-dark bg-purple-dark h-12 pl-4 rounded-2xl text-sm w-full 
                             lg:placeholder:text-purple-dark placeholder:text-white'
                             ></input>
                         <button
@@ -75,17 +81,19 @@ export default function Login() {
                         className='lg:text-white text-purple-dark text-sm self-start mt-3 lg:mb-12 mb-8'>
                         Esqueceu a senha?
                     </Link>
-                    {/* <Link href={'/home'}> */}
-                        <Button
-                        disabled={processing}
-                        type='submit'
-                        value={'ENTRAR'}
-                        className='bg-purple-dark text-white lg:text-purple-dark lg:bg-white'
-                        />
-                    {/* </Link> */}
+                    <Button
+                    disabled={processing}
+                    type='submit'
+                    value={'ENTRAR'}
+                    className='bg-purple-dark text-white lg:text-purple-dark lg:bg-white'
+                    />
                 </form>
-                <Link href={"/cadastro"} className='lg:text-white text-purple-dark mb-8'>
-                    Cadastre-se</Link>
+                <Link 
+                href={route('cadastro')} 
+                className='lg:text-white text-purple-dark mb-8'
+                >
+                    Cadastre-se
+                </Link>
             </div>
         </div>
        </div>
