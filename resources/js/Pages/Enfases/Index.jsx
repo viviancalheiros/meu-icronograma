@@ -3,6 +3,7 @@ import Header from '@/Components/Header';
 import Footer from '@/Components/Footer';
 import DisciplineBox from '@/Components/DisciplinaBox';
 import ProgressBar from '@/Components/ProgressBar';
+import { FaCircle } from "react-icons/fa";
 
 
 const emphasesData = [
@@ -87,6 +88,26 @@ export default function EmphasisPage() {
                         </div>
                     ))}
                 </div>
+
+                <div className="w-3/4 text-purple-dark mt-8 flex flex-col mx-auto">
+        <div className="w-full self-start">
+            <p className="text-lg font-bold mb-2 text-shadow-sm">Legenda:</p>
+        </div>
+        <div className="w-full flex flex-col items-center lg:flex-row lg:justify-between">
+            <div className="flex flex-row lg:ml-4 mr-3.5 items-center">
+            <FaCircle className="text-green-500 mr-4" />
+            <p className="font-semibold">0 pré-requisitos restantes</p>
+            </div>
+            <div className="flex flex-row lg:ml-4 items-center">
+            <FaCircle className="text-yellow-500 mr-4" />
+            <p className="font-semibold">Faltam {"<"} 50% pré-requisitos</p>
+            </div>
+            <div className="flex flex-row lg:ml-4 items-center">
+            <FaCircle className="text-red mr-4" />
+            <p className="font-semibold">Faltam {">"} 50% pré-requisitos</p>
+            </div>
+        </div>
+        </div>
             </main>
             <Footer />
         </div>
