@@ -29,13 +29,13 @@ export default function Perfil() {
     return (
         <>
             <Header />
-            <div className="w-full h-screen flex flex-col items-center justify-center font-roboto">
+            <div className="w-full h-full flex flex-col items-center justify-center font-roboto">
                 <div className="w-full h-1/5 flex flex-col items-center justify-center mt-8">
                     <h1 className="text-3xl text-purple-dark font-bold mb-8">PERFIL</h1>
                     <div className="w-full h-1 scale-y-50 bg-purple-dark"></div>
                 </div>
                 <form 
-                className="lg:w-1/4 w-4/5 h-4/5 flex flex-col items-center mt-12 mb-12"
+                className="lg:w-1/4 md:w-1/2 w-4/5 h-4/5 flex flex-col items-center mt-12 mb-12"
                 onSubmit={handleSave}
                 >
                     <label className="text-purple-dark font-bold text-lg self-start">
@@ -84,7 +84,11 @@ export default function Perfil() {
                             // disabled={processing || !isChanged}
 
                         />
-                        <Link href="/login">
+                        <Link
+                            href={route('logout')}
+                            method="post"
+                            as="button"
+                        >
                             <Button 
                             value={"DESCONECTAR"} 
                             className="bg-white border border-purple-dark text-purple-dark lg:mt-0 mt-2"
@@ -92,8 +96,8 @@ export default function Perfil() {
                         </Link>
                     </div>
                 </form>
-                <Footer />
             </div>
+            <Footer />
         </>
     )
 }

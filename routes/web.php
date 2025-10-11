@@ -28,14 +28,6 @@ Route::get('/horas-complementares', function() {
     return Inertia::render('ComplementaryHours/Index');
 });
 
-Route::get('/home', function() {
-    return Inertia::render('Home');
-});
-
-Route::get('/perfil', function () {
-    return Inertia::render('Perfil');
-});
-
 Route::get('/teste', function () {
     return Inertia::render('TestComponent');
 });
@@ -43,22 +35,5 @@ Route::get('/teste', function () {
 Route::get('/test-header', function () {
     return Inertia::render('Testheader');
 });
-
-Route::get('/duvidas', function () {
-    return Inertia::render('Duvidas');
-});
-
-Route::get('/obrigatorias', function () {
-    return Inertia::render('Obrigatorias');
-});
-
-Route::get('/eletivas', function () {
-    return Inertia::render('Eletivas');
-});
-
-Route::get('/enfases', function () {
-    return Inertia::render('Enfases/Index');
-});
-
 
 require __DIR__.'/auth.php';

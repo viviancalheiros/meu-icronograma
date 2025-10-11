@@ -120,9 +120,9 @@ export default function Index() {
 
             <main className="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8 w-full flex-grow font-roboto">
                 
-                <div className='flex justify-between items-center mb-8'>
-                    <h2 className='text-2xl font-bold text-purple-dark'>Atividades Complementares</h2>
-                    <div className='w-full max-w-md relative pt-6 pb-5'>
+                <div className='flex w-full lg:flex-row flex-col lg:justify-between items-center mb-8'>
+                    <h2 className='text-2xl font-bold text-purple-dark mb-6 lg:mb-0'>ATIVIDADES COMPLEMENTARES</h2>
+                    <div className='lg:full w-3/4 max-w-md relative pt-6 pb-5'>
                         <span className="absolute top-0 right-0 text-sm font-bold text-purple-dark">
                             {progressPercentage.toFixed(0)}%
                         </span>
@@ -137,7 +137,7 @@ export default function Index() {
 
                 <div className="max-w-7xl mx-auto">
                     <div className="bg-white rounded-xl shadow-lg">
-                        <div className="grid grid-cols-12 p-5 items-center">
+                        <div className="hidden md:grid grid-cols-12 p-5 items-center">
                              <div className="col-span-1 border-r-2 border-gray-200"></div>
                             <div className="col-span-5 pl-4 text-xl text-purple-dark font-bold uppercase tracking-wider">Atividade</div>
                             <div className="col-span-2 text-center text-xl border-l-2 border-r-2 border-gray-200 text-purple-dark font-bold uppercase tracking-wider">Código</div>
@@ -145,12 +145,12 @@ export default function Index() {
                             <div className="col-span-2 flex justify-center">
                                 <button
                                     onClick={handleOpenAddModal}
-                                    className="bg-white border-4 border-purple-dark text-purple-dark p-2 rounded-full hover:bg-purple-dark hover:text-white transition duration-300">
+                                    className="bg-white border-4 border-purple-dark text-purple-dark p-1.5 rounded-full hover:bg-purple-dark hover:text-white transition duration-300">
                                     <PlusIcon className="h-6 w-6" />
                                 </button>
                             </div>
                         </div>
-                        <div className="px-5 pb-5 space-y-3">
+                        <div className="px-5 pb-5 pt-5 space-y-3">
                             {activities.length > 0 ? (
                                 activities.map((activity) => (
                                     <div key={activity.id} className="border-2 border-purple-dark rounded-lg p-3 md:grid md:grid-cols-12 md:gap-4 items-center transition">
@@ -187,9 +187,9 @@ export default function Index() {
                          <div className="md:hidden flex justify-center mt-4">
                             <button
                                 onClick={handleOpenAddModal}
-                                className="bg-purple-dark border-4 border-purple-dark text-white p-3 rounded-full hover:bg-purple-hover transition duration-300"
+                                className="bg-purple-dark border-4 border-purple-dark text-white p-3 mb-4 rounded-full hover:bg-purple-light transition duration-300"
                             >
-                                <PlusIcon className="h-8 w-8" />
+                                <PlusIcon className="h-6 w-6" />
                             </button>
                         </div>
                     </div>
