@@ -6,7 +6,7 @@ import LogoIc from '@/Components/LogoIC';
 import InputError from '@/Components/InputError';
 import { useForm } from '@inertiajs/react';
 
-export default function Register() {
+export default function Cadastro () {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
@@ -17,8 +17,13 @@ export default function Register() {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('register'), {
-            onFinish: () => reset('password', 'password_confirmation'),
+        post(route('cadastro.store'), {
+            onSuccess: () => {
+                reset('password', 'password_confirmation');
+            },
+            onError: () => {
+                reset('password', 'password_confirmation');
+            },
         });
     };
 
@@ -56,7 +61,7 @@ export default function Register() {
                                 required
                                 value={data.name}
                                 onChange={e => setData('name', e.target.value)}
-                                className='lg:bg-white bg-purple-dark h-12 pl-4 mb-1 rounded-2xl text-sm w-full
+                                className='lg:bg-white lg:text-purple-dark text-white bg-purple-dark h-12 pl-4 mb-1 rounded-2xl text-sm w-full
                                 lg:placeholder:text-purple-dark placeholder:text-white border border-gray-300 focus:border-purple-500 focus:outline-none'
                             />
                             <InputError message={errors.name} className="mt-1 text-red-500 text-xs" />
@@ -70,7 +75,7 @@ export default function Register() {
                                 required
                                 value={data.email}
                                 onChange={e => setData('email', e.target.value)}
-                                className='lg:bg-white bg-purple-dark h-12 pl-4 mb-1 rounded-2xl text-sm w-full
+                                className='lg:bg-white lg:text-purple-dark text-white bg-purple-dark h-12 pl-4 mb-1 rounded-2xl text-sm w-full
                                 lg:placeholder:text-purple-dark placeholder:text-white border border-gray-300 focus:border-purple-500 focus:outline-none'
                             />
                             <InputError message={errors.email} className="mt-1 text-red-500 text-xs" />
@@ -84,7 +89,7 @@ export default function Register() {
                                 required
                                 value={data.registration}
                                 onChange={e => setData('registration', e.target.value)}
-                                className='lg:bg-white bg-purple-dark h-12 pl-4 mb-1 rounded-2xl text-sm w-full
+                                className='lg:bg-white lg:text-purple-dark text-white bg-purple-dark h-12 pl-4 mb-1 rounded-2xl text-sm w-full
                                 lg:placeholder:text-purple-dark placeholder:text-white border border-gray-300 focus:border-purple-500 focus:outline-none'
                             />
                             <InputError message={errors.registration} className="mt-1 text-red-500 text-xs" />
@@ -98,7 +103,7 @@ export default function Register() {
                                 required
                                 value={data.password}
                                 onChange={e => setData('password', e.target.value)}
-                                className='lg:bg-white bg-purple-dark h-12 pl-4 mb-1 rounded-2xl text-sm w-full
+                                className='lg:bg-white lg:text-purple-dark text-white bg-purple-dark h-12 pl-4 mb-1 rounded-2xl text-sm w-full
                                 lg:placeholder:text-purple-dark placeholder:text-white border border-gray-300 focus:border-purple-500 focus:outline-none'
                             />
                             <InputError message={errors.password} className="mt-1 text-red-500 text-xs" />
@@ -112,7 +117,7 @@ export default function Register() {
                                 required
                                 value={data.password_confirmation}
                                 onChange={e => setData('password_confirmation', e.target.value)}
-                                className='lg:bg-white bg-purple-dark h-12 pl-4 rounded-2xl text-sm w-full
+                                className='lg:bg-white lg:text-purple-dark text-white bg-purple-dark h-12 pl-4 rounded-2xl text-sm w-full
                                 lg:placeholder:text-purple-dark placeholder:text-white border border-gray-300 focus:border-purple-500 focus:outline-none'
                             />
                             <InputError message={errors.password_confirmation} className="mt-1 text-red-500 text-xs" />

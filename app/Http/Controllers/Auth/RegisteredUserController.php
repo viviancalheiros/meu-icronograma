@@ -20,7 +20,7 @@ class RegisteredUserController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Auth/Register');
+        return Inertia::render('Auth/Cadastro');
     }
 
     /**
@@ -30,22 +30,26 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        //nomes no front
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'email' => 'required|string|lowercase|email|max:255|unique:usuarios,e-mail',
+            'registration' => 'required|string|max:255|unique:usuarios,matricula',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        //nomes no banco
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'nome' => $request->name,
+            'e-mail' => $request->email,
+            'matricula' => $request->registration,
+            'senha' => Hash::make($request->password),
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('home', absolute: false));
     }
 }

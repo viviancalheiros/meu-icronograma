@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ComplementaryActivityController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 //página inicial -> login
 Route::get('/', function () {
@@ -15,10 +16,6 @@ Route::get('/', function () {
 Route::get('/recuperar-senha', function () {
     return Inertia::render('Auth/ForgotPassword');
 })->name('password.request');
-
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 //página horas complementares
 // Route::get('/horas-complementares', [ComplementaryActivityController::class, 'index'])
@@ -31,41 +28,12 @@ Route::get('/horas-complementares', function() {
     return Inertia::render('ComplementaryHours/Index');
 });
 
-Route::get('/home', function() {
-    return Inertia::render('Home');
-});
-
-Route::get('/profile', function () {
-    return Inertia::render('Profile');
-});
-
 Route::get('/teste', function () {
     return Inertia::render('TestComponent');
-});
-
-Route::get('/cadastro', function () {
-    return Inertia::render('Cadastro');
 });
 
 Route::get('/test-header', function () {
     return Inertia::render('Testheader');
 });
-
-Route::get('/duvidas', function () {
-    return Inertia::render('Duvidas');
-});
-
-Route::get('/disciplines', function () {
-    return Inertia::render('Disciplines');
-});
-
-Route::get('/eletivas', function () {
-    return Inertia::render('Eletivas');
-});
-
-Route::get('/enfases', function () {
-    return Inertia::render('Enfases/Index');
-});
-
 
 require __DIR__.'/auth.php';

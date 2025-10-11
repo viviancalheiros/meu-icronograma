@@ -1,18 +1,38 @@
 import React, { useState } from "react";
 import ProgressBar from "@/Components/ProgressBar";
-import DisciplineBox from "@/Components/DisciplineBox";
+import DisciplinaBox from "@/Components/DisciplinaBox";
 import Header from "@/Components/Header";
 import { usePage, Link } from "@inertiajs/react";
 import Footer from "@/Components/Footer";
+import { FaCircle } from "react-icons/fa";
 
 export default function Home () {
-    const { total =67, compulsory=50, electives=40, hours=80 } = usePage().props;
-    const disciplines = [
-        { id: 1, name: "Microcontroladores", status: "no", type: "eletiva" },
-        { id: 2, name: "Programação 3", status: "no", type: "disciplina" },
-        { id: 3, name: "Redes de Computadores", status: "yes", type: "disciplina" },
-        { id: 4, name: "Teoria dos Grafos", status: "maybe", type: "disciplina" },
-        { id: 5, name: "Estrutura de Dados", status: "yes", type: "disciplina" }
+    const props = usePage().props;
+    const horas = {
+        total: props.horasTotal || 3747,
+        obrigatorias: props.horasObrigatorias || 2571,
+        eletivas: props.horasEletivas || 936,
+        complementares: props.horasComplementares || 240
+    };
+    const porcentagem = {
+        total: props.porcentagemTotal || 67, 
+        obrigatorias: props.porcentagemObrigatorias = 50, 
+        eletivas: props.porcentagemEletivas = 40, 
+        complementares: props.porcentagemComplementares = 80
+    };
+    const integralizado = {
+        total: props.integralizadoTotal = 2345,  
+        obrigatorias: props.integralizadoObrigatorias = 1300, 
+        eletivas: props.integralizadoEletivas = 360, 
+        complementares: props.integralizadoComplementares = 192 
+    };
+
+    const disciplinas = [
+        { id: 1, nome: "Microcontroladores", status: "sim", tipo: "eletiva" },
+        { id: 2, nome: "Programação 3", status: "sim", tipo: "obrigatoria" },
+        { id: 3, nome: "Redes de Computadores", status: "nao", tipo: "obrigatoria" },
+        { id: 4, nome: "Teoria dos Grafos", status: "talvez", tipo: "obrigatoria" },
+        { id: 5, nome: "Estrutura de Dados", status: "talvez", tipo: "obrigatoria" }
     ]
 
     return (
@@ -27,43 +47,75 @@ export default function Home () {
                     </div>
                     <div className="lg:w-1/2 bg-gray-100 w-full h-full flex flex-col text-center items-center border rounded-2xl border-purple-dark shadow-xl p-4 mb-12">
                         <h2 className="text-purple-dark text-xl font-semibold mb-4">PROGRESSO TOTAL NO CURSO</h2>
-                        <label className="text-purple-dark self-end mr-16">{total}%</label>
-                        <ProgressBar progress={total} />
+                        <label className="text-purple-dark self-end mr-16">{porcentagem.total}%</label>
+                        <ProgressBar progress={porcentagem.total} />
+                        <label className="text-purple-dark self-end mr-16">{integralizado.total}h/{horas.total}h</label>
                     </div>
                     <div className="lg:w-3/4 bg-gray-100 h-full flex flex-col items-center border rounded-2xl border-purple-dark shadow-xl p-4">
                         <h2 className="text-purple-dark text-xl font-semibold mb-4">DISCIPLINAS DO SEMESTRE ATUAL</h2>
                         <div className="w-full h-[300px] lg:h-full overflow-y-auto grid lg:grid-cols-4 sm:grid-cols-3 grid-cols-1 gap-4">
-                            {disciplines.map((discipline) => (
-                                <DisciplineBox
-                                key={discipline.id} 
-                                name={discipline.name}
-                                status={discipline.status}
-                                type={discipline.type}
+                            {disciplinas.map((disciplina) => (
+                                <DisciplinaBox
+                                key={disciplina.id} 
+                                nome={disciplina.nome}
+                                status={disciplina.status}
+                                tipo={disciplina.tipo}
                                 />
                             ))}
+                        </div>
+                    </div>
+                    <div className="w-3/4 text-purple-dark mt-8 flex flex-col">
+                        <div className="w-full self-start">
+                            <p className="text-lg font-bold mb-2 text-shadow-sm">Legenda:</p>
+                        </div>
+                        <div className="w-full flex flex-col items-center lg:flex-row lg:justify-between">
+                            <div className="flex flex-row lg:ml-4 mr-3.5 items-center">
+                                <FaCircle
+                                className="text-green-500 mr-4"
+                                />
+                                <p className="font-semibold">0 pré-requisitos restantes</p>
+                            </div>
+                            <div className="flex flex-row lg:ml-4 items-center">
+                                <FaCircle
+                                className="text-yellow-500 mr-4"
+                                />
+                                <p className="font-semibold">Faltam {"<"} 50% pré-requisitos</p>
+                            </div>
+                            <div className="flex flex-row lg:ml-4 items-center">
+                                <FaCircle
+                                className="text-red mr-4"
+                                />
+                                <p className="font-semibold">Faltam {">"} 50% pré-requisitos</p>
+                            </div>
                         </div>
                     </div>
                     <h2 className="text-purple-dark text-2xl font-bold mt-12 mb-8">PROGRESSO DO ALUNO</h2>
                     <div className="w-full flex lg:flex-row flex-col items-center lg:mb-12">
                         <div className="lg:w-1/3 bg-gray-100 w-full h-full border border-purple-dark rounded-2xl flex flex-col items-center justify-center shadow-xl lg:mr-4 mb-8 p-4">
-                            <Link href={"/disciplines"}>
+                            <Link href={"/obrigatorias"}>
                             <h2 className="text-purple-dark text-xl font-semibold mb-4 cursor-pointer">Matérias Obrigatórias</h2>
                             </Link>
-                            <label className="text-purple-dark self-end mr-12">{compulsory}%</label>
-                            <ProgressBar progress={compulsory} />
+                            <label className="text-purple-dark self-end mr-12">{porcentagem.obrigatorias}%</label>
+                            <ProgressBar progress={porcentagem.obrigatorias} />
+                            <label className="text-purple-dark self-end mr-12">{integralizado.obrigatorias}h/{horas.obrigatorias}h</label>
                         </div>
                         <div className="hidden lg:block w-0.5 h-2/3 bg-purple-dark mb-8"></div>
                         <div className="lg:w-1/3 bg-gray-100 w-full h-full border border-purple-dark rounded-2xl flex flex-col items-center justify-center shadow-xl lg:mr-4 lg:ml-4 mb-8 p-4">
+                            <Link href={"/eletivas"}>
                             <h2 className="text-purple-dark text-xl font-semibold mb-4">Matérias eletivas</h2>
-                           
-                            <label className="text-purple-dark self-end mr-12">{electives}%</label>
-                            <ProgressBar progress={electives} />
+                            </Link>
+                            <label className="text-purple-dark self-end mr-12">{porcentagem.eletivas}%</label>
+                            <ProgressBar progress={porcentagem.eletivas} />
+                            <label className="text-purple-dark self-end mr-12">{integralizado.eletivas}h/{horas.eletivas}h</label>
                         </div>
                         <div className="hidden lg:block w-0.5 h-2/3 bg-purple-dark mb-8"></div>
                         <div className="lg:w-1/3 bg-gray-100 w-full h-full border border-purple-dark rounded-2xl flex flex-col items-center justify-center shadow-xl lg:ml-4 mb-8 p-4">
+                            <Link href={"/horas-complementares"}>
                             <h2 className="text-purple-dark text-xl font-semibold mb-4">Horas complementares</h2>
-                            <label className="text-purple-dark self-end mr-12">{hours}%</label>
-                            <ProgressBar progress={hours} />
+                            </Link>
+                            <label className="text-purple-dark self-end mr-12">{porcentagem.complementares}%</label>
+                            <ProgressBar progress={porcentagem.complementares} />
+                            <label className="text-purple-dark self-end mr-12">{integralizado.complementares}h/{horas.complementares}h</label>
                         </div>
                     </div>
                 </div>

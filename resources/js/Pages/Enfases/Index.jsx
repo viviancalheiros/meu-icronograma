@@ -1,8 +1,9 @@
 import React from 'react';
 import Header from '@/Components/Header';
 import Footer from '@/Components/Footer';
-import DisciplineBox from '@/Components/DisciplineBox';
+import DisciplineBox from '@/Components/DisciplinaBox';
 import ProgressBar from '@/Components/ProgressBar';
+import { FaCircle } from "react-icons/fa";
 
 
 const emphasesData = [
@@ -10,44 +11,44 @@ const emphasesData = [
         name: 'Computação visual',
         progress: 20,
         disciplines: [
-            { name: 'Cálculo 3', status: 'yes', type: 'disciplina' },
-            { name: 'Aprendizagem de Máquina', status: 'no', type: 'disciplina' },
-            { name: 'Redes neurais e aprendizado profundo', status: 'no', type: 'disciplina' },
-            { name: 'Processamento digital de imagens', status: 'no', type: 'disciplina' },
-            { name: 'Visão computacional', status: 'no', type: 'disciplina' },
+            { name: 'Cálculo 3', status: 'yes', type: 'eletiva', pago: 'yes' },
+            { name: 'Aprendizagem de Máquina', status: 'no', type: 'eletiva' },
+            { name: 'Redes neurais e aprendizado profundo', status: 'no', type: 'eletiva' },
+            { name: 'Processamento digital de imagens', status: 'no', type: 'eletiva' },
+            { name: 'Visão computacional', status: 'no', type: 'eletiva' },
         ]
     },
     {
         name: 'Sistemas inteligentes',
         progress: 80,
         disciplines: [
-            { name: 'Cálculo 3', status: 'yes', type: 'disciplina' },
-            { name: 'Aprendizagem de Máquina', status: 'yes', type: 'disciplina' },
-            { name: 'Redes neurais e aprendizado profundo', status: 'yes', type: 'disciplina' },
-            { name: 'Computação evolucionária', status: 'no', type: 'disciplina' },
-            { name: 'Ciência de dados', status: 'yes', type: 'disciplina' },
+            { name: 'Cálculo 3', status: 'yes', type: 'eletiva', pago: 'yes' },
+            { name: 'Aprendizagem de Máquina', status: 'yes', type: 'eletiva' },
+            { name: 'Redes neurais e aprendizado profundo', status: 'yes', type: 'eletiva' },
+            { name: 'Computação evolucionária', status: 'no', type: 'eletiva' },
+            { name: 'Ciência de dados', status: 'yes', type: 'eletiva' },
         ]
     },
     {
         name: 'Sistemas de computação',
         progress: 20,
         disciplines: [
-            { name: 'Cálculo 3', status: 'yes', type: 'disciplina' },
-            { name: 'Sistemas digitais', status: 'no', type: 'disciplina' },
-            { name: 'FPGA', status: 'no', type: 'disciplina' },
-            { name: 'Sistemas embarcados', status: 'no', type: 'disciplina' },
-            { name: 'Microcontroladores e aplicações', status: 'no', type: 'disciplina' },
+            { name: 'Cálculo 3', status: 'yes', type: 'eletiva',pago: 'yes' },
+            { name: 'Sistemas digitais', status: 'no', type: 'eletiva' },
+            { name: 'FPGA', status: 'no', type: 'eletiva' },
+            { name: 'Sistemas embarcados', status: 'no', type: 'eletiva' },
+            { name: 'Microcontroladores e aplicações', status: 'no', type: 'eletiva' },
         ]
     },
     {
         name: 'Sistemas de informação',
         progress: 0,
         disciplines: [
-            { name: 'Conceitos de linguagem de programação', status: 'no', type: 'disciplina' },
-            { name: 'Sistemas distribuidos', status: 'no', type: 'disciplina' },
-            { name: 'Interação homem-máquina', status: 'no', type: 'disciplina' },
-            { name: 'Gerência de projeto', status: 'no', type: 'disciplina' },
-            { name: 'Segurança de sistemas computacionais', status: 'no', type: 'disciplina' },
+            { name: 'Conceitos de linguagem de programação', status: 'no', type: 'eletiva' },
+            { name: 'Sistemas distribuidos', status: 'no', type: 'eletiva' },
+            { name: 'Interação homem-máquina', status: 'no', type: 'eletiva' },
+            { name: 'Gerência de projeto', status: 'no', type: 'eletiva' },
+            { name: 'Segurança de sistemas computacionais', status: 'no', type: 'eletiva' },
         ]
     }
 ];
@@ -80,12 +81,33 @@ export default function EmphasisPage() {
                                         name={discipline.name}
                                         status={discipline.status}
                                         type={discipline.type}
+                                        pago={discipline.pago}
                                     />
                                 ))}
                             </div>
                         </div>
                     ))}
                 </div>
+
+                <div className="w-3/4 text-purple-dark mt-8 flex flex-col mx-auto">
+        <div className="w-full self-start">
+            <p className="text-lg font-bold mb-2 text-shadow-sm">Legenda:</p>
+        </div>
+        <div className="w-full flex flex-col items-center lg:flex-row lg:justify-between">
+            <div className="flex flex-row lg:ml-4 mr-3.5 items-center">
+            <FaCircle className="text-green-500 mr-4" />
+            <p className="font-semibold">0 pré-requisitos restantes</p>
+            </div>
+            <div className="flex flex-row lg:ml-4 items-center">
+            <FaCircle className="text-yellow-500 mr-4" />
+            <p className="font-semibold">Faltam {"<"} 50% pré-requisitos</p>
+            </div>
+            <div className="flex flex-row lg:ml-4 items-center">
+            <FaCircle className="text-red mr-4" />
+            <p className="font-semibold">Faltam {">"} 50% pré-requisitos</p>
+            </div>
+        </div>
+        </div>
             </main>
             <Footer />
         </div>
