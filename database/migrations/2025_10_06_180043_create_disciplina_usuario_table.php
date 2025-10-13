@@ -13,16 +13,15 @@ return new class extends Migration
     {
         Schema::create('disciplina_usuario', function (Blueprint $table) {
             $table->id();
-
-            $table->string("cod_diciplina");
+            $table->string("cod_disciplina");
             $table->foreignId('id_usuario')->constrained('usuarios','id')->cascadeOnDelete();
-            $table->foreignId('id_diciplina')->constrained('disciplians','id')->cascadeOnDelete();
+            $table->foreignId('id_disciplina')->constrained('disciplinas','id')->cascadeOnDelete();
             $table->string("professor");
             $table->string("bloco");
             $table->decimal("media");
             $table->text("anotacao");
             $table->boolean("concluida");
-            $table->integer("periodo");
+            $table->integer("periodo_pago");
             $table->timestamps();
         });
     }

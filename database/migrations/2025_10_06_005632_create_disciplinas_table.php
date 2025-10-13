@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("nome");
             $table->integer("horas");
-            $table->boolean('tipo_diciplina');
+            $table->boolean('tipo_disciplina');
             $table->integer("periodo")->nullable();
             $table->timestamps();
         });

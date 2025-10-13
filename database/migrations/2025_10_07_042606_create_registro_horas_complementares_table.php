@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('registro_horas_complementares', function (Blueprint $table) {
+        Schema::create('registros_horas_complementares', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_usuario')->constrained('usuarios','id')->cascadeOnDelete();
             $table->foreignId('id_tipo_hora')->constrained('tipos_horas_complemetares','id')->cascadeOnDelete();
