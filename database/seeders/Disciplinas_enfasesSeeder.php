@@ -119,12 +119,6 @@ class Disciplinas_enfasesSeeder extends Seeder
             ],
             [
                 "id_enfase" => 4,
-                "id_disciplina" => 29,
-                "updated_at" => Carbon::now(),
-                "created_at" => Carbon::now()
-            ],
-            [
-                "id_enfase" => 4,
                 "id_disciplina" => 32,
                 "updated_at" => Carbon::now(),
                 "created_at" => Carbon::now()
