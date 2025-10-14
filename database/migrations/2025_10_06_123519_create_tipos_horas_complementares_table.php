@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tipos_horas_complemetares', function (Blueprint $table) {
+        Schema::create('tipos_horas_complementares', function (Blueprint $table) {
             $table->id();
             $table->string("codigo_tipo_hora");
             $table->integer('minutos');
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tipos_horas_complemetares');
+        Schema::dropIfExists('tipos_horas_complementares');
     }
 };
