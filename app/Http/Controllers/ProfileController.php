@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Support\Facades\Hash;  //p criptografar a senha
 
 class ProfileController extends Controller
 {
@@ -18,7 +19,13 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): Response
     {
-        return Inertia::render('Profile/Edit', [
+        return Inertia::render('Perfil', [
+            'user' => [
+                'name' => $request->user()->nome,
+
+                'registration' => $request->user()->matricula,
+            ],
+            //essa parte abaixo ja tava no cod, manter pra compatibilidade 
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
         ]);
@@ -29,24 +36,34 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $user = $request->user();
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        //pego todos os dados validados(nome, matricula, senha etc)
+        $validatedData = $request->validated();
+
+        $updateData = [
+            'nome' => $validatedData['name'],
+            'matricula' => $validatedData['registration'],
+        ];
+
+        // Att Nome e Matrícula
+        $user->fill($updateData);
+
+        // se o campo password foi preenchido
+        if (!empty($validatedData['password'])) {
+            // se sim, criptografa a nova senha. O campo no Model é 'senha'.
+            $user->senha = Hash::make($validatedData['password']);
         }
 
-        $request->user()->save();
+        $user->save();
 
-        return Redirect::route('profile.edit');
+        return Redirect::route('profile.edit')->with('status', 'Perfil atualizado com sucesso!');
     }
 
-    /**
-     * Delete the user's account.
-     */
     public function destroy(Request $request): RedirectResponse
     {
         $request->validate([
-            'password' => ['required', 'current_password'],
+            'password' => ['required', 'current_password'], 
         ]);
 
         $user = $request->user();
