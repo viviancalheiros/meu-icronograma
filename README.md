@@ -39,6 +39,7 @@ npm install
 php artisan migrate
 ```
 Caso não exista um banco com esse nome, digite "yes" quando solicitado para criá-lo.
+
 9. Gere a chave de segurança:
 ```
 php artisan key:generate
