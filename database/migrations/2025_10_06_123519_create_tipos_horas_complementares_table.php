@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('tipos_horas_complementares', function (Blueprint $table) {
             $table->id();
-            $table->string("codigo_tipo_hora");
+            $table->string('codigo_tipo_hora');
             $table->integer('minutos');
             $table->text('descricao');
             $table->timestamps();   

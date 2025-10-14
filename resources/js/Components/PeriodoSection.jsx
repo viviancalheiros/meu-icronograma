@@ -14,7 +14,7 @@ export default function PeriodoSection ({periodo, disciplinas}) {
                         nome={disciplina.nome}
                         periodo={disciplina.periodo}
                         tipo={disciplina.tipo}
-                        status={disciplina.usuario_.status}
+                        status={disciplina.status}
                         pago={disciplina.pago}
                         />
                     ))}
