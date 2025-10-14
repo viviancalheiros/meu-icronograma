@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\ProfileController;
 
 Route::middleware('guest')->group(function () {
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
@@ -80,7 +81,10 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('Enfases/Index');
     });
 
-    Route::get('/perfil', function () {
-        return Inertia::render('Perfil');
-    });
+    Route::get('/perfil', [ProfileController::class, 'edit'])
+        ->name('profile.edit');
+    
+    //rota usada pelo useForm para enviar a atualização dos dados (chama o método update)
+    Route::patch('/perfil', [ProfileController::class, 'update'])->name('profile.update');
+
 });

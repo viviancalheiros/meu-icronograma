@@ -136,6 +136,6 @@ class Tipos_horas_complementaresSeeder extends Seeder
             ]   
         ];
    
-        DB::table("tipos_horas_complemetares")->insert($tipos_horas_complementares);
+        DB::table("tipos_horas_complementares")->insert($tipos_horas_complementares);
     }
 }

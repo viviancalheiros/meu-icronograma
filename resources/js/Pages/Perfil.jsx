@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Button from "@/Components/Button";
 import { Link, useForm, usePage } from "@inertiajs/react";
@@ -7,34 +7,59 @@ import Footer from "@/Components/Footer";
 import InputError from "@/Components/InputError";
 
 export default function Perfil() {
+    const { props } = usePage();
+    const { user, status } = props;
 
-    // const initialName = user?.name;
-    // const initialRegistration = user?.registration;
+    const initialName = user?.name || '';
+    const initialRegistration = user?.registration || '';
 
-    const { data, setData, post, processing, errors} = useForm({
-        nome: '',
-        matricula: '',
-        senha: '',
-    })
+    const { data, setData, patch, processing, errors, reset, recentlySuccessful} = useForm({
+        name: initialName,
+        registration: initialRegistration,
+        password: '',
+    });
 
-    // const isChanged =
-    //     data.name != initialName || data.registration != initialRegistration;
+    const isChanged =
+        data.name != initialName ||
+        data.registration != initialRegistration ||
+        data.password !== '';
 
     const [ showPassword, setShowPassword] = useState(false);
 
+    //p limpar o campo de senha apos a att ter sucesso
+    useEffect( () => {
+        if (recentlySuccessful){
+            reset('password');
+        }
+    }, [recentlySuccessful, reset]);
+
+
     const handleSave = (e) => {
         e.preventDefault();
+
+        patch(route('profile.update'), {
+            preserveScroll: true,
+        });
     }
 
     return (
         <>
             <Header />
-            <div className="w-full h-full flex flex-col items-center justify-center font-roboto">
+            <div className="w-full h-full flex flex-col items-center justify-center font-roboto min-h-screen p-4">
                 <div className="w-full h-1/5 flex flex-col items-center justify-center mt-8">
                     <h1 className="text-3xl text-purple-dark font-bold mb-8">PERFIL</h1>
                     <div className="w-full h-1 scale-y-50 bg-purple-dark"></div>
                 </div>
-                <form 
+
+
+                {/* Mensagens de feedback */}
+                {(status || recentlySuccessful) && (
+                    <div className="mt-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+                        {status || 'Perfil atualizado com sucesso!'}
+                    </div>
+                )}
+               
+                <form
                 className="lg:w-1/4 md:w-1/2 w-4/5 h-4/5 flex flex-col items-center mt-12 mb-12"
                 onSubmit={handleSave}
                 >
@@ -42,56 +67,65 @@ export default function Perfil() {
                         NOME</label>
                     <input
                     type="text"
-                    value={data.nome}
+                    // Vincula a chave 'name'
+                    value={data.name}
                     onChange={(e) => setData('name', e.target.value)}
                     className="w-full bg-purple-dark rounded-xl text-white
-                            focus:outline-none focus:ring-2 focus:ring-purple-light"
-                    ></input>
-                    <InputError message={errors.nome} />
+                            focus:outline-none focus:ring-2 focus:ring-purple-light p-2 mt-1"
+                    />
+                    <InputError message={errors.name} /> {/* Exibe erro para 'name' */}
+                   
                     <label className="text-purple-dark font-bold text-lg self-start mt-8">
                         MATRÍCULA</label>
                     <input
                     type="text"
-                    value={data.matricula}
+                    // Vincula a chave 'registration'
+                    value={data.registration}
                     onChange={(e) => setData('registration', e.target.value)}
                     className="w-full bg-purple-dark rounded-xl text-white
-                            focus:outline-none focus:ring-2 focus:ring-purple-light"
-                    ></input>
-                    <InputError message={errors.matricula} />
+                            focus:outline-none focus:ring-2 focus:ring-purple-light p-2 mt-1"
+                    />
+                    <InputError message={errors.registration} /> {/* Exibe erro para 'registration' */}
+                   
                     <label className="text-purple-dark font-bold text-lg self-start mt-8">
-                        SENHA</label>
+                        SENHA (Preencha para alterar)</label>
                     <div className="relative w-full">
                         <input
                         type={showPassword ? "text" : "password"}
-                        value={data.senha}
+                        // Vincula a chave 'password'
+                        value={data.password}
                         onChange={(e) => setData('password', e.target.value)}
                         className="w-full bg-purple-dark rounded-xl text-white
-                                focus:outline-none focus:ring-2 focus:ring-purple-light"
-                        ></input>
+                                focus:outline-none focus:ring-2 focus:ring-purple-light p-2 mt-1"
+                        />
                         <button
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-white"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-white"
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
                         >
-                        {showPassword ? <FiEye />:<FiEyeOff />}
+                        {showPassword ? <FiEye /> : <FiEyeOff />}
                         </button>
                     </div>
-                    <div className="w-full flex lg:flex-row flex-col justify-between items-center mt-12">
-                        <Button
-                            value={processing ? "SALVANDO..." : "SALVAR"} 
-                            className={`text-white 
-                                ${processing ? 'bg-gray-400 cursor-not-allowed' : 'bg-purple-dark'}`}
-                            // disabled={processing || !isChanged}
+                    <InputError message={errors.password} /> {/* Exibe erro para 'password' */}
 
+
+                    <div className="w-full flex lg:flex-row flex-col justify-between items-center mt-12 space-y-4 lg:space-y-0">
+                        <Button
+                            value={processing ? "SALVANDO..." : "SALVAR"}
+                            className={`text-white w-full lg:w-auto
+                                ${processing || !isChanged ? 'bg-gray-400 cursor-not-allowed' : 'bg-purple-dark hover:bg-purple-light'}`}
+                            disabled={processing || !isChanged}
                         />
                         <Link
                             href={route('logout')}
                             method="post"
                             as="button"
+                            className="w-full lg:w-auto"
                         >
-                            <Button 
-                            value={"DESCONECTAR"} 
-                            className="bg-white border border-purple-dark text-purple-dark lg:mt-0 mt-2"
+                            <Button
+                            value={"DESCONECTAR"}
+                            className="bg-white border border-purple-dark text-purple-dark hover:bg-purple-light hover:text-white transition w-full"
+                            type="button"
                             />
                         </Link>
                     </div>
