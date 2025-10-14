@@ -58,7 +58,6 @@ export default function Cadastro () {
                             <input
                                 type='text'
                                 placeholder='Nome'
-                                required
                                 value={data.name}
                                 onChange={e => setData('name', e.target.value)}
                                 className='lg:bg-white lg:text-purple-dark text-white bg-purple-dark h-12 pl-4 mb-1 rounded-2xl text-sm w-full
@@ -72,7 +71,6 @@ export default function Cadastro () {
                             <input
                                 type='email'
                                 placeholder='E-mail'
-                                required
                                 value={data.email}
                                 onChange={e => setData('email', e.target.value)}
                                 className='lg:bg-white lg:text-purple-dark text-white bg-purple-dark h-12 pl-4 mb-1 rounded-2xl text-sm w-full
@@ -86,7 +84,6 @@ export default function Cadastro () {
                             <input
                                 type='text'
                                 placeholder='Matrícula'
-                                required
                                 value={data.registration}
                                 onChange={e => setData('registration', e.target.value)}
                                 className='lg:bg-white lg:text-purple-dark text-white bg-purple-dark h-12 pl-4 mb-1 rounded-2xl text-sm w-full
@@ -100,7 +97,6 @@ export default function Cadastro () {
                             <input
                                 type='password'
                                 placeholder='Senha'
-                                required
                                 value={data.password}
                                 onChange={e => setData('password', e.target.value)}
                                 className='lg:bg-white lg:text-purple-dark text-white bg-purple-dark h-12 pl-4 mb-1 rounded-2xl text-sm w-full
@@ -114,7 +110,6 @@ export default function Cadastro () {
                             <input
                                 type='password'
                                 placeholder='Confirmar Senha'
-                                required
                                 value={data.password_confirmation}
                                 onChange={e => setData('password_confirmation', e.target.value)}
                                 className='lg:bg-white lg:text-purple-dark text-white bg-purple-dark h-12 pl-4 rounded-2xl text-sm w-full

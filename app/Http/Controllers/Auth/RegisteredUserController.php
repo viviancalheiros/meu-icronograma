@@ -30,13 +30,26 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        $messages = [
+            'password_confirmation.same' => 'As senhas devem ser iguais.',
+
+            'name.required' => 'O campo nome é obrigatório.',
+            'email.unique' => 'E-mail já cadastrado.',
+            'email.required' => 'O campo e-mail é obrigatório.',
+            'registration.required' => 'O campo matrícula é obrigatório.',
+            'registration.unique' => 'Matrícula já cadastrada.',
+            'password.min' => 'A senha deve ter no mínimo 8 caracteres.',
+            'password.required' => 'O campo senha é obrigatório.',
+        ];
+
         //nomes no front
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:usuarios,e-mail',
             'registration' => 'required|string|max:255|unique:usuarios,matricula',
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+            'password' => ['required', Rules\Password::defaults()],
+            'password_confirmation' => ['required', 'same:password'],
+        ], $messages);
 
         //nomes no banco
         $user = User::create([
