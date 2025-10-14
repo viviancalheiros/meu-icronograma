@@ -1,3 +1,5 @@
+tipos hpras complementares
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -13,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('tipos_horas_complemetares', function (Blueprint $table) {
             $table->id();
-            $table->string("codigo_diciplina");
+            $table->string("codigo_tipo_hora");
             $table->integer('minutos');
             $table->text('descricao');
-            $table->timestamps();
+            $table->timestamps();   
         });
     }
 

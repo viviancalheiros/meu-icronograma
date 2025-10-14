@@ -8,7 +8,7 @@
 
 ## Requisitos de software
 Instale as ferramentas na seguinte ordem:
-1. XAMPP baixado e instalado com as dependências MySQL, PHP e Apache
+1. XAMPP baixado e instalado com as dependências PHP e Apache
 2. Composer baixado e instalado sem ser na versão dev
 3. Nvm (Node Version Manager)
 4. Git Bash
@@ -34,24 +34,17 @@ npm install
 5. Abra o XAMPP e vá em Admin do MySQL
 6. Crie uma base de dados no phpMyAdmin - nessa parte do projeto ainda não precisa de tabelas - usando o nome de meu-icronograma
 7. Duplique o arquivo .env.example e renomeie para .env
-8. Abra o arquivo .env e configure a conexão com o banco de dados:
-```
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=meu-icronograma
-DB_USERNAME=root
-DB_PASSWORD=
-```
-9. Banco configurado, execute as migrações para criar as tabelas no banco - mesmo que elas ainda não existam:
+8. Banco configurado, execute as migrações para criar as tabelas no banco:
 ```
 php artisan migrate
 ```
-10. Gere a chave de segurança:
+Caso não exista um banco com esse nome, digite "yes" quando solicitado para criá-lo.
+
+9. Gere a chave de segurança:
 ```
 php artisan key:generate
 ```
-11. Abra dois terminais e execute:
+10. Abra dois terminais e execute:
 ```
 php artisan serve
 p/o servidor do laravel
