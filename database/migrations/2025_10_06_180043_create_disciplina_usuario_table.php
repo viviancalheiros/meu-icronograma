@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('disciplina_usuario', function (Blueprint $table) {
             $table->id();
-
-            $table->string("cod_diciplina");
+            $table->string("cod_disciplina");
             $table->foreignId('id_usuario')->constrained('usuarios','id')->cascadeOnDelete();
             $table->foreignId('id_diciplina')->constrained('disciplians','id')->cascadeOnDelete();
             $table->string("professor");
@@ -22,7 +21,7 @@ return new class extends Migration
             $table->decimal("media");
             $table->text("anotacao");
             $table->boolean("concluida");
-            $table->integer("periodo");
+            $table->integer("periodo_pago");
             $table->timestamps();
         });
     }
