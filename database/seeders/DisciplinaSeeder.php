@@ -154,6 +154,14 @@ class DisciplinaSeeder extends Seeder
                 "created_at" => Carbon::now()
             ],
             [
+                "nome" => "ACE 1",
+                "horas" => 75,
+                "tipo_diciplina" => true,
+                "periodo" => 4,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+            [
                 "nome" => "Sistemas Operacionais",
                 "horas" => 72,
                 "tipo_diciplina" => true,
@@ -186,8 +194,24 @@ class DisciplinaSeeder extends Seeder
                 "created_at" => Carbon::now()
             ],
             [
+                "nome" => "ACE 2",
+                "horas" => 75,
+                "tipo_diciplina" => true,
+                "periodo" => 5,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+            [
                 "nome" => "Projeto e Desenvolvimento de Sistemas",
                 "horas" => 288,
+                "tipo_diciplina" => true,
+                "periodo" => 6,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+            [
+                "nome" => "ACE 3",
+                "horas" => 75,
                 "tipo_diciplina" => true,
                 "periodo" => 6,
                 "updated_at" => Carbon::now(),
@@ -206,6 +230,22 @@ class DisciplinaSeeder extends Seeder
                 "horas" => 72,
                 "tipo_diciplina" => true,
                 "periodo" => 7,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+            [
+                "nome" => "ACE 4",
+                "horas" => 75,
+                "tipo_diciplina" => true,
+                "periodo" => 7,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+            [
+                "nome" => "ACE 5",
+                "horas" => 75,
+                "tipo_diciplina" => true,
+                "periodo" => 8,
                 "updated_at" => Carbon::now(),
                 "created_at" => Carbon::now()
             ],
