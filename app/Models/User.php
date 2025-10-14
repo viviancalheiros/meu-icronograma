@@ -24,7 +24,7 @@ class User extends Authenticatable
     protected $table = 'usuarios';
     
     public function getAuthPassword() {
-        return $this->senha;
+        return $this->password;
     }
 
     protected $fillable = [

@@ -8,23 +8,35 @@ use Illuminate\Validation\Rule;
 
 class ProfileUpdateRequest extends FormRequest
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
+
+    public function authorize():bool{
+        return true; //somente usuarios com autenticacao podem att o perfil
+    }
+
+
     public function rules(): array
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => [
+
+            //validacao p matricula
+            'registration' => [
                 'required',
                 'string',
-                'lowercase',
-                'email',
                 'max:255',
-                Rule::unique(User::class)->ignore($this->user()->id),
+                Rule::unique('usuarios', 'matricula')->ignore($this->user()->id),
             ],
+
+            //p validar senha (opcional)
+            'password' => ['nullable', 'string', 'min:8'],
+        ];
+    }
+
+    public function attributes(): array{
+        return [
+            'name' => 'Nome',
+            'registration' => 'Matrícula',
+            'password' => 'Senha',
         ];
     }
 }
