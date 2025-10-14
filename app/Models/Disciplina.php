@@ -18,21 +18,21 @@ class Disciplina extends Model
     protected $fillable = [
         'nome',
         'horas',
-        'tipo_diciplina',
+        'tipo_disciplina',
         'periodo',
     ];
 
     protected $casts = [
-        'tipo_diciplina' => 'boolean',
+        'tipo_disciplina' => 'boolean',
     ];
 
-    protected function tipo(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => $this->attributes['tipo_diciplina'],
-            set: fn ($value) => [
-                'tipo_diciplina' => $value,
-            ],
-        );
-    }
+    // protected function tipo(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn () => $this->attributes['tipo_disciplina'],
+    //         set: fn ($value) => [
+    //             'tipo_disciplina' => $value,
+    //         ],
+    //     );
+    // }
 }

@@ -11,7 +11,7 @@ class DisciplinaController extends Controller
     public function listarObrigatorias()
     {
         $disciplinasObrigatorias = Disciplina::query()
-            ->where('tipo_diciplina', true)
+            ->where('tipo_disciplina', true)
             ->orderBy('periodo')
             ->get();
 
