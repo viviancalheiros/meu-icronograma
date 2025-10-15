@@ -49,6 +49,18 @@ class User extends Authenticatable
         return $this->hasMany(ComplementaryActivity::class);
     }
 
+    public function disciplinas()
+    {
+        return $this->belongsToMany(Disciplina::class, 'disciplina_usuario', 'id_usuario', 'id_disciplina')
+                    ->withPivot(['cod_disciplina', 'professor', 'bloco', 'media', 'anotacao', 'concluida', 'equivalencia_aceita', 'periodo_pago'])
+                    ->withTimestamps();
+    }
+
+    public function usuarioDisciplinas()
+    {
+        return $this->hasMany(UsuarioDisciplina::class, 'id_usuario');
+    }
+
     /**
      * Get the attributes that should be cast.
      *

@@ -11,6 +11,7 @@ export default function DisciplineModal({
   prerequisites = [],
   options = [],
   defaults = {},
+  loading = false,
 }) {
   const [code, setCode] = useState(defaults.code ?? '')
   const [professor, setProfessor] = useState(defaults.professor ?? '')
@@ -147,9 +148,9 @@ export default function DisciplineModal({
               <input
                 value={periodoPago}
                 onChange={(e)=>setPeriodoPago(e.target.value)}
-                disabled={status !== 'concluida'}
-                className={`w-full rounded-lg border border-purple-dark px-3 py-2 outline-none ${status !== 'concluida' ? 'bg-gray-100 cursor-not-allowed' : ''}`}
-                placeholder={status !== 'concluida' ? 'Selecione "concluída"' : 'Ex: 2023.1'}
+                disabled={!status}
+                className={`w-full rounded-lg border border-purple-dark px-3 py-2 outline-none ${!status ? 'bg-gray-100 cursor-not-allowed' : ''}`}
+                placeholder={!status ? 'Selecione um status' : 'Ex: 2023.1'}
               />
             </Field>
           </div>
@@ -157,21 +158,35 @@ export default function DisciplineModal({
           <div className="space-y-3 text-purple-dark">
             <label className="block font-semibold">Status da disciplina:</label>
             <div className="space-y-2">
-              <label className="flex items-center gap-3">
+              <label className="flex items-center gap-3 cursor-pointer">
                 <input 
-                  type="radio" 
+                  type="checkbox" 
                   checked={status === 'concluida'} 
-                  onChange={()=>setStatus('concluida')}
-                  className="w-4 h-4 text-purple-dark"
+                  onChange={()=>{
+                    if (status === 'concluida') {
+                      setStatus(null); // Desmarcar
+                      setPeriodoPago(''); // Resetar período quando desmarcar
+                    } else {
+                      setStatus('concluida'); // Marcar e desmarcar outros
+                    }
+                  }}
+                  className="w-4 h-4 text-purple-dark rounded"
                 />
                 <span>Disciplina concluída</span>
               </label>
-              <label className="flex items-center gap-3">
+              <label className="flex items-center gap-3 cursor-pointer">
                 <input 
-                  type="radio" 
+                  type="checkbox" 
                   checked={status === 'pagando'} 
-                  onChange={()=>setStatus('pagando')}
-                  className="w-4 h-4 text-purple-dark"
+                  onChange={()=>{
+                    if (status === 'pagando') {
+                      setStatus(null); // Desmarcar
+                      setPeriodoPago(''); // Resetar período quando desmarcar
+                    } else {
+                      setStatus('pagando'); // Marcar e desmarcar outros
+                    }
+                  }}
+                  className="w-4 h-4 text-purple-dark rounded"
                 />
                 <span>Pagando atualmente</span>
               </label>
@@ -199,13 +214,29 @@ export default function DisciplineModal({
 
         <div className="mb-2 sm:mb-8">
           <h2 className="mb-2 text-lg sm:text-xl font-semibold text-purple-dark">Pré requisitos:</h2>
-          <ul className="list-disc space-y-1 pl-6 text-purple-dark">
-            {prerequisites.map((p) => (
-              <li key={p.id ?? p.name} className={p.done ? 'line-through opacity-70' : ''}>
-                {p.name}
-              </li>
-            ))}
-          </ul>
+          {prerequisites.length > 0 ? (
+            <ul className="list-disc space-y-1 pl-6 text-purple-dark">
+              {prerequisites.map((p) => (
+                <li key={p.id ?? p.name} className={p.done ? 'line-through opacity-70' : ''}>
+                  {p.name}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+              <div className="flex items-center">
+                <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                <span className="text-green-700 font-medium">
+                  Esta disciplina não possui pré-requisitos!
+                </span>
+              </div>
+              <p className="text-green-600 text-sm mt-1 ml-7">
+                Você pode cursar esta matéria a qualquer momento.
+              </p>
+            </div>
+          )}
         </div>
       </div>
 
@@ -213,10 +244,11 @@ export default function DisciplineModal({
       <div className="shrink-0 bg-white px-4 py-3 sm:px-6 sm:py-2">
         <div className="flex justify-end">
           <Button
-            className="bg-purple-light rounded-xl px-6 py-3 text-white hover:bg-purple-dark"
+            className="bg-purple-light rounded-xl px-6 py-3 text-white hover:bg-purple-dark disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={handleSave}
+            disabled={loading}
           >
-            SALVAR
+            {loading ? 'SALVANDO...' : 'SALVAR'}
           </Button>
         </div>
       </div>

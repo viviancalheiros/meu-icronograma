@@ -7,33 +7,29 @@ import Footer from "@/Components/Footer";
 import { FaCircle } from "react-icons/fa";
 
 export default function Home () {
-    const props = usePage().props;
+    const { disciplinasPagando, disciplinasConcluidas, horasCalculadas } = usePage().props;
+    
+    // Usar dados dinâmicos do servidor ou valores padrão
     const horas = {
-        total: props.horasTotal || 3747,
-        obrigatorias: props.horasObrigatorias || 2571,
-        eletivas: props.horasEletivas || 936,
-        complementares: props.horasComplementares || 240
+        total: horasCalculadas?.total?.curso || 0,
+        obrigatorias: horasCalculadas?.obrigatorias?.curso || 0,
+        eletivas: horasCalculadas?.eletivas?.curso || 0,
+        complementares: horasCalculadas?.complementares?.curso || 0
     };
+    
     const porcentagem = {
-        total: props.porcentagemTotal || 67, 
-        obrigatorias: props.porcentagemObrigatorias = 50, 
-        eletivas: props.porcentagemEletivas = 40, 
-        complementares: props.porcentagemComplementares = 80
+        total: horasCalculadas?.total?.porcentagem || 0,
+        obrigatorias: horasCalculadas?.obrigatorias?.porcentagem || 0,
+        eletivas: horasCalculadas?.eletivas?.porcentagem || 0,
+        complementares: horasCalculadas?.complementares?.porcentagem || 0
     };
+    
     const integralizado = {
-        total: props.integralizadoTotal = 2345,  
-        obrigatorias: props.integralizadoObrigatorias = 1300, 
-        eletivas: props.integralizadoEletivas = 360, 
-        complementares: props.integralizadoComplementares = 192 
+        total: horasCalculadas?.total?.concluidas || 0,
+        obrigatorias: horasCalculadas?.obrigatorias?.concluidas || 0,
+        eletivas: horasCalculadas?.eletivas?.concluidas || 0,
+        complementares: horasCalculadas?.complementares?.concluidas || 0
     };
-
-    const disciplinas = [
-        { id: 1, nome: "Microcontroladores", status: "sim", tipo: "eletiva" },
-        { id: 2, nome: "Programação 3", status: "sim", tipo: "obrigatoria" },
-        { id: 3, nome: "Redes de Computadores", status: "nao", tipo: "obrigatoria" },
-        { id: 4, nome: "Teoria dos Grafos", status: "talvez", tipo: "obrigatoria" },
-        { id: 5, nome: "Estrutura de Dados", status: "talvez", tipo: "obrigatoria" }
-    ]
 
     return (
         <>
@@ -54,14 +50,31 @@ export default function Home () {
                     <div className="lg:w-3/4 bg-gray-100 h-full flex flex-col items-center border rounded-2xl border-purple-dark shadow-xl p-4">
                         <h2 className="text-purple-dark text-xl font-semibold mb-4">DISCIPLINAS DO SEMESTRE ATUAL</h2>
                         <div className="w-full h-[300px] lg:h-full overflow-y-auto grid lg:grid-cols-4 sm:grid-cols-3 grid-cols-1 gap-4">
-                            {disciplinas.map((disciplina) => (
-                                <DisciplinaBox
-                                key={disciplina.id} 
-                                nome={disciplina.nome}
-                                status={disciplina.status}
-                                tipo={disciplina.tipo}
-                                />
-                            ))}
+                            {disciplinasPagando && disciplinasPagando.length > 0 ? (
+                                disciplinasPagando.map((disciplina) => {
+                                    // Determinar status baseado nos dados do usuário
+                                    const usuarioDisciplina = disciplina.usuario_disciplinas?.[0];
+                                    const pago = usuarioDisciplina?.concluida || false;
+                                    
+                                    return (
+                                        <DisciplinaBox
+                                            key={disciplina.id}
+                                            nome={disciplina.nome}
+                                            periodo={disciplina.periodo}
+                                            tipo={disciplina.tipo_disciplina ? "obrigatoria" : "eletiva"}
+                                            status="nao" // Status será calculado internamente baseado em pré-requisitos
+                                            pago={pago}
+                                            disciplina={disciplina}
+                                            usuarioDisciplina={usuarioDisciplina}
+                                            disciplinasConcluidas={disciplinasConcluidas}
+                                        />
+                                    );
+                                })
+                            ) : (
+                                <div className="col-span-full flex items-center justify-center h-32">
+                                    <p className="text-purple-dark text-lg">Nenhuma disciplina sendo cursada atualmente</p>
+                                </div>
+                            )}
                         </div>
                     </div>
                     <div className="w-3/4 text-purple-dark mt-8 flex flex-col">
