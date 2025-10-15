@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\DisciplinaController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
@@ -69,9 +70,8 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('Duvidas');
     });
 
-    Route::get('/obrigatorias', function () {
-        return Inertia::render('Obrigatorias');
-    });
+    Route::get('/obrigatorias', [DisciplinaController::class, 'listarObrigatorias']
+    )->name('obrigatorias');
 
     Route::get('/eletivas', function () {
         return Inertia::render('Eletivas');

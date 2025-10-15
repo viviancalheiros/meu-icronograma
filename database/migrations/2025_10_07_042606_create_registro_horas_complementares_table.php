@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('id_usuario')->constrained('usuarios','id')->cascadeOnDelete();
             $table->foreignId('id_tipo_hora')->constrained('tipos_horas_complemetares','id')->cascadeOnDelete();
-            $table->string("nome");
-            $table->integer("minutos");
-            $table->string("orientador");
-            $table->string("instituicao");
-            $table->text("anotacoes");
+            $table->string('nome');
+            $table->integer('minutos');
+            $table->string('orientador');
+            $table->string('instituicao');
+            $table->text('anotacoes');
             $table->timestamps();
         });
     }

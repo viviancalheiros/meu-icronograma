@@ -8,9 +8,7 @@ export default function PeriodoSection ({periodo, disciplinas}) {
                 <span className="lg:hidden">º período</span>
             </h2>
             <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-4 w-full">
-                {disciplinas
-                    .filter((disciplina) => disciplina.periodo === periodo)
-                    .map((disciplina) => (
+                {disciplinas.map((disciplina) => (
                         <DisciplinaBox 
                         key={disciplina.id}
                         nome={disciplina.nome}
