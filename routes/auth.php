@@ -62,9 +62,8 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 
-    Route::get('/home', function() {
-        return Inertia::render('Home');
-    })->name('home');
+    Route::get('/home', [DisciplinaController::class, 'listarDisciplinasPagando'])
+        ->name('home');
 
     Route::get('/duvidas', function () {
         return Inertia::render('Duvidas');
@@ -73,9 +72,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/obrigatorias', [DisciplinaController::class, 'listarObrigatorias']
     )->name('obrigatorias');
 
-    Route::get('/eletivas', function () {
-        return Inertia::render('Eletivas');
-    });
+    Route::post('/disciplina-usuario/salvar', [DisciplinaController::class, 'salvarDisciplinaUsuario'])
+        ->name('disciplina-usuario.salvar');
+
+    Route::get('/disciplina-usuario/{disciplinaId}', [DisciplinaController::class, 'obterDadosDisciplinaUsuario'])
+        ->name('disciplina-usuario.obter');
+
+    Route::get('/eletivas', [DisciplinaController::class, 'listarEletivas'])
+        ->name('eletivas');
 
     Route::get('/enfases', function () {
         return Inertia::render('Enfases/Index');

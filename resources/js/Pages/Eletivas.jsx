@@ -2,54 +2,61 @@ import React from 'react';
 import Header from '@/Components/Header';
 import Footer from '@/Components/Footer';
 import DisciplinaBox from '@/Components/DisciplinaBox';
-
-
-const electivesData = [
-    { nome: 'Cálculo 4', status: 'sim', tipo: 'eletiva' },
-    { nome: 'Cálculo Numérico', status: 'sim', tipo: 'eletiva' },
-    { nome: 'Circuitos Digitais', status: 'sim', tipo: 'eletiva' },
-    { nome: 'Fundamentos de Libras', status: 'sim', tipo: 'eletiva' },
-    { nome: 'Geometria Computacional', status: 'sim', tipo: 'eletiva' },
-    { nome: 'Pesquisa Operacional', status: 'sim', tipo: 'eletiva' },
-    { nome: 'Programação para Sistemas Embarcados', status: 'sim', tipo: 'eletiva' },
-    { nome: 'Projeto de Sistemas Embarcados', status: 'sim', tipo: 'eletiva' },
-    { nome: 'Tópicos em Banco de Dados', status: 'sim', tipo: 'eletiva' },
-    { nome: 'Tópicos em Arquitetura de Computadores', status: 'sim', tipo: 'eletiva' },
-    { nome: 'Tópicos em Computação Científica', status: 'sim', tipo: 'eletiva' },
-    { nome: 'Tópicos em Computação Paralela', status: 'sim', tipo: 'eletiva' },
-    { nome: 'Tópicos em Computação Visual', status: 'sim', tipo: 'eletiva' },
-    { nome: 'Tópicos em Comunicação de Dados', status: 'sim', tipo: 'eletiva' },
-    { nome: 'Tópicos em Desenvolvimento de Sistemas', status: 'sim', tipo: 'eletiva' },
-    { nome: 'Tópicos em Engenharia de Software', status: 'sim', tipo: 'eletiva' },
-    { nome: 'Tópicos em Humanidades', status: 'sim', tipo: 'eletiva' },
-    { nome: 'Tópicos em Informática na Educação', status: 'sim', tipo: 'eletiva' },
-    { nome: 'Tópicos em Inteligência Artificial', status: 'sim', tipo: 'eletiva' },
-    { nome: 'Tópicos em Linguagens de Programação', status: 'sim', tipo: 'eletiva' },
-    { nome: 'Tópicos em Programação', status: 'sim', tipo: 'eletiva' },
-    { nome: 'Tópicos em Redes de Computadores', status: 'sim', tipo: 'eletiva' },
-    { nome: 'Tópicos em Sistemas de Computação', status: 'sim', tipo: 'eletiva' },
-    { nome: 'Tópicos em Sistemas de Informação', status: 'sim', tipo: 'eletiva' },
-];
-
+import { FaCircle } from 'react-icons/fa';
+import { usePage } from '@inertiajs/react';
 
 export default function ElectivesPage() {
+    const { eletivas, disciplinasConcluidas } = usePage().props;
+
     return (
         <div className="bg-gray-100 min-h-screen flex flex-col font-roboto">
             <Header />
             <main className="flex-grow p-8">
                 <div className="max-w-6xl mx-auto">
-                    <h1 className="text-center text-3xl font-bold text-purple-dark mb-20">
+                    <h1 className="text-center text-3xl font-bold text-purple-dark mb-8">
                         ELETIVAS
                     </h1>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                        {electivesData.map((disciplina, index) => (
-                            <DisciplinaBox
-                                key={index}
-                                nome={disciplina.nome}
-                                status={disciplina.status}
-                                tipo={disciplina.tipo}
+                    <div className="w-4/5 text-purple-dark mb-8 flex flex-col items-center lg:items-start">
+                        <p className="text-lg font-semibold mb-2">Legenda:</p>
+                        <div className="flex flex-row lg:ml-4 mr-3.5 items-center">
+                            <FaCircle
+                            className="text-green-500 mr-4"
                             />
-                        ))}
+                            <p>0 pré-requisitos restantes</p>
+                        </div>
+                        <div className="flex flex-row lg:ml-4 items-center">
+                            <FaCircle
+                            className="text-yellow-500 mr-4"
+                            />
+                            <p>Faltam {"<"} 50% pré-requisitos</p>
+                        </div>
+                        <div className="flex flex-row lg:ml-4 items-center">
+                            <FaCircle
+                            className="text-red mr-4"
+                            />
+                            <p>Faltam {">"} 50% pré-requisitos</p>
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                        {eletivas.map((eletiva) => {
+                            // Determinar status baseado nos dados do usuário
+                            const usuarioDisciplina = eletiva.usuario_disciplinas?.[0];
+                            const pago = usuarioDisciplina?.concluida || false;
+                            
+                            return (
+                                <DisciplinaBox
+                                    key={eletiva.id}
+                                    nome={eletiva.nome}
+                                    periodo={eletiva.periodo}
+                                    tipo="eletiva"
+                                    status="nao" // Status será calculado internamente baseado em pré-requisitos
+                                    pago={pago}
+                                    disciplina={eletiva}
+                                    usuarioDisciplina={usuarioDisciplina}
+                                    disciplinasConcluidas={disciplinasConcluidas}
+                                />
+                            );
+                        })}
                     </div>
                 </div>
             </main>

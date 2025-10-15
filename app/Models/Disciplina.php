@@ -26,13 +26,25 @@ class Disciplina extends Model
         'tipo_disciplina' => 'boolean',
     ];
 
-    // protected function tipo(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get: fn () => $this->attributes['tipo_disciplina'],
-    //         set: fn ($value) => [
-    //             'tipo_disciplina' => $value,
-    //         ],
-    //     );
-    // }
+    public function preRequisitos()
+    {
+        return $this->belongsToMany(Disciplina::class, 'pre_requisitos', 'id_disciplina', 'id_pre_requisito');
+    }
+
+    public function disciplinasQueTemComoPreRequisito()
+    {
+        return $this->belongsToMany(Disciplina::class, 'pre_requisitos', 'id_pre_requisito', 'id_disciplina');
+    }
+
+    public function usuarios()
+    {
+        return $this->belongsToMany(User::class, 'disciplina_usuario', 'id_disciplina', 'id_usuario')
+                    ->withPivot(['cod_disciplina', 'professor', 'bloco', 'media', 'anotacao', 'concluida', 'equivalencia_aceita', 'periodo_pago'])
+                    ->withTimestamps();
+    }
+
+    public function usuarioDisciplinas()
+    {
+        return $this->hasMany(UsuarioDisciplina::class, 'id_disciplina');
+    }
 }
