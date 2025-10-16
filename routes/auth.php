@@ -13,6 +13,7 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\EnfaseController;
 
 Route::middleware('guest')->group(function () {
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
@@ -82,13 +83,13 @@ Route::middleware('auth')->group(function () {
         ->name('eletivas');
 
     Route::get('/enfases', function () {
-        return Inertia::render('Enfases/Index');
-    });
+        return Inertia::render('Enfases/EmphasisPage');})
+        ->name('enfases');
+        Route::get('/user/emphases-progress', [EnfaseController::class, 'getUserEmphasesProgress']);
+
 
     Route::get('/perfil', [ProfileController::class, 'edit'])
         ->name('profile.edit');
-    
-    //rota usada pelo useForm para enviar a atualização dos dados (chama o método update)
-    Route::patch('/perfil', [ProfileController::class, 'update'])->name('profile.update');
+        Route::patch('/perfil', [ProfileController::class, 'update'])->name('profile.update');
 
 });
