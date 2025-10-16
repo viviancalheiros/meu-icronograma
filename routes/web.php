@@ -12,6 +12,8 @@ Route::get('/', function () {
    return redirect()->route('login');
 });
 
+Route::inertia('/login', 'Auth/Login')->name('login');
+
 //página recuperar senha
 Route::get('/recuperar-senha', function () {
     return Inertia::render('Auth/ForgotPassword');

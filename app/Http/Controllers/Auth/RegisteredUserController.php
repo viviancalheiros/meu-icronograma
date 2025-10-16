@@ -45,7 +45,7 @@ class RegisteredUserController extends Controller
         //nomes no front
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:usuarios,e-mail',
+            'email' => 'required|string|lowercase|email|max:255|unique:usuarios,email',
             'registration' => 'required|string|max:255|unique:usuarios,matricula',
             'password' => ['required', Rules\Password::defaults()],
             'password_confirmation' => ['required', 'same:password'],
@@ -54,9 +54,9 @@ class RegisteredUserController extends Controller
         //nomes no banco
         $user = User::create([
             'nome' => $request->name,
-            'e-mail' => $request->email,
+            'email' => $request->email,
             'matricula' => $request->registration,
-            'senha' => Hash::make($request->password),
+            'senha' => $request->password,
         ]);
 
         event(new Registered($user));

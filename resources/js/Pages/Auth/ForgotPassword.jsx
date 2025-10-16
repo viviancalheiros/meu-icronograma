@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Head, router } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import LogoUfal from '@/Components/LogoUfal';
 import LogoIc from '@/Components/LogoIC';
+import Button from '@/Components/Button';
+import { IoArrowBack } from "react-icons/io5";
+import InputError from '@/Components/InputError';
 
 const OtpInput = ({ length, value, onChange }) => {
     const inputRefs = useRef([]);
@@ -40,153 +43,180 @@ const OtpInput = ({ length, value, onChange }) => {
                     value={value[index]}
                     onChange={(e) => handleChange(e, index)}
                     onKeyDown={(e) => handleKeyDown(e, index)}
-                    className="w-12 h-16 md:w-16 md:h-20 bg-purple-dark text-white border-2 border-purple-dark rounded-lg text-3xl text-center focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    className="w-14 h-14 bg-purple-dark text-white border-2 border-purple-dark rounded-lg text-3xl text-center focus:outline-none focus:ring-2 focus:ring-purple-500"
                 />
             ))}
         </div>
     );
 };
 
-const EnterEmailStep = ({ onEmailSubmit, email, setEmail }) => {
-    const handleSubmit = (e) => {
+const EnterEmailStep = ({ form, processing }) => {
+    const submit = (e) => {
         e.preventDefault();
-        onEmailSubmit();
+        form.post(route('password.email'));
     };
 
     return (
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center font-roboto">
-            <p className="text-purple-dark text-2xl mb-12 font-medium">
-                Digite seu email no espaço a seguir. Enviaremos um código e as instruções para recuperação de senha.
-            </p>
-            <form onSubmit={handleSubmit} className="max-w-xl mx-auto">
-                <div className="text-left mb-3">
-                    <label htmlFor="email" className="text-purple-dark text-2xl font-medium">
+        <div className="w-screen h-full flex flex-col items-center px-4 sm:px-6 lg:px-8 pt-8 text-center font-roboto">
+            <form onSubmit={submit} className="w-2/3">
+                <p className='text-purple-dark text-xl w-full font-medium mt-8'>
+                    Enviaremos um código e as instruções para recuperação de senha.
+                </p>
+                <div className="mb-4 mt-8">
+                    <label htmlFor="email" className="text-purple-dark text-xl font-medium">
                         Digite seu email:
                     </label>
                 </div>
                 <input
                     id="email"
                     type="email"
-                    name="email"
-                    value={email}
+                    value={form.data.email}
                     placeholder="E-mail"
-                    className="w-full bg-purple-dark text-white placeholder-gray-300 border-none rounded-lg h-16 px-6 text-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75"
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
+                    className="w-full bg-purple-dark text-white placeholder-gray-300 border-none rounded-lg h-14 px-6 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75"
+                    onChange={(e) => form.setData('email', e.target.value)}
                     autoFocus
                 />
-                <div className="flex items-center justify-center mt-10">
-                    <button type="submit" className="w-60 bg-purple-dark text-white Roboto-bold py-4 px-4 rounded-lg uppercase text-lg hover:bg-opacity-90 transition ease-in-out duration-150">
-                        Enviar
-                    </button>
+                <InputError message={form.errors.email} className='mt-2 text-left' />
+                <div className="flex flex-col items-center justify-center mt-12">
+                    <Button
+                        type="submit"
+                        value={processing? 'ENVIANDO...' : 'ENVIAR'}
+                        className='bg-purple-dark text-white font-medium w-1/3'
+                        disabled={processing}
+                    />
                 </div>
             </form>
         </div>
     );
 };
 
-const EnterCodeStep = ({ email, onCodeSubmit }) => {
-    const [otp, setOtp] = useState(new Array(6).fill(''));
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const finalCode = otp.join('');
-        if (finalCode.length < 6) {
-            alert('Por favor, insira os 6 dígitos do código.');
-            return;
-        }
-        console.log('Código inserido:', finalCode);
-        onCodeSubmit();
+const EnterCodeStep = ({ form, setStep, processing }) => {
+    const handleNextStep = () => {
+        setStep('resetPassword');
     };
 
     return (
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center font-roboto">
-            <p className="text-purple-dark text-2xl mb-12 font-medium">
-                Insira o código que foi enviado para seu email: <span className="font-normal">{email}</span>
+        <div className="w-full h-full px-4 sm:px-6 lg:px-8 py-8 text-center font-roboto">
+            <p className="text-purple-dark text-xl lg:text-2xl mb-12 mt-8 font-medium">
+                Insira o código enviado para o seu email:
             </p>
-            <form onSubmit={handleSubmit} className="max-w-xl mx-auto">
-                <OtpInput length={6} value={otp} onChange={setOtp} />
-                <div className="flex items-center justify-center mt-10">
-                    <button type="submit" className="w-60 bg-purple-dark text-white Roboto-bold py-4 px-4 rounded-lg uppercase text-lg hover:bg-opacity-90 transition ease-in-out duration-150">
-                        Entrar
-                    </button>
-                </div>
-            </form>
+            <OtpInput 
+                length={6} 
+                value={form.data.token} 
+                onChange={(token) => form.setData('token', token)} 
+            />
+            <InputError message={form.errors.token} className='mt-2' />
+            <div className="flex items-center justify-center mt-10">
+                <Button
+                    type="button"
+                    onClick={handleNextStep}
+                    value={'CONTINUAR'}
+                    className='bg-purple-dark text-white w-1/3 mt-8 font-medium lg:text-xl'
+                />
+            </div>
+            <Link 
+                className='w-full flex flex-row justify-center items-center gap-2 text-purple-dark mt-2 font-medium'
+                href={route('login')}
+            >
+                <IoArrowBack />
+                Voltar para o login
+            </Link>
         </div>
     );
 };
 
-const ResetPasswordStep = ({ onPasswordReset }) => {
-    const [passwords, setPasswords] = useState({ password: '', password_confirmation: '' });
-
-    const handleChange = (e) => {
-        setPasswords({ ...passwords, [e.target.name]: e.target.value });
-    };
-
-    const handleSubmit = (e) => {
+const ResetPasswordStep = ({ form, processing }) => {
+    const submit = (e) => {
         e.preventDefault();
-        if (!passwords.password || !passwords.password_confirmation) {
-            alert('Por favor, preencha os dois campos de senha.');
-            return;
-        }
-        if (passwords.password !== passwords.password_confirmation) {
-            alert('As senhas não coincidem!');
-            return;
-        }
-        console.log('Nova senha definida:', passwords.password);
-        onPasswordReset();
-    };
+        form.post(route('password.store'));
+    }
 
     return (
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center font-roboto">
-            <p className="text-purple-dark text-2xl mb-12 font-medium">
+            <p className="text-purple-dark text-xl mb-12 mt-4 font-medium">
                 Digite a nova senha:
             </p>
-            <form onSubmit={handleSubmit} className="max-w-xl mx-auto space-y-6">
+            <form onSubmit={submit} className="max-w-xl mx-auto space-y-6">
                 <input
                     type="password"
                     name="password"
                     placeholder="Nova senha"
-                    value={passwords.password}
-                    onChange={handleChange}
-                    className="w-full text-sm bg-purple-dark text-white placeholder-gray-300 border-none rounded-lg h-16 px-6 text-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
-                    required
+                    value={form.data.password}
+                    onChange={(e) => form.setData('password', e.target.value)}
+                    className="w-2/3 bg-purple-dark text-white placeholder-gray-300 border-none rounded-lg h-14 px-6 focus:outline-none focus:ring-2 focus:ring-purple-500"
                 />
+                <InputError message={form.errors.password} />
                 <input
                     type="password"
                     name="password_confirmation"
                     placeholder="Repetir senha"
-                    value={passwords.password_confirmation}
-                    onChange={handleChange}
-                    className="w-full bg-purple-dark text-white placeholder-gray-300 border-none rounded-lg h-16 px-6 text-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
-                    required
+                    value={form.data.password_confirmation}
+                    onChange={(e) => form.setData('password_confirmation', e.target.value)}
+                    className="w-2/3 bg-purple-dark text-white placeholder-gray-300 border-none rounded-lg h-14 px-6 focus:outline-none focus:ring-2 focus:ring-purple-500"
                 />
                 <div className="flex items-center justify-center pt-4">
-                    <button type="submit" className="w-60 bg-purple-dark text-white Roboto-bold py-4 px-4 rounded-lg uppercase text-lg hover:bg-opacity-90 transition ease-in-out duration-150">
-                        Entrar
-                    </button>
+                    <Button
+                        type="submit"
+                        value={processing ? 'SALVANDO...' : 'SALVAR'}
+                        className='bg-purple-dark text-white w-1/3 mt-8 font-medium lg:text-xl'
+                        disabled={processing}
+                    />
                 </div>
             </form>
+            <Link 
+                className='w-full flex flex-row justify-center items-center gap-2 text-purple-dark mt-2'
+                href={route('login')}
+            >
+                <IoArrowBack />
+                Voltar para o login
+            </Link>
         </div>
     );
 };
 
 export default function ForgotPassword() {
     const [step, setStep] = useState('enterEmail');
-    const [email, setEmail] = useState('');
+
+    const { data, setData, post, processing, errors, reset} = useForm({
+        email: '',
+        token: Array(6).fill(''),
+        password: '',
+        password_confirmation: '',
+    });
+
+    const formProps = { form: 
+        { data, setData, post, processing, errors, reset }, 
+        processing };
 
     const handleEmailSubmit = () => {
-        console.log('E-mail enviado:', email);
-        setStep('enterCode');
+        post(route('password.email'), {
+            onSuccess: () => {
+                setStep('enterCode');
+            },
+        });
     };
 
-    const handleCodeSubmit = () => {
-        setStep('resetPassword');
+    const handleFinalSubmit = () => {
+        post(route('password.store'), {
+            onSuccess: () => {
+
+            },
+            onError: () => {
+                reset('password', 'password_confirmation');
+            },
+        });
     };
 
-    const handlePasswordReset = () => {
-        alert('Senha alterada com sucesso! Você será redirecionado para o login.');
-        router.get(route('login'));
+    const renderContent = () => {
+        switch (step) {
+            case 'enterCode':
+                return <EnterCodeStep form={{ data, setData, errors, processing, post, reset }} setStep={setStep} />;
+            case 'resetPassword':
+                return <ResetPasswordStep form={{ data, setData, post: handleFinalSubmit, errors, processing }} />;
+            case 'enterEmail':
+            default:
+                return <EnterEmailStep form={{ data, setData, post: handleEmailSubmit, errors, processing }} />;
+        }
     };
 
     return (
@@ -200,16 +230,24 @@ export default function ForgotPassword() {
                     </div>
                 </div>
                 <div className="text-center">
-                    <h1 className="text-purple-dark text-3xl Roboto-bold uppercase tracking-wider mt-4 font-black">
+                    <h1 className="text-purple-dark text-3xl font-roboto uppercase mt-4 font-semibold">
                         Recuperação de Senha
                     </h1>
                 </div>
                 <div className="mt-4">
                     <div className="w-full border-b border-purple-dark"></div>
                 </div>
-                {step === 'enterEmail' && <EnterEmailStep onEmailSubmit={handleEmailSubmit} email={email} setEmail={setEmail} />}
-                {step === 'enterCode' && <EnterCodeStep email={email} onCodeSubmit={handleCodeSubmit} />}
-                {step === 'resetPassword' && <ResetPasswordStep onPasswordReset={handlePasswordReset} />}
+                {status && <div className="mb-4 font-medium text-sm text-green-600 text-center">{status}</div>}
+                <div className='w-full flex flex-col items-center'>
+                    {renderContent()}
+                     <Link 
+                        className='flex flex-row items-center gap-2 text-purple-dark font-roboto font-medium'
+                        href={route('login')}
+                    >
+                        <IoArrowBack />
+                        Voltar para o login
+                    </Link>
+                </div>
             </div>
         </div>
     );

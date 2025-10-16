@@ -19,7 +19,7 @@ class UsuariosSeeder extends Seeder
         [
             [
                 "nome" => 'teste',
-                'e-mail' => 'teste@gmail.com',
+                'email' => 'teste@gmail.com',
                 'matricula' => "0000",
                 'senha' => Hash::make('12345678'),
                 "updated_at" => Carbon::now(),
