@@ -52,7 +52,7 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        $user = User::where('e-mail', $this->input('email'))->first();
+        $user = User::where('email', $this->input('email'))->first();
 
         if (!$user || !Hash::check($this->input('password'), $user->senha)) {
             RateLimiter::hit($this->throttleKey());
