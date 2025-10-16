@@ -24,12 +24,12 @@ class User extends Authenticatable
     protected $table = 'usuarios';
     
     public function getAuthPassword() {
-        return $this->password;
+        return $this->senha;
     }
 
     protected $fillable = [
         'nome',
-        'e-mail',
+        'email',
         'matricula',
         'senha',
     ];
@@ -40,7 +40,7 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $hidden = [
-        'password',
+        'senha',
         'remember_token',
     ];
 
@@ -70,7 +70,7 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'senha' => 'hashed',
         ];
     }
 
