@@ -64,13 +64,32 @@ export default function EmphasisPage() {
     }
 
     return (
-        <div className="bg-gray-100 min-h-screen flex flex-col">
+        <div className="bg-gray-100 min-h-screen flex flex-col font-roboto">
             <Header />
             <main className="flex-grow p-8">
                 <div className="max-w-6xl mx-auto">
-                    <h1 className="text-center text-3xl font-bold text-purple-dark mb-20">
+                    <h1 className="text-center text-4xl font-bold text-purple-dark mt-8 mb-16">
                         PROGRESSO DAS ÊNFASES
                     </h1>
+                    <div className="w-2/3 text-purple-dark mt-8 mb-12 flex flex-col mx-auto">
+                        <div className="w-full self-start">
+                            <p className="text-lg text-center lg:text-start font-bold mb-2 text-shadow-sm">Legenda:</p>
+                        </div>
+                        <div className="w-full flex flex-col items-center lg:flex-row lg:justify-between">
+                            <div className="flex flex-row lg:ml-4 mr-3.5 items-center">
+                                <FaCircle className="text-green-500 mr-4" />
+                                <p className="font-semibold">0 pré-requisitos restantes</p>
+                            </div>
+                            <div className="flex flex-row lg:ml-4 items-center">
+                                <FaCircle className="text-yellow-500 mr-4" />
+                                <p className="font-semibold">Faltam {"<"} 50% pré-requisitos</p>
+                            </div>
+                            <div className="flex flex-row lg:ml-4 items-center">
+                                <FaCircle className="text-red mr-4" />
+                                <p className="font-semibold">Faltam {">"} 50% pré-requisitos</p>
+                            </div>
+                        </div>
+                    </div>
                     {emphasesData.map((emphasis, index) => (
                         <div key={emphasis.id} className="mb-6">
                             <div className="flex flex-row justify-between items-center mb-4">
@@ -82,14 +101,14 @@ export default function EmphasisPage() {
                                     <span className="text-purple-dark font-bold text-lg">{emphasis.progress}%</span>
                                 </div>
                             </div>
-                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                            <div className="grid grid-cols-2 mb-12 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                                 {emphasis.disciplines.map((discipline, discIndex) => (
                                     <DisciplineBox
                                         key={discIndex}
                                         nome={discipline.name}
                                         status={discipline.status}  
                                         tipo={discipline.type}      
-                                    pago={discipline.pago}      
+                                        pago={discipline.pago}      
                                         />
                                 ))}
                             </div>
@@ -97,25 +116,6 @@ export default function EmphasisPage() {
                     ))}
                 </div>
 
-                <div className="w-3/4 text-purple-dark mt-8 flex flex-col mx-auto">
-                    <div className="w-full self-start">
-                        <p className="text-lg font-bold mb-2 text-shadow-sm">Legenda:</p>
-                    </div>
-                    <div className="w-full flex flex-col items-center lg:flex-row lg:justify-between">
-                        <div className="flex flex-row lg:ml-4 mr-3.5 items-center">
-                            <FaCircle className="text-green-500 mr-4" />
-                            <p className="font-semibold">0 pré-requisitos restantes</p>
-                        </div>
-                        <div className="flex flex-row lg:ml-4 items-center">
-                            <FaCircle className="text-yellow-500 mr-4" />
-                            <p className="font-semibold">Faltam {"<"} 50% pré-requisitos</p>
-                        </div>
-                        <div className="flex flex-row lg:ml-4 items-center">
-                            <FaCircle className="text-red mr-4" />
-                            <p className="font-semibold">Faltam {">"} 50% pré-requisitos</p>
-                        </div>
-                    </div>
-                </div>
             </main>
             <Footer />
         </div>

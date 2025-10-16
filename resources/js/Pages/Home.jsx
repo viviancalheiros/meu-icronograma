@@ -43,11 +43,11 @@ export default function Home () {
                     </div>
                     <div className="lg:w-1/2 bg-gray-100 w-full h-full flex flex-col text-center items-center border rounded-2xl border-purple-dark shadow-xl p-4 mb-12">
                         <h2 className="text-purple-dark text-xl font-semibold mb-4">PROGRESSO TOTAL NO CURSO</h2>
-                        <label className="text-purple-dark self-end mr-16">{porcentagem.total}%</label>
+                        <label className="text-purple-dark self-end md:mr-16 mr-8">{porcentagem.total}%</label>
                         <ProgressBar progress={porcentagem.total} />
-                        <label className="text-purple-dark self-end mr-16">{integralizado.total}h/{horas.total}h</label>
+                        <label className="text-purple-dark self-end md:mr-16 mr-8">{integralizado.total}h/{horas.total}h</label>
                     </div>
-                    <div className="lg:w-3/4 bg-gray-100 h-full flex flex-col items-center border rounded-2xl border-purple-dark shadow-xl p-4">
+                    <div className="lg:w-1/2 bg-gray-100 w-full h-full flex flex-col items-center border rounded-2xl border-purple-dark shadow-xl p-4">
                         <h2 className="text-purple-dark text-xl font-semibold mb-4">DISCIPLINAS DO SEMESTRE ATUAL</h2>
                         <div className="w-full h-[300px] lg:h-full overflow-y-auto grid lg:grid-cols-4 sm:grid-cols-3 grid-cols-1 gap-4">
                             {disciplinasPagando && disciplinasPagando.length > 0 ? (
@@ -77,7 +77,7 @@ export default function Home () {
                             )}
                         </div>
                     </div>
-                    <div className="w-3/4 text-purple-dark mt-8 flex flex-col">
+                    <div className="w-2/3 text-purple-dark mt-8 flex flex-col">
                         <div className="w-full self-start">
                             <p className="text-lg font-bold mb-2 text-shadow-sm">Legenda:</p>
                         </div>
@@ -108,27 +108,27 @@ export default function Home () {
                             <Link href={"/obrigatorias"}>
                             <h2 className="text-purple-dark text-xl font-semibold mb-4 cursor-pointer">Matérias Obrigatórias</h2>
                             </Link>
-                            <label className="text-purple-dark self-end mr-12">{porcentagem.obrigatorias}%</label>
+                            <label className="text-purple-dark self-end md:mr-12 mr-10">{porcentagem.obrigatorias}%</label>
                             <ProgressBar progress={porcentagem.obrigatorias} />
-                            <label className="text-purple-dark self-end mr-12">{integralizado.obrigatorias}h/{horas.obrigatorias}h</label>
+                            <label className="text-purple-dark self-end md:mr-12 mr-10">{integralizado.obrigatorias}h/{horas.obrigatorias}h</label>
                         </div>
                         <div className="hidden lg:block w-0.5 h-2/3 bg-purple-dark mb-8"></div>
                         <div className="lg:w-1/3 bg-gray-100 w-full h-full border border-purple-dark rounded-2xl flex flex-col items-center justify-center shadow-xl lg:mr-4 lg:ml-4 mb-8 p-4">
                             <Link href={"/eletivas"}>
                             <h2 className="text-purple-dark text-xl font-semibold mb-4">Matérias eletivas</h2>
                             </Link>
-                            <label className="text-purple-dark self-end mr-12">{porcentagem.eletivas}%</label>
+                            <label className="text-purple-dark self-end md:mr-12 mr-10">{porcentagem.eletivas}%</label>
                             <ProgressBar progress={porcentagem.eletivas} />
-                            <label className="text-purple-dark self-end mr-12">{integralizado.eletivas}h/{horas.eletivas}h</label>
+                            <label className="text-purple-dark self-end md:mr-12 mr-10">{integralizado.eletivas}h/{horas.eletivas}h</label>
                         </div>
                         <div className="hidden lg:block w-0.5 h-2/3 bg-purple-dark mb-8"></div>
                         <div className="lg:w-1/3 bg-gray-100 w-full h-full border border-purple-dark rounded-2xl flex flex-col items-center justify-center shadow-xl lg:ml-4 mb-8 p-4">
                             <Link href={"/horas-complementares"}>
                             <h2 className="text-purple-dark text-xl font-semibold mb-4">Horas complementares</h2>
                             </Link>
-                            <label className="text-purple-dark self-end mr-12">{porcentagem.complementares}%</label>
+                            <label className="text-purple-dark self-end md:mr-12 mr-10">{porcentagem.complementares}%</label>
                             <ProgressBar progress={porcentagem.complementares} />
-                            <label className="text-purple-dark self-end mr-12">{integralizado.complementares}h/{horas.complementares}h</label>
+                            <label className="text-purple-dark self-end md:mr-12 mr-10">{integralizado.complementares}h/{horas.complementares}h</label>
                         </div>
                     </div>
                 </div>
