@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -10,10 +12,9 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\DisciplinaController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EnfaseController;
+use App\Http\Controllers\HomeController;
 
 Route::middleware('guest')->group(function () {
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
@@ -66,6 +67,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', [DisciplinaController::class, 'listarDisciplinasPagando'])
         ->name('home');
 
+
     Route::get('/duvidas', function () {
         return Inertia::render('Duvidas');
     });
@@ -82,14 +84,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/eletivas', [DisciplinaController::class, 'listarEletivas'])
         ->name('eletivas');
 
-    Route::get('/enfases', function () {
-        return Inertia::render('Enfases/EmphasisPage');})
+    Route::get('/enfases', [EnfaseController::class, 'getUserEmphasesProgress'])
         ->name('enfases');
-        Route::get('/user/emphases-progress', [EnfaseController::class, 'getUserEmphasesProgress']);
-
 
     Route::get('/perfil', [ProfileController::class, 'edit'])
         ->name('profile.edit');
-        Route::patch('/perfil', [ProfileController::class, 'update'])->name('profile.update');
+
+    Route::patch('/perfil', [ProfileController::class, 'update'])->name('profile.update');
 
 });

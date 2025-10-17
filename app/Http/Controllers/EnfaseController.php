@@ -7,11 +7,17 @@ use App\Models\Disciplina;
 use App\Models\UsuarioDisciplina;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
-class EnfaseController extends Controller{
+class EnfaseController extends Controller
+{
     public function getUserEmphasesProgress(){
         
     $user = Auth::user();
+
+    $userDisciplinas = UsuarioDisciplina::where('id_usuario', $user->id)
+        ->pluck('concluida', 'id_disciplina')
+        ->toArray();
     
     $enfases = Enfase::with('disciplinas')->get();
     
@@ -23,22 +29,20 @@ class EnfaseController extends Controller{
         $disciplinesData = [];
         
         foreach ($enfase->disciplinas as $disciplina) {
-            $userDisciplina = UsuarioDisciplina::where('id_usuario', $user->id)
-                ->where('id_disciplina', $disciplina->id)
-                ->first();
-            
-            $concluida = $userDisciplina && $userDisciplina->concluida;
-            $pago = $userDisciplina && $userDisciplina->periodo_pago;
+            $idDisciplina = $disciplina->id;
+            $concluida = isset($userDisciplinas[$idDisciplina]) && $userDisciplinas[$idDisciplina] === 1;
+            $pago = false;
             
             if ($concluida) {
                 $disciplinasConcluidas++;
             }
             
             $disciplinesData[] = [
+                'id' => $idDisciplina,
                 'name' => $disciplina->nome,
                 'status' => $concluida ? 'sim' : 'nao', 
                 'type' => 'eletiva', 
-                'pago' => (bool)$pago
+                'pago' => $pago
             ];
         }
         
@@ -52,5 +56,7 @@ class EnfaseController extends Controller{
         ];
     }
     
-    return response()->json($result);
+    return Inertia::render('EmphasisPage', [
+        'emphases' => $result,
+    ]);
 }}

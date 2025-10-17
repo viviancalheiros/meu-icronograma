@@ -181,7 +181,7 @@ export default function DisciplinaBox ({nome, status, tipo, pago, disciplina, us
     };
     
     return (
-        <div className={`w-full h-28 drop-shadow-lg ${internalPago === true ? corBg : corTipo} p-4 rounded-2xl flex flex-col items-center justify-center`}>
+        <div className={`w-full h-28 shadow-xl ${internalPago === true ? corBg : corTipo} p-4 rounded-2xl flex flex-col items-center justify-center`}>
             <div className="w-full h-1/3 mb-3 flex flex-row justify-between items-center">
                 {internalPago === true ?
                     <div className="flex flex-row items-center gap-1">

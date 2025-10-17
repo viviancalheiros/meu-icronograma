@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import ProgressBar from "@/Components/ProgressBar";
 import DisciplinaBox from "@/Components/DisciplinaBox";
+import Legenda from "@/Components/Legenda";
 import Header from "@/Components/Header";
 import { usePage, Link } from "@inertiajs/react";
 import Footer from "@/Components/Footer";
-import { FaCircle } from "react-icons/fa";
 import { GoPlusCircle } from "react-icons/go";
 
 export default function Home () {
@@ -42,31 +42,35 @@ export default function Home () {
                         <h1 className="text-purple-dark text-3xl font-bold">PAINEL DE ACOMPANHAMENTO</h1>
                         <div className="w-1/2 h-1 bg-purple-dark mt-2 self-start scale-y-50"></div>
                     </div>
-                    <div className="lg:w-1/2 bg-gray-100 w-full h-full flex flex-col text-center items-center border rounded-2xl border-purple-dark shadow-xl p-4 mb-12">
+                    <div className="lg:w-2/3 bg-gray-100 w-full flex flex-col text-center items-center justify-center border rounded-2xl border-purple-dark shadow-xl p-4 mb-12">
                         <h2 className="text-purple-dark text-xl font-semibold mb-4">PROGRESSO TOTAL NO CURSO</h2>
-                        <label className="text-purple-dark self-end lg:mr-12 md:mr-16 mr-12">{porcentagem.total}%</label>
-                        <ProgressBar progress={porcentagem.total} />
-                        <label className="text-purple-dark self-end lg:mr-12 md:mr-16 mr-12">{integralizado.total}h/{horas.total}h</label>
+                        <div className="w-full flex flex-row items-center justify-center gap-8">
+                            <ProgressBar progress={porcentagem.total} />
+                            <div className="flex flex-col items-end text-center ">
+                                <label className="text-purple-dark font-bold text-xl">{porcentagem.total}%</label>
+                                <label className="text-purple-light font-bold">{integralizado.total}h/{horas.total}h</label>
+                            </div>
+                        </div>
                     </div>
-                    <div className="lg:w-1/2 bg-gray-100 w-full h-full flex flex-col items-center border rounded-2xl border-purple-dark shadow-xl p-4">
-                        <h2 className="text-purple-dark text-xl font-semibold mb-4">DISCIPLINAS DO SEMESTRE ATUAL</h2>
-                       <div className="w-full flex flex-col justify-between text-purple-dark mb-4">
+                    <div className="lg:w-2/3 bg-gray-100 w-full h-full flex flex-col items-center border rounded-2xl border-purple-dark shadow-xl p-4">
+                        <h2 className="text-purple-dark text-xl font-semibold sm:mb-8 mb-6">DISCIPLINAS DO SEMESTRE ATUAL</h2>
+                        <div className="w-full flex flex-col items-center sm:items-start text-purple-dark mb-6">
                             <Link 
-                                className="flex flex-row items-center gap-2"
+                                className="flex flex-row items-center mb-1"
                                 href={route('eletivas')}
                             >
-                                <GoPlusCircle size={20} />
-                                <p className="text-lg">Eletiva</p>
+                                <GoPlusCircle className="text-xl mr-2" />
+                                <p className="text-lg">Adicionar Eletiva</p>
                             </Link>
                             <Link 
-                                className="flex flex-row items-center gap-2"
+                                className="flex flex-row items-center"
                                 href={route('obrigatorias')}
                             >
-                                <GoPlusCircle size={20} />
-                                <p className="text-lg">Obrigatória</p>
+                                <GoPlusCircle className="text-xl mr-2" />
+                                <p className="text-lg">Adicionar Obrigatória</p>
                             </Link>
                         </div>
-                        <div className="w-full h-[300px] lg:h-full overflow-y-auto grid lg:grid-cols-4 sm:grid-cols-3 grid-cols-1 gap-4">
+                        <div className="w-full h-[300px] lg:h-full overflow-y-auto grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-4">
                             {disciplinasPagando && disciplinasPagando.length > 0 ? (
                                 disciplinasPagando.map((disciplina) => {
                                     // Determinar status baseado nos dados do usuário
@@ -93,32 +97,10 @@ export default function Home () {
                                 </div>
                             )}
                         </div>
-                        
                     </div>
-                    <div className="w-2/3 text-purple-dark mt-8 flex flex-col">
-                        <div className="w-full self-start">
-                            <p className="text-lg font-bold mb-2 text-shadow-sm">Legenda:</p>
-                        </div>
-                        <div className="w-full flex flex-col items-center lg:flex-row lg:justify-between">
-                            <div className="flex flex-row lg:ml-4 mr-3.5 items-center">
-                                <FaCircle
-                                className="text-green-500 mr-4"
-                                />
-                                <p className="font-semibold">0 pré-requisitos restantes</p>
-                            </div>
-                            <div className="flex flex-row lg:ml-4 items-center">
-                                <FaCircle
-                                className="text-yellow-500 mr-4"
-                                />
-                                <p className="font-semibold">Faltam {"<"} 50% pré-requisitos</p>
-                            </div>
-                            <div className="flex flex-row lg:ml-4 items-center">
-                                <FaCircle
-                                className="text-red mr-4"
-                                />
-                                <p className="font-semibold">Faltam {">"} 50% pré-requisitos</p>
-                            </div>
-                        </div>
+                    <div className="lg:w-2/3 w-full">
+                        <Legenda />
+
                     </div>
                     <h2 className="text-purple-dark text-2xl font-bold mt-12 mb-8">PROGRESSO DO ALUNO</h2>
                     <div className="w-full flex lg:flex-row flex-col items-center lg:mb-12">

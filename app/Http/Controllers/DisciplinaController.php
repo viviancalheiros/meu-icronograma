@@ -32,8 +32,10 @@ class DisciplinaController extends Controller
         ]);
     }
 
-    public function listarDisciplinasPagando()
+    public function listarDisciplinasPagando(Request $request)
     {
+        $user = $request->user();
+
         // Buscar disciplinas marcadas como "pagando atualmente"
         $disciplinasPagando = Disciplina::query()
             ->whereHas('usuarioDisciplinas', function($query) {
@@ -54,7 +56,14 @@ class DisciplinaController extends Controller
         // Calcular horas dinamicamente
         $horasCalculadas = $this->calcularHorasDinamicas();
 
+        $userName = $user ? $user->nome : null;
+
         return Inertia::render('Home', [
+            'usuario' => [
+                'nome' => $userName,
+            ],
+            'mustVerifyEmail' => $user instanceof MustVerifyEmail,
+            'status' => session('status'),
             'disciplinasPagando' => $disciplinasPagando,
             'disciplinasConcluidas' => $disciplinasConcluidas,
             'horasCalculadas' => $horasCalculadas,
