@@ -42,7 +42,7 @@ export default function Home () {
                         <h1 className="text-purple-dark text-3xl font-bold">PAINEL DE ACOMPANHAMENTO</h1>
                         <div className="w-1/2 h-1 bg-purple-dark mt-2 self-start scale-y-50"></div>
                     </div>
-                    <div className="lg:w-2/3 bg-gray-100 w-full flex flex-col text-center items-center justify-center border rounded-2xl border-purple-dark shadow-xl p-4 mb-12">
+                    <div className="lg:w-3/4 bg-gray-100 w-full flex flex-col text-center items-center justify-center border rounded-2xl border-purple-dark shadow-xl p-4 mb-12">
                         <h2 className="text-purple-dark text-xl font-semibold mb-4">PROGRESSO TOTAL NO CURSO</h2>
                         <div className="w-full flex flex-row items-center justify-center gap-8">
                             <ProgressBar progress={porcentagem.total} />
@@ -52,7 +52,7 @@ export default function Home () {
                             </div>
                         </div>
                     </div>
-                    <div className="lg:w-2/3 bg-gray-100 w-full h-full flex flex-col items-center border rounded-2xl border-purple-dark shadow-xl p-4">
+                    <div className="lg:w-3/4 bg-gray-100 w-full h-full flex flex-col items-center border rounded-2xl border-purple-dark shadow-xl p-4">
                         <h2 className="text-purple-dark text-xl font-semibold sm:mb-8 mb-6">DISCIPLINAS DO SEMESTRE ATUAL</h2>
                         <div className="w-full flex flex-col items-center sm:items-start text-purple-dark mb-6">
                             <Link 
@@ -98,9 +98,8 @@ export default function Home () {
                             )}
                         </div>
                     </div>
-                    <div className="lg:w-2/3 w-full">
+                    <div className="lg:w-3/4 w-full">
                         <Legenda />
-
                     </div>
                     <h2 className="text-purple-dark text-2xl font-bold mt-12 mb-8">PROGRESSO DO ALUNO</h2>
                     <div className="w-full flex lg:flex-row flex-col items-center lg:mb-12">

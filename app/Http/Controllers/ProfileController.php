@@ -22,7 +22,6 @@ class ProfileController extends Controller
         return Inertia::render('Perfil', [
             'user' => [
                 'name' => $request->user()->nome,
-
                 'registration' => $request->user()->matricula,
             ],
             //essa parte abaixo ja tava no cod, manter pra compatibilidade 
