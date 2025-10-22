@@ -82,12 +82,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/eletivas', [DisciplinaController::class, 'listarEletivas'])
         ->name('eletivas');
 
-    Route::get('/enfases', function () {
-        return Inertia::render('Enfases/EmphasisPage');})
-        ->name('enfases');
-        Route::get('/user/emphases-progress', [EnfaseController::class, 'getUserEmphasesProgress']);
-
-
+    Route::get('/enfases', [EnfaseController::class, 'index'])->name('enfases');
+    Route::get('/user/emphases-progress', [EnfaseController::class, 'getUserEmphasesProgress']);
+    
     Route::get('/perfil', [ProfileController::class, 'edit'])
         ->name('profile.edit');
         Route::patch('/perfil', [ProfileController::class, 'update'])->name('profile.update');

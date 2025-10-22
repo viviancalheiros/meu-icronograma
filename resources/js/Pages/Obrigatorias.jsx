@@ -1,8 +1,8 @@
 import Header from "@/Components/Header";
-import { FaCircle } from "react-icons/fa";
 import PeriodoSection from "@/Components/PeriodoSection";
 import Footer from "@/Components/Footer";
 import { usePage } from "@inertiajs/react";
+import Legenda from "@/Components/Legenda";
 
 export default function Obrigatorias () {
     const { disciplinas } = usePage().props;
@@ -10,33 +10,15 @@ export default function Obrigatorias () {
     const periodos = [...Array(qtdPeriodos)].map((_, i) => i+1);
 
     return (
-        <>
+        <div className="bg-gray-100 min-h-screen">
             <Header />
-            <div className="w-full h-screen flex flex-col items-center">
+            <div className="w-full h-full flex flex-col items-center">
                 <h1 className="text-4xl text-purple-dark font-bold mt-8">FLUXOGRAMA</h1>
                 <h3 className="text-purple-dark mb-4">por período</h3>
-                <div className="w-4/5 text-purple-dark mt-8 pb-8 flex flex-col items-center lg:items-start">
-                    <p className="text-lg font-semibold mb-2">Legenda:</p>
-                    <div className="flex flex-row lg:ml-4 mr-3.5 items-center">
-                        <FaCircle
-                        className="text-green-500 mr-4"
-                        />
-                        <p>0 pré-requisitos restantes</p>
-                    </div>
-                    <div className="flex flex-row lg:ml-4 items-center">
-                        <FaCircle
-                        className="text-yellow-500 mr-4"
-                        />
-                        <p>Faltam {"<"} 50% pré-requisitos</p>
-                    </div>
-                    <div className="flex flex-row lg:ml-4 items-center">
-                        <FaCircle
-                        className="text-red mr-4"
-                        />
-                        <p>Faltam {">"} 50% pré-requisitos</p>
-                    </div>
+                <div className="lg:max-w-6xl w-3/4 flex flex-col items-center">
+                    <Legenda />
                 </div>
-                <div className="lg:w-4/5 w-5/6 flex flex-col mb-8">
+                <div className="lg:max-w-6xl w-3/4 flex flex-col mb-8">
                     {periodos.map ((numero) =>
                         <PeriodoSection 
                         key={numero}
@@ -46,8 +28,7 @@ export default function Obrigatorias () {
                     )}
                 </div>
                 <Footer />
-            </div>
-            
-        </>        
+            </div> 
+        </div>        
     )
 }

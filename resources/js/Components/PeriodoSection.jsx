@@ -12,7 +12,6 @@ export default function PeriodoSection ({periodo, disciplinas}) {
             </h2>
             <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-4 w-full">
                 {disciplinas.map((disciplina) => {
-                    // Determinar status baseado nos dados do usuário
                     const usuarioDisciplina = disciplina.usuario_disciplinas?.[0];
                     const pago = usuarioDisciplina?.concluida || false;
                     
@@ -22,7 +21,7 @@ export default function PeriodoSection ({periodo, disciplinas}) {
                         nome={disciplina.nome}
                         periodo={disciplina.periodo}
                         tipo="obrigatoria"
-                        status="nao" // Status será calculado internamente baseado em pré-requisitos
+                        status="nao"
                         pago={pago}
                         disciplina={disciplina}
                         usuarioDisciplina={usuarioDisciplina}
