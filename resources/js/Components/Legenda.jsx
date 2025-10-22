@@ -1,6 +1,5 @@
 import React from "react";
 import { FaCircle } from "react-icons/fa";
-import { twMerge } from 'tailwind-merge';
 
 export default function Legenda () {
 

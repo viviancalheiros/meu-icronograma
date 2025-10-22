@@ -23,7 +23,7 @@ export default function Login() {
     };
 
     return (
-       <div className='w-full h-screen flex font-roboto'>
+        <div className='w-full h-screen flex font-roboto'>
         <div className='hidden lg:block bg-purple-dark w-1/2 h-full flex flex-col items-center'>
             <div className='w-full h-3/6 flex flex-row pt-4 justify-center'>
                 <LogoUfal width={35} height={76} className="ml-8" />
@@ -47,6 +47,7 @@ export default function Login() {
                 >
                     <input 
                         type="text"
+                        name='email'
                         placeholder='E-mail' 
                         required
                         value={data.email}

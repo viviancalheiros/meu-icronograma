@@ -51,10 +51,10 @@ export default function Perfil() {
     }
 
     return (
-        <>
+        <div className="bg-gray-100 min-h-screen flex flex-col">
             <Header />
-            <div className="w-full h-full flex flex-col items-center justify-center font-roboto">
-                <div className="w-full flex flex-col items-center justify-center mt-8">
+            <div className="w-fullh-full flex flex-col items-center justify-center font-roboto">
+                <div className="w-full flex flex-col items-center justify-center mt-12">
                     <h1 className="text-3xl text-purple-dark font-bold mb-8">PERFIL</h1>
                     <div className="w-full h-1 scale-y-50 bg-purple-dark"></div>
                 </div>
@@ -67,7 +67,7 @@ export default function Perfil() {
                 )}
                
                 <form
-                className="lg:w-1/4 md:w-1/2 w-4/5 h-4/5 flex flex-col items-center mt-12 mb-12"
+                className="lg:w-1/4 md:w-1/2 w-4/5 h-4/5 flex flex-col items-center mt-16 mb-12"
                 onSubmit={handleSave}
                 >
                     <label className="text-purple-dark font-bold text-lg self-start">
@@ -140,6 +140,6 @@ export default function Perfil() {
                 </form>
             </div>
             <Footer />
-        </>
+        </div>
     )
 }

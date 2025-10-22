@@ -50,46 +50,6 @@ const OtpInput = ({ length, value, onChange }) => {
     );
 };
 
-const EnterEmailStep = ({ form, processing }) => {
-    const submit = (e) => {
-        e.preventDefault();
-        form.post(route('password.email'));
-    };
-
-    return (
-        <div className="w-screen h-full flex flex-col items-center px-4 sm:px-6 lg:px-8 pt-8 text-center font-roboto">
-            <form onSubmit={submit} className="w-2/3">
-                <p className='text-purple-dark text-xl w-full font-medium mt-8'>
-                    Enviaremos um código e as instruções para recuperação de senha.
-                </p>
-                <div className="mb-4 mt-8">
-                    <label htmlFor="email" className="text-purple-dark text-xl font-medium">
-                        Digite seu email:
-                    </label>
-                </div>
-                <input
-                    id="email"
-                    type="email"
-                    value={form.data.email}
-                    placeholder="E-mail"
-                    className="w-full bg-purple-dark text-white placeholder-gray-300 border-none rounded-lg h-14 px-6 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75"
-                    onChange={(e) => form.setData('email', e.target.value)}
-                    autoFocus
-                />
-                <InputError message={form.errors.email} className='mt-2 text-left' />
-                <div className="flex flex-col items-center justify-center mt-12">
-                    <Button
-                        type="submit"
-                        value={processing? 'ENVIANDO...' : 'ENVIAR'}
-                        className='bg-purple-dark text-white font-medium w-1/3'
-                        disabled={processing}
-                    />
-                </div>
-            </form>
-        </div>
-    );
-};
-
 const EnterCodeStep = ({ form, setStep, processing }) => {
     const handleNextStep = () => {
         setStep('resetPassword');
@@ -174,74 +134,59 @@ const ResetPasswordStep = ({ form, processing }) => {
     );
 };
 
-export default function ForgotPassword() {
-    const [step, setStep] = useState('enterEmail');
-
-    const { data, setData, post, processing, errors, reset} = useForm({
+export default function ForgotPassword({ status }) {
+     const { data, setData, post, processing, errors } = useForm({
         email: '',
-        token: Array(6).fill(''),
-        password: '',
-        password_confirmation: '',
     });
 
-    const formProps = { form: 
-        { data, setData, post, processing, errors, reset }, 
-        processing };
-
-    const handleEmailSubmit = () => {
-        post(route('password.email'), {
-            onSuccess: () => {
-                setStep('enterCode');
-            },
-        });
-    };
-
-    const handleFinalSubmit = () => {
-        post(route('password.store'), {
-            onSuccess: () => {
-
-            },
-            onError: () => {
-                reset('password', 'password_confirmation');
-            },
-        });
-    };
-
-    const renderContent = () => {
-        switch (step) {
-            case 'enterCode':
-                return <EnterCodeStep form={{ data, setData, errors, processing, post, reset }} setStep={setStep} />;
-            case 'resetPassword':
-                return <ResetPasswordStep form={{ data, setData, post: handleFinalSubmit, errors, processing }} />;
-            case 'enterEmail':
-            default:
-                return <EnterEmailStep form={{ data, setData, post: handleEmailSubmit, errors, processing }} />;
-        }
+    const submit = (e) => {
+        e.preventDefault();
+        post(route('password.email'));
     };
 
     return (
-        <div className="min-h-screen bg-white">
-            <Head title="Recuperação de Senha" />
-            <div>
-                <div className="bg-purple-dark p-1 flex flex-col items-center justify-center gap-4">
-                    <div className="flex items-center gap-4 mb-8">
-                        <LogoUfal width={35} height={76} className="ml-8" />
-                        <LogoIc width={80} height={80} className="ml-4" />
-                    </div>
-                </div>
-                <div className="text-center">
-                    <h1 className="text-purple-dark text-3xl font-roboto uppercase mt-4 font-semibold">
-                        Recuperação de Senha
-                    </h1>
-                </div>
-                <div className="mt-4">
-                    <div className="w-full border-b border-purple-dark"></div>
-                </div>
-                {status && <div className="mb-4 font-medium text-sm text-green-600 text-center">{status}</div>}
-                <div className='w-full flex flex-col items-center'>
-                    {renderContent()}
-                     <Link 
-                        className='flex flex-row items-center gap-2 text-purple-dark font-roboto font-medium'
+        <div className="h-screen w-screen flex flex-col font-roboto bg-purple-dark">
+            <div className="w-full h-1/5 gap-4 flex flex-row items-center justify-center">
+                <LogoUfal width={45} height={97} />
+                <LogoIc width={90} height={90} />
+            </div>
+            <div className="w-full h-4/5 flex flex-col items-center bg-gray-100 rounded-t-2xl">
+                <h1 className="text-3xl font-bold text-purple-dark p-12">RECUPERAÇÃO DE SENHA</h1>
+                <div className="h-0.5 w-full bg-purple-dark"></div>
+                <div className="w-1/2 h-full flex flex-col items-center justify-center">
+                    <p className="w-1/2 text-center text-purple-dark font-semibold text-xl mb-12">
+                        Informe o e-mail cadastrado e enviaremos um código para redefinir sua senha.
+                    </p>
+                    {status && (
+                        <div className="mb-4 text-sm font-medium text-green-600">
+                            {status}
+                        </div>
+                    )}
+                    <form 
+                        className="w-1/2 flex flex-col items-center"
+                        onSubmit={submit}    
+                    >
+                        <input
+                        id="email"
+                        type="text"
+                        name="email"
+                        placeholder="E-mail"
+                        value={data.email}
+                        onChange={(e) => setData('email', e.target.value)}
+                        className='w-full bg-purple-dark text-white placeholder-gray-300 border-none 
+                        rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 h-12 mb-12
+                        shadow-xl'
+                        ></input>
+                        <InputError message={errors.email} />
+                        <Button
+                            type="submit"
+                            value={processing ? 'ENVIANDO...' : 'ENVIAR'}
+                            className='bg-purple-dark w-3/5 text-white mt-8 font-medium lg:text-xl'
+                            disabled={processing}
+                        />
+                    </form>
+                    <Link 
+                        className='w-full flex flex-row justify-center items-center gap-2 font-semibold text-purple-dark mt-2'
                         href={route('login')}
                     >
                         <IoArrowBack />
@@ -251,4 +196,4 @@ export default function ForgotPassword() {
             </div>
         </div>
     );
-}
+};
