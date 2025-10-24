@@ -40,7 +40,7 @@ export default function ResetPassword({ token, email }) {
                         autoComplete="username"
                         onChange={(e) => setData('email', e.target.value)}
                     />
-                    <InputError message={errors.email} className="mt-2" />
+                    <InputError message={errors.email} className="mt-2 font-medium text-[#ff6b6b]" />
                 </div>
 
                 <div className='w-full flex flex-col mt-6'>
@@ -56,7 +56,7 @@ export default function ResetPassword({ token, email }) {
                         isFocused={true}
                         onChange={(e) => setData('password', e.target.value)}
                     />
-                    <InputError message={errors.password} className="mt-2" />
+                    <InputError message={errors.password} className="mt-2 font-medium text-[#ff6b6b]" />
                 </div>
 
                 <div className='w-full flex flex-col mt-6'>
@@ -75,7 +75,7 @@ export default function ResetPassword({ token, email }) {
                     />
                     <InputError
                         message={errors.password_confirmation}
-                        className="mt-2"
+                        className="mt-2 font-medium text-[#ff6b6b]"
                     />
                 </div>
                 <div className="mt-14 text-center w-full">
