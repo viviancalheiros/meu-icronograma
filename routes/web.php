@@ -26,8 +26,9 @@ Route::get('/recuperar-senha', function () {
 // Route::post('/horas-complementares', [ComplementaryActivityController::class, 'store'])
 //     ->name('complementary-hours.store');
 
-Route::get('/horas-complementares', function() {
-    return Inertia::render('ComplementaryHours/Index');
+Route::middleware('auth')->group(function () {
+    Route::resource('horas-complementares', ComplementaryActivityController::class)
+            ->names('complementary-activities');
 });
 
 Route::get('/teste', function () {
