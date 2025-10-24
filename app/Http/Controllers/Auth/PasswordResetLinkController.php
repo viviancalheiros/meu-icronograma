@@ -39,11 +39,12 @@ class PasswordResetLinkController extends Controller
         );
 
         if ($status == Password::RESET_LINK_SENT) {
-            return back()->with('status', __($status));
+            $message = "E-mail enviado! Verifique sua caixa de entrada e/ou spam.";
+            return back()->with('status', $message);
         }
 
         throw ValidationException::withMessages([
-            'email' => [trans($status)],
+            'email' => ["O endereço de e-mail não está cadastrado."],
         ]);
     }
 }
