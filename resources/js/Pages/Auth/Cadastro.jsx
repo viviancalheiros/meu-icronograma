@@ -63,7 +63,7 @@ export default function Cadastro () {
                                 className='lg:bg-white lg:text-purple-dark text-white bg-purple-dark h-12 pl-4 mb-1 rounded-2xl text-sm w-full
                                 lg:placeholder:text-purple-dark placeholder:text-white border border-gray-300 focus:border-purple-500 focus:outline-none'
                             />
-                            <InputError message={errors.name} className="mt-1 text-red-500 text-xs" />
+                            <InputError message={errors.name} className="mt-1 text-red text-xs" />
                         </div>
                         
                         {/* Email */}
@@ -76,7 +76,7 @@ export default function Cadastro () {
                                 className='lg:bg-white lg:text-purple-dark text-white bg-purple-dark h-12 pl-4 mb-1 rounded-2xl text-sm w-full
                                 lg:placeholder:text-purple-dark placeholder:text-white border border-gray-300 focus:border-purple-500 focus:outline-none'
                             />
-                            <InputError message={errors.email} className="mt-1 text-red-500 text-xs" />
+                            <InputError message={errors.email} className="mt-1 text-red text-xs" />
                         </div>
                         
                         {/* Matrícula */}
@@ -89,7 +89,7 @@ export default function Cadastro () {
                                 className='lg:bg-white lg:text-purple-dark text-white bg-purple-dark h-12 pl-4 mb-1 rounded-2xl text-sm w-full
                                 lg:placeholder:text-purple-dark placeholder:text-white border border-gray-300 focus:border-purple-500 focus:outline-none'
                             />
-                            <InputError message={errors.registration} className="mt-1 text-red-500 text-xs" />
+                            <InputError message={errors.registration} className="mt-1 text-red text-xs" />
                         </div>
                         
                         {/* Senha */}
@@ -102,7 +102,7 @@ export default function Cadastro () {
                                 className='lg:bg-white lg:text-purple-dark text-white bg-purple-dark h-12 pl-4 mb-1 rounded-2xl text-sm w-full
                                 lg:placeholder:text-purple-dark placeholder:text-white border border-gray-300 focus:border-purple-500 focus:outline-none'
                             />
-                            <InputError message={errors.password} className="mt-1 text-red-500 text-xs" />
+                            <InputError message={errors.password} className="mt-1 text-red text-xs" />
                         </div>
                         
                         {/* confirmar Senha */}
@@ -115,7 +115,7 @@ export default function Cadastro () {
                                 className='lg:bg-white lg:text-purple-dark text-white bg-purple-dark h-12 pl-4 rounded-2xl text-sm w-full
                                 lg:placeholder:text-purple-dark placeholder:text-white border border-gray-300 focus:border-purple-500 focus:outline-none'
                             />
-                            <InputError message={errors.password_confirmation} className="mt-1 text-red-500 text-xs" />
+                            <InputError message={errors.password_confirmation} className="mt-1 text-red text-xs" />
                         </div>
                         
                         <Button

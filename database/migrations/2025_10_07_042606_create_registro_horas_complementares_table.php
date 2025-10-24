@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('registro_horas_complementares', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_usuario')->constrained('usuarios','id')->cascadeOnDelete();
-            $table->foreignId('id_tipo_hora')->constrained('tipos_horas_complemetares','id')->cascadeOnDelete();
+            $table->foreignId('id_tipo_hora')->constrained('tipos_horas_complementares','id')->cascadeOnDelete();
             $table->string('nome');
-            $table->integer('minutos');
-            $table->string('orientador');
-            $table->string('instituicao');
-            $table->text('anotacoes');
+            $table->integer('horas');
+            $table->string('orientador')->nullable();
+            $table->string('instituicao')->nullable();
+            $table->text('anotacoes')->nullabe();
             $table->timestamps();
         });
     }

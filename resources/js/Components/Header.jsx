@@ -9,11 +9,9 @@ export default function Header() {
     const [hoveredItem, setHoveredItem] = useState(null);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-
     const navItems = [
         { name: 'HOME', href: '/home' },
-        { name: 'DISCIPLINAS', 
-        href: '/obrigatorias',
+        { name: 'DISCIPLINAS',
         submenu: [
             { name: 'Eletivas', href: '/eletivas' },
             { name: 'Obrigatórias', href: '/obrigatorias' }
@@ -24,9 +22,17 @@ export default function Header() {
         { name: 'DÚVIDAS', href: '/duvidas' },
     ];
 
+    const navItemsResponsive = [
+        { name: 'HOME', href: '/home' },
+        { name: 'ELETIVAS', href: '/eletivas' },
+        { name: 'OBRIGATÓRIAS', href: '/obrigatorias' },
+        { name: 'ÊNFASES', href: '/enfases' },
+        { name: 'HORAS COMPLEMENTARES', href: '/horas-complementares' },
+        { name: 'DÚVIDAS', href: '/duvidas' },
+    ];
 
     return (
-        <header className="sticky top-0 z-50 bg-[#373f75] text-white shadow-lg">
+        <header className="sticky top-0 z-50 bg-purple-dark text-white shadow-lg">
             <div className="container mx-auto flex h-20 items-center justify-between px-4">
                 {/* Logo */}
                 <div className="flex items-center">
@@ -38,7 +44,7 @@ export default function Header() {
 
         {/* Links de navegação */}
         <nav className="hidden md:block">
-        <ul className="relative flex space-x-8">
+        <ul className="relative flex flex-row items-center lg:space-x-8 justify-between">
             {navItems.map((item, index) => (
             <li
                 key={index}
@@ -112,7 +118,7 @@ export default function Header() {
                         </button>
                     </div>
                     <ul className="space-y-4">
-                        {navItems.map((item, index) => (
+                        {navItemsResponsive.map((item, index) => (
                             <li key={index}>
                                 <Link
                                     href={item.href}

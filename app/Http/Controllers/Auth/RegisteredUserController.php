@@ -40,6 +40,7 @@ class RegisteredUserController extends Controller
             'registration.unique' => 'Matrícula já cadastrada.',
             'password.min' => 'A senha deve ter no mínimo 8 caracteres.',
             'password.required' => 'O campo senha é obrigatório.',
+            'password_confirmation.required' => 'Este campo é obrigatório.',
         ];
 
         //nomes no front

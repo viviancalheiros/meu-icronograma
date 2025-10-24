@@ -14,22 +14,6 @@ Route::get('/', function () {
 
 Route::inertia('/login', 'Auth/Login')->name('login');
 
-//página recuperar senha
-Route::get('/recuperar-senha', function () {
-    return Inertia::render('Auth/ForgotPassword');
-})->name('password.request');
-
-//página horas complementares
-// Route::get('/horas-complementares', [ComplementaryActivityController::class, 'index'])
-//     ->name('complementary-hours.index');
-
-// Route::post('/horas-complementares', [ComplementaryActivityController::class, 'store'])
-//     ->name('complementary-hours.store');
-
-Route::get('/horas-complementares', function() {
-    return Inertia::render('ComplementaryHours/Index');
-});
-
 Route::get('/teste', function () {
     return Inertia::render('TestComponent');
 });

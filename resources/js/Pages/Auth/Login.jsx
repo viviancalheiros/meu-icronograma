@@ -33,13 +33,13 @@ export default function Login() {
                 <Title />
             </div>
         </div>
-        <div className='lg:bg-white bg-purple-dark lg:w-1/2 w-full h-full flex flex-col items-center lg:justify-center'>
-                <div className='lg:hidden w-full flex flex-row pt-4 justify-center'>
-                    <LogoUfal width={35} height={76} className="ml-8" />
-                    <LogoIc width={80} height={80} className="ml-4" />
-                </div>
-                <Title className='lg:hidden text-3xl mt-4 mb-8' />
-            <div className='lg:bg-purple-dark bg-white lg:w-3/6 w-5/6 flex flex-col items-center rounded-2xl shadow-2xl'>
+        <div className='lg:bg-white bg-purple-dark lg:w-1/2 w-full h-full flex flex-col items-center justify-center'>
+            <div className='lg:hidden w-full flex flex-row pt-4 justify-center'>
+                <LogoUfal width={35} height={76} className="ml-8" />
+                <LogoIc width={80} height={80} className="ml-4" />
+            </div>
+            <Title className='lg:hidden text-3xl mt-4 mb-8' />
+            <div className='lg:bg-purple-dark bg-white lg:w-3/6 w-5/6 flex flex-col items-center rounded-2xl shadow-2xl lg:mb-0 mb-28'>
                 <p className='text-2xl lg:text-white text-purple-dark font-semibold m-8 lg:mb-16'>LOGIN</p>
                 <form 
                     className='flex flex-col items-center w-4/6'
@@ -77,7 +77,7 @@ export default function Login() {
                             {showPassword ? <FiEye /> : <FiEyeOff />}
                         </button>
                     </div>
-                    <InputError message={errors.password} />
+                    <InputError message={errors.password} className='text-red' />
                     <Link href={route('password.request')} 
                         className='lg:text-white text-purple-dark text-sm self-start mt-3 lg:mb-12 mb-8'>
                         Esqueceu a senha?

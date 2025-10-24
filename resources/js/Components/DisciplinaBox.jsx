@@ -115,12 +115,12 @@ export default function DisciplinaBox ({nome, status, tipo, pago, disciplina, us
                 setInternalStatus('nao');
                 setInternalPago(false);
             }
-            
+        
             // Fechar o modal
             setOpenDiscipline(false);
             
             // Recarregar a página para atualizar pré-requisitos
-            router.reload();
+            router.reload({only: ['disciplinasConcluidas'], preserveScroll:true });
             
         } catch (error) {
             console.error('Erro ao salvar disciplina:', error);
