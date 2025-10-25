@@ -5,38 +5,45 @@ namespace App\Http\Requests;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 
 class ProfileUpdateRequest extends FormRequest
 {
-
-    public function authorize():bool{
-        return true; //somente usuarios com autenticacao podem att o perfil
+    public function authorize(): bool
+    {
+        return true;
     }
-
 
     public function rules(): array
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-
-            //validacao p matricula
             'registration' => [
                 'required',
                 'string',
                 'max:255',
                 Rule::unique('usuarios', 'matricula')->ignore($this->user()->id),
             ],
-
-            //p validar senha (opcional)
-            'password' => ['nullable', 'string', 'min:8'],
+            'current_password' => ['required', 'string'], // obrigatorio p atualizar
+            'new_password' => ['nullable', 'string', 'min:8', 'confirmed'], // Opcional
         ];
     }
 
-    public function attributes(): array{
+    public function attributes(): array
+    {
         return [
             'name' => 'Nome',
             'registration' => 'Matrícula',
-            'password' => 'Senha',
+            'current_password' => 'Senha atual',
+            'new_password' => 'Nova senha',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'current_password.required' => 'A senha atual é obrigatória para salvar as alterações.',
+            'new_password.confirmed' => 'A confirmação da nova senha não corresponde.',
         ];
     }
 }
