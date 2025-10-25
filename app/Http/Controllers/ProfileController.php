@@ -10,13 +10,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
-use Illuminate\Support\Facades\Hash;  //p criptografar a senha
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
     public function edit(Request $request): Response
     {
         return Inertia::render('Perfil', [
@@ -24,20 +21,25 @@ class ProfileController extends Controller
                 'name' => $request->user()->nome,
                 'registration' => $request->user()->matricula,
             ],
-            //essa parte abaixo ja tava no cod, manter pra compatibilidade 
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
         ]);
     }
 
-    /**
-     * Update the user's profile information.
-     */
+    
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $user = $request->user();
 
-        //pego todos os dados validados(nome, matricula, senha etc)
+        // Verificacao da senha pra ver se ta certa
+        if (!empty($request->current_password)) {
+            if (!Hash::check($request->current_password, $user->senha)) {
+                return Redirect::back()->withErrors([
+                    'current_password' => 'A senha atual está incorreta.'
+                ]);
+            }
+        }
+
         $validatedData = $request->validated();
 
         $updateData = [
@@ -45,13 +47,12 @@ class ProfileController extends Controller
             'matricula' => $validatedData['registration'],
         ];
 
-        // Att Nome e Matrícula
+        // att nome e matricula
         $user->fill($updateData);
 
-        // se o campo password foi preenchido
-        if (!empty($validatedData['password'])) {
-            // se sim, criptografa a nova senha. O campo no Model é 'senha'.
-            $user->senha = Hash::make($validatedData['password']);
+        // caso tenha uma nova senha, atualizar no sistema
+        if (!empty($validatedData['new_password'])) {
+            $user->senha = Hash::make($validatedData['new_password']);
         }
 
         $user->save();
@@ -73,7 +74,7 @@ class ProfileController extends Controller
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
+        
         return Redirect::to('/');
     }
 }
