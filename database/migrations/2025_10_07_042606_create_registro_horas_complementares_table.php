@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('id_usuario')->constrained('usuarios','id')->cascadeOnDelete();
             $table->foreignId('id_tipo_hora')->constrained('tipos_horas_complementares','id')->cascadeOnDelete();
             $table->string('nome');
-            $table->integer('horas');
+            $table->integer('minutos');
             $table->string('orientador')->nullable();
             $table->string('instituicao')->nullable();
             $table->text('anotacoes')->nullabe();

@@ -96,7 +96,7 @@ export default function Perfil() {
                         className="w-full bg-purple-dark rounded-xl text-white
                                 focus:outline-none focus:ring-2 focus:ring-purple-light p-2 mt-1"
                     />
-                    <InputError message={errors.name} />
+                    <InputError message={errors.name} className="text-red" />
                    
                     <label className="text-purple-dark font-bold text-lg self-start mt-8">
                         MATRÍCULA
@@ -108,7 +108,7 @@ export default function Perfil() {
                         className="w-full bg-purple-dark rounded-xl text-white
                                 focus:outline-none focus:ring-2 focus:ring-purple-light p-2 mt-1"
                     />
-                    <InputError message={errors.registration} />
+                    <InputError message={errors.registration} className="text-red" />
 
                     {/* senha atual - obrigatoria */}
                     <label className="text-purple-dark font-bold text-lg self-start mt-8">
@@ -156,7 +156,7 @@ export default function Perfil() {
                             {showNewPassword ? <FiEye /> : <FiEyeOff />}
                         </button>
                     </div>
-                    <InputError message={errors.new_password} />
+                    <InputError message={errors.new_password} className="text-red" />
 
                     {/* CONFIRMAR */}
                     <label className="text-purple-dark font-bold text-lg self-start mt-8">
@@ -178,7 +178,7 @@ export default function Perfil() {
                             {showPasswordConfirmation ? <FiEye /> : <FiEyeOff />}
                         </button>
                     </div>
-                    <InputError message={errors.new_password_confirmation} />
+                    <InputError message={errors.new_password_confirmation} className="text-red" />
 
                     <div className="w-full flex lg:flex-row flex-col justify-between items-center mt-12 space-y-4 lg:space-y-0">
                         <Button

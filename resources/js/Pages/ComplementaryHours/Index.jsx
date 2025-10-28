@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Head, router } from '@inertiajs/react';
+import { router } from '@inertiajs/react';
 import { PlusIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/solid';
 import AddActivityModal from './Partials/AddActivityModal';
 import Header from "@/Components/Header";
@@ -107,7 +107,6 @@ export default function Index({ activities, totalHours }) {
 
     return (
         <div className="flex min-h-screen flex-col bg-gray-100 font-sans">
-            <Head title="Horas Complementares" />
 
             <AddActivityModal
                 show={isModalOpen}

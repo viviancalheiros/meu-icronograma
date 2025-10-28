@@ -6,16 +6,22 @@ use App\Models\ComplementaryActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Redirect;
+use App\Services\HorasComplementaresService;
 
 class ComplementaryActivityController extends Controller
 {
     public function index()
     {
         $user = Auth::user();
-        if (!$user) return redirect()->route('login');
+        if(!$user) return redirect()->route('login');
 
         $activities = $user->complementaryActivities()->orderBy('created_at', 'desc')->get();
-        $totalHours = $activities->sum('hours');
+
+        $horasService = new HorasComplementaresService();
+
+        $horasCalculadas = $horasService->calcularHoras($user);
+        $totalHours = $horasCalculadas['final'];
 
         return Inertia::render('ComplementaryHours/Index', [
             'activities' => $activities,
@@ -35,8 +41,7 @@ class ComplementaryActivityController extends Controller
         ]);
 
         $request->user()->complementaryActivities()->create($validated);
-
-        return redirect()->route('complementary-activities.index');
+        return redirect()->route('complementary-activities.index')->with('status', 'Atividade adicionada com sucesso!');
     }
 
     public function update(Request $request, $id)

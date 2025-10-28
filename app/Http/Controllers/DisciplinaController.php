@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
+use App\Services\HorasComplementaresService;
 
 class DisciplinaController extends Controller
 {
@@ -35,8 +36,6 @@ class DisciplinaController extends Controller
     public function listarDisciplinasPagando(Request $request)
     {
         $user = $request->user();
-
-        // Buscar disciplinas marcadas como "pagando atualmente"
         $disciplinasPagando = Disciplina::query()
             ->whereHas('usuarioDisciplinas', function($query) {
                 $query->where('id_usuario', Auth::id())
@@ -52,8 +51,6 @@ class DisciplinaController extends Controller
             ->where('concluida', true)
             ->pluck('id_disciplina')
             ->toArray();
-
-        // Calcular horas dinamicamente
         $horasCalculadas = $this->calcularHorasDinamicas();
 
         $userName = $user ? $user->nome : null;
@@ -62,7 +59,6 @@ class DisciplinaController extends Controller
             'usuario' => [
                 'nome' => $userName,
             ],
-            'mustVerifyEmail' => $user instanceof MustVerifyEmail,
             'status' => session('status'),
             'disciplinasPagando' => $disciplinasPagando,
             'disciplinasConcluidas' => $disciplinasConcluidas,
@@ -73,35 +69,38 @@ class DisciplinaController extends Controller
     private function calcularHorasDinamicas()
     {
         $usuarioId = Auth::id();
-        
-        // Buscar todas as disciplinas concluídas pelo usuário
+        $user = Auth::user(); 
         $disciplinasConcluidas = Disciplina::query()
             ->whereHas('usuarioDisciplinas', function($query) use ($usuarioId) {
                 $query->where('id_usuario', $usuarioId)
                       ->where('concluida', true);
             })
             ->get();
-
-        // Separar obrigatórias e eletivas
         $obrigatoriasConcluidas = $disciplinasConcluidas->where('tipo_disciplina', true);
         $eletivasConcluidas = $disciplinasConcluidas->where('tipo_disciplina', false);
-
-        // Calcular horas totais
         $horasObrigatoriasConcluidas = $obrigatoriasConcluidas->sum('horas');
         $horasEletivasConcluidas = $eletivasConcluidas->sum('horas');
-        $horasComplementaresConcluidas = 0; // TODO: Implementar quando houver horas complementares
-        $horasTotalConcluidas = $horasObrigatoriasConcluidas + $horasEletivasConcluidas + $horasComplementaresConcluidas;
+        
+        $horasService = new HorasComplementaresService();
 
-        // Horas totais do curso (valores fixos do currículo)
+        $horasComplementaresConcluidas = 0;
+
+        if($user) {
+            $horasCalculadasComp = $horasService->calcularHoras($user);
+            $horasComplementaresConcluidas = $horasCalculadasComp['final'];
+        }
+        $horasTotalConcluidas = $horasObrigatoriasConcluidas + $horasEletivasConcluidas + $horasComplementaresConcluidas;
+        
         $horasTotalCurso = 3747;
         $horasObrigatoriasCurso = 2571;
         $horasEletivasCurso = 936;
-        $horasComplementaresCurso = 240;
+        $horasComplementaresCurso = $horasService->getLimiteGeral();
 
-        // Calcular percentuais
         $porcentagemObrigatorias = $horasObrigatoriasCurso > 0 ? round(($horasObrigatoriasConcluidas / $horasObrigatoriasCurso) * 100, 1) : 0;
         $porcentagemEletivas = $horasEletivasCurso > 0 ? round(($horasEletivasConcluidas / $horasEletivasCurso) * 100, 1) : 0;
         $porcentagemComplementares = $horasComplementaresCurso > 0 ? round(($horasComplementaresConcluidas / $horasComplementaresCurso) * 100, 1) : 0;
+        
+        $horasTotalConcluidas = $horasObrigatoriasConcluidas + $horasEletivasConcluidas + $horasComplementaresConcluidas;
         $porcentagemTotal = $horasTotalCurso > 0 ? round(($horasTotalConcluidas / $horasTotalCurso) * 100, 1) : 0;
 
         return [
