@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
+use App\Services\HorasComplementaresService;
 
 class DisciplinaController extends Controller
 {
@@ -79,55 +80,28 @@ class DisciplinaController extends Controller
         $eletivasConcluidas = $disciplinasConcluidas->where('tipo_disciplina', false);
         $horasObrigatoriasConcluidas = $obrigatoriasConcluidas->sum('horas');
         $horasEletivasConcluidas = $eletivasConcluidas->sum('horas');
-
-        $limitesEspecificos = [
-            'FLX01_1' => 150,
-            'FLX01_2' => 80,
-            'FLX02_1' => 180,
-            'FLX02_2' => 180,
-            'FLX02_3' => 180,
-            'FLX03_1' => 180,
-            'FLX03_2' => 180,
-            'FLX03_3' => 180,
-            'FLX03_4' => 80,
-            'FLX03_5' => 20,
-            'FLX03_6' => 60,
-            'FLX03_7' => 60,
-            'FLX03_8' => 80,
-            'FLX03_9' => 40,
-            'FLX04_1' => 120,
-        ];
         
+        $horasService = new HorasComplementaresService();
+
         $horasComplementaresConcluidas = 0;
-        $horasComplementaresParaCalculo = 0;
 
         if($user) {
-            $atividades = $user->complementaryActivities;
-            $horasComplementaresConcluidas = $atividades->sum('hours');
-            $horasPorTipo = $atividades->groupBy('type_code')->map(function ($group) {
-                return $group->sum('hours');
-            });
-            $totalCap = 0;
-            foreach ($horasPorTipo as $typeCode => $horas) {
-                if(isset($limitesEspecificos[$typeCode])) {
-                    $horasCapadasTipo = min($horas, $limitesEspecificos[$typeCode]);                   
-                    $totalCap += $horasCapadasTipo;
-                }
-            }
-            
-            $horasComplementaresParaCalculo = $totalCap;
+            $horasCalculadasComp = $horasService->calcularHoras($user);
+            $horasComplementaresConcluidas = $horasCalculadasComp['final'];
         }
         $horasTotalConcluidas = $horasObrigatoriasConcluidas + $horasEletivasConcluidas + $horasComplementaresConcluidas;
+        
         $horasTotalCurso = 3747;
         $horasObrigatoriasCurso = 2571;
         $horasEletivasCurso = 936;
-        $horasComplementaresCurso = 240;
+        $horasComplementaresCurso = $horasService->getLimiteGeral();
+
         $porcentagemObrigatorias = $horasObrigatoriasCurso > 0 ? round(($horasObrigatoriasConcluidas / $horasObrigatoriasCurso) * 100, 1) : 0;
         $porcentagemEletivas = $horasEletivasCurso > 0 ? round(($horasEletivasConcluidas / $horasEletivasCurso) * 100, 1) : 0;
-        $horasParaPorcentagemComplementar = min($horasComplementaresParaCalculo, $horasComplementaresCurso);
-        $porcentagemComplementares = $horasComplementaresCurso > 0 ? round(($horasParaPorcentagemComplementar / $horasComplementaresCurso) * 100, 1) : 0;
-        $horasTotalConcluidasParaCalculo = $horasObrigatoriasConcluidas + $horasEletivasConcluidas + $horasParaPorcentagemComplementar;
-        $porcentagemTotal = $horasTotalCurso > 0 ? round(($horasTotalConcluidasParaCalculo / $horasTotalCurso) * 100, 1) : 0;
+        $porcentagemComplementares = $horasComplementaresCurso > 0 ? round(($horasComplementaresConcluidas / $horasComplementaresCurso) * 100, 1) : 0;
+        
+        $horasTotalConcluidas = $horasObrigatoriasConcluidas + $horasEletivasConcluidas + $horasComplementaresConcluidas;
+        $porcentagemTotal = $horasTotalCurso > 0 ? round(($horasTotalConcluidas / $horasTotalCurso) * 100, 1) : 0;
 
         return [
             'total' => [

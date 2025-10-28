@@ -48,8 +48,7 @@ export default function Login() {
                     <input 
                         type="text"
                         name='email'
-                        placeholder='E-mail' 
-                        required
+                        placeholder='E-mail'
                         value={data.email}
                         onChange={e => setData('email', e.target.value)}
                         className='lg:bg-white text-white lg:text-purple-dark mb-4 bg-purple-dark h-12 pl-4 rounded-2xl text-sm w-full 
@@ -57,13 +56,12 @@ export default function Login() {
                     ></input>
                     <InputError 
                     message={errors.email}
-                    className='-mt-2 mb-2 text-red self-start'
+                    className='-mt-2 mb-2 text-[#ff6b6b] self-start'
                     />
                     <div className='relative w-full'>
                         <input 
                             type={showPassword ? "text" : "password"}
                             placeholder='Senha'
-                            required
                             value={data.password}
                             onChange={e => setData('password', e.target.value)}
                             className='lg:bg-white text-white lg:text-purple-dark bg-purple-dark h-12 pl-4 rounded-2xl text-sm w-full 
@@ -77,15 +75,15 @@ export default function Login() {
                             {showPassword ? <FiEye /> : <FiEyeOff />}
                         </button>
                     </div>
-                    <InputError message={errors.password} className='text-red' />
+                    <InputError message={errors.password} className='text-[#ff6b6b]' />
                     <Link href={route('password.request')} 
                         className='lg:text-white text-purple-dark text-sm self-start mt-3 lg:mb-12 mb-8'>
                         Esqueceu a senha?
                     </Link>
                     <Button
+                    value={processing ? "ENTRANDO...": "ENTRAR"}
                     disabled={processing}
                     type='submit'
-                    value={'ENTRAR'}
                     className='bg-purple-dark text-white lg:text-purple-dark lg:bg-white'
                     />
                 </form>

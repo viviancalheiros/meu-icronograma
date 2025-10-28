@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '@/Components/Header';
 import Footer from '@/Components/Footer';
 import DisciplinaBox from '@/Components/DisciplinaBox';
-import ProgressBar from '@/Components/ProgressBar';
-import { FaCircle } from "react-icons/fa";
+import ProgressBar from '@/Components/ProgressBar'; 
 import { usePage } from '@inertiajs/react';
 import Legenda from '@/Components/Legenda';
 
 export default function Enfases() {
     const { enfases, disciplinasConcluidas } = usePage().props;
     
+    useEffect(() => {
+        
+    }, []);
+
     return (
         <div className="bg-gray-100 min-h-screen flex flex-col">
             <Header />
