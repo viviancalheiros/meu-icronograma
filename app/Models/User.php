@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\CanResetPassword;
+use App\Notifications\ResetPasswordNotification;
 
 class User extends Authenticatable implements CanResetPassword
 {
@@ -15,6 +16,16 @@ class User extends Authenticatable implements CanResetPassword
     use HasFactory, Notifiable;
 
     // protected $table = "usuario";
+
+    /**
+     * Envia a notificação de redefinição de senha.
+     * * @param string $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
+    }
 
     /**
      * The attributes that are mass assignable.
