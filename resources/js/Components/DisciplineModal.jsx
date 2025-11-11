@@ -107,7 +107,7 @@ export default function DisciplineModal({
             <Field label="Código">
               <input
                 value={code}
-                onChange={(e)=>setCode(e.target.value)}
+                onChange={(e)=>setCode(e.target.value.toUpperCase())}
                 className="w-full rounded-lg border border-purple-dark px-3 py-2 outline-none"
                 placeholder="Ex: MAT001"
               />

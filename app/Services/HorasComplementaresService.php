@@ -12,6 +12,7 @@ class HorasComplementaresService
         'FLX02_1' => 180,
         'FLX02_2' => 180,
         'FLX02_3' => 180,
+        'FLX02_4' => 60,
         'FLX03_1' => 180,
         'FLX03_2' => 180,
         'FLX03_3' => 180,
@@ -65,7 +66,7 @@ class HorasComplementaresService
         $totalFinal = min($totalPorTipo, self::LIMITE_GERAL_CURSO); //
 
         return [
-            'raw'          => $totalRaw,
+            'raw'   => $totalRaw,
             'type'  => $totalPorTipo,
             'final' => $totalFinal,
         ];

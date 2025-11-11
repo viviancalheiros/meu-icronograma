@@ -28,20 +28,11 @@ export default function ResetPassword({ token, email }) {
                 className='w-1/2 lg:w-1/3 h-full flex flex-col items-center justify-center'
                 onSubmit={submit}
             >
-                <div className='w-full flex flex-col'>
-                    <label className='text-white'>E-mail</label>
                     <input
-                        type="email"
+                        type="hidden"
                         name="email"
-                        className='bg-gray-100 text-purple-dark placeholder-gray-300 
-                        rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 h-12
-                        shadow-xl border-purple-dark border-1'
                         value={data.email}
-                        autoComplete="username"
-                        onChange={(e) => setData('email', e.target.value)}
                     />
-                    <InputError message={errors.email} className="mt-2 font-medium text-[#ff6b6b]" />
-                </div>
 
                 <div className='w-full flex flex-col mt-6'>
                     <label className='text-white'>Senha</label>
@@ -78,7 +69,7 @@ export default function ResetPassword({ token, email }) {
                         className="mt-2 font-medium text-[#ff6b6b]"
                     />
                 </div>
-                <div className="mt-14 text-center w-full">
+                <div className="mt-20 text-center w-full">
                     <Button
                         type="submit"
                         value={processing ? 'ENVIANDO...' : 'ENVIAR'}
