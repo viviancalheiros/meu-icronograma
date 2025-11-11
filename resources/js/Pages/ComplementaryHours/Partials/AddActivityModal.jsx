@@ -40,8 +40,10 @@ export default function AddActivityModal({ show, onClose, activityToEdit, refere
                 setData({ ...initialState, ...activityToEdit });
             }
             else {
-                reset();
+                // reset();
             }
+        } else {
+            reset();
         }
     }, [activityToEdit, show]);
 
@@ -61,8 +63,15 @@ export default function AddActivityModal({ show, onClose, activityToEdit, refere
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const onSuccessHandler = () => {
+            if (!isEditing) {
+                reset();
+            }
+            onClose();
+        };
+
         const options = {
-            onSuccess: () => onClose(),
+            onSuccess: onSuccessHandler,
             preserveScroll: true,
         };
 

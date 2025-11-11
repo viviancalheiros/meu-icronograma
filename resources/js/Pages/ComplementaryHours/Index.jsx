@@ -113,6 +113,7 @@ export default function Index({ activities, totalHours }) {
                 onClose={closeModal}
                 activityToEdit={editingActivity}
                 referenceData={referenceData}
+                key={editingActivity ? editingActivity.id : Math.random()}
             />
 
             <Header />
