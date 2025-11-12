@@ -372,7 +372,7 @@ class DisciplinaSeeder extends Seeder
                 "created_at" => Carbon::now()
             ],
             [
-                "nome" => "Fundamentos de Libras",
+                "nome" => "Libras",
                 "horas" => 72,
                 "tipo_disciplina" => false,
                 "periodo" => null,
@@ -673,6 +673,209 @@ class DisciplinaSeeder extends Seeder
                 "horas" => 75,
                 "tipo_disciplina" => true,
                 "periodo" => 8,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+
+            // atualizacao
+
+            [
+                "nome" => "Introdução à Computação",
+                "horas" => 80,
+                "tipo_disciplina" => false,
+                "periodo" => null,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+            [
+                "nome" => "Navegação Robótica",
+                "horas" => 72,
+                "tipo_disciplina" => false,
+                "periodo" => null,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+            [
+                "nome" => "Empreendedorismo",
+                "horas" => 72,
+                "tipo_disciplina" => false,
+                "periodo" => null,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+            [
+                "nome" => "Teste de Software",
+                "horas" => 72,
+                "tipo_disciplina" => false,
+                "periodo" => null,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+            [
+                "nome" => "Banco de Dados 2",
+                "horas" => 40,
+                "tipo_disciplina" => false,
+                "periodo" => null,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+            [
+                "nome" => "Fundamentos de IA Aplicados ao Diagnóstico Médico",
+                "horas" => 72,
+                "tipo_disciplina" => false,
+                "periodo" => null,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+            [
+                "nome" => "Processamento de Linguagem Natural",
+                "horas" => 72,
+                "tipo_disciplina" => false,
+                "periodo" => null,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+            [
+                "nome" => "Laboratório de Programação",
+                "horas" => 40,
+                "tipo_disciplina" => false,
+                "periodo" => null,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+            [
+                "nome" => "Inteligência Artificial Aplicada ao Diagnóstico de Doenças",
+                "horas" => 72,
+                "tipo_disciplina" => false,
+                "periodo" => null,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+            [
+                "nome" => "Gamificação",
+                "horas" => 72,
+                "tipo_disciplina" => false,
+                "periodo" => null,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+            [
+                "nome" => "Exploração e Mineração de Dados",
+                "horas" => 72,
+                "tipo_disciplina" => false,
+                "periodo" => null,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+            [
+                "nome" => "Tópicos Especiais em Gestão de Tempo",
+                "horas" => 72,
+                "tipo_disciplina" => false,
+                "periodo" => null,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+            [
+                "nome" => "Tópicos Esp. Banco de Dados: Ger. de Dados",
+                "horas" => 40,
+                "tipo_disciplina" => false,
+                "periodo" => null,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+            [
+                "nome" => "Tópicos em Engenharia de Software - Projetando Linhas de Produção de Software",
+                "horas" => 40,
+                "tipo_disciplina" => false,
+                "periodo" => null,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+            [
+                "nome" => "Introdução à Administração",
+                "horas" => 72,
+                "tipo_disciplina" => false,
+                "periodo" => null,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+            [
+                "nome" => "Laboratório de Inteligência Artificial Em Robótica",
+                "horas" => 72,
+                "tipo_disciplina" => false,
+                "periodo" => null,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+            [
+                "nome" => "Tópicos Especiais em Gerência e Processamento de Dados em Larga Escala",
+                "horas" => 72,
+                "tipo_disciplina" => false,
+                "periodo" => null,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+            [
+                "nome" => "Redes de Computadores 2",
+                "horas" => 40,
+                "tipo_disciplina" => false,
+                "periodo" => null,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+            [
+                "nome" => "Reuso de Software e Metodologias Ágeis",
+                "horas" => 40,
+                "tipo_disciplina" => false,
+                "periodo" => null,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+            [
+                "nome" => "Inglês Instrumental",
+                "horas" => 72,
+                "tipo_disciplina" => false,
+                "periodo" => null,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+            [
+                "nome" => "Metodologia e Processos",
+                "horas" => 40,
+                "tipo_disciplina" => false,
+                "periodo" => null,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+            [
+                "nome" => "Circuitos Digitais",
+                "horas" => 40,
+                "tipo_disciplina" => false,
+                "periodo" => null,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+            [
+                "nome" => "Desenho",
+                "horas" => 72,
+                "tipo_disciplina" => false,
+                "periodo" => null,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+            [
+                "nome" => "Tópicos Especiais em Banco de Dados: Dados Estruturados, Semiestruturados e Não-Estruturados",
+                "horas" => 72,
+                "tipo_disciplina" => false,
+                "periodo" => null,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+            [
+                "nome" => "Meta-Aprendizagem",
+                "horas" => 72,
+                "tipo_disciplina" => false,
+                "periodo" => null,
                 "updated_at" => Carbon::now(),
                 "created_at" => Carbon::now()
             ],
