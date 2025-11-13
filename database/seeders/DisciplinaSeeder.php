@@ -864,7 +864,7 @@ class DisciplinaSeeder extends Seeder
                 "created_at" => Carbon::now()
             ],
             [
-                "nome" => "Tópicos Especiais em Banco de Dados: Dados Estruturados, Semiestruturados e Não-Estruturados",
+                "nome" => "Tóp. Esp. em Banco de Dados: Dados Est., Semiest. e Não-Est.",
                 "horas" => 72,
                 "tipo_disciplina" => false,
                 "periodo" => null,
