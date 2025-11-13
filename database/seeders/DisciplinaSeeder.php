@@ -879,6 +879,22 @@ class DisciplinaSeeder extends Seeder
                 "updated_at" => Carbon::now(),
                 "created_at" => Carbon::now()
             ],
+            [
+                "nome" => "Cálculo 1",
+                "horas" => 72,
+                "tipo_disciplina" => false,
+                "periodo" => null,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
+            [
+                "nome" => "Cálculo 2",
+                "horas" => 72,
+                "tipo_disciplina" => false,
+                "periodo" => null,
+                "updated_at" => Carbon::now(),
+                "created_at" => Carbon::now()
+            ],
         ];
 
         DB::table("disciplinas")->insert($disciplinas);
